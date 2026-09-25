@@ -199,4 +199,569 @@ h1{
 Prêt à écouter
 </div>
 
-<button class="play" id
+<button class="play" id="play">▶</button>
+
+<div class="volume">
+🔈
+<input id="volume" type="range"
+min="0" max="1" step="0.05" value="1">
+🔊
+</div>
+
+<audio id="audio" preload="none" playsinline>
+<source src="https://stream10.vestaradio.com/Cacao-Radio">
+</audio>
+
+</section>
+
+
+<div class="tools">
+
+<button class="tool"
+onclick="openPanel('alarmPanel')">
+⏰ Réveil
+</button>
+
+<button class="tool"
+onclick="openPanel('sleepPanel')">
+🌙 Minuterie
+</button>
+
+<button class="tool"
+onclick="openPanel('weatherPanel')">
+☀️ Météo
+</button>
+
+</div>
+
+
+<!-- REVEIL -->
+
+<div class="panel" id="alarmPanel">
+
+<strong>⏰ Programmer le réveil</strong>
+
+<br><br>
+
+<input type="time" id="alarmTime">
+
+<br>
+
+<button class="action" onclick="setAlarm()">
+Activer
+</button>
+
+<button class="cancel" onclick="cancelAlarm()">
+Annuler
+</button>
+
+<div class="info" id="alarmInfo">
+Aucun réveil programmé
+</div>
+
+</div>
+
+
+<!-- MINUTERIE -->
+
+<div class="panel" id="sleepPanel">
+
+<strong>🌙 Mise en veille</strong>
+
+<br><br>
+
+<select id="sleepTime">
+
+<option value="15">15 minutes</option>
+<option value="30">30 minutes</option>
+<option value="45">45 minutes</option>
+<option value="60">1 heure</option>
+<option value="90">1 h 30</option>
+<option value="120">2 heures</option>
+
+</select>
+
+<br>
+
+<button class="action" onclick="setSleep()">
+Démarrer
+</button>
+
+<button class="cancel" onclick="cancelSleep()">
+Annuler
+</button>
+
+<div class="info" id="sleepInfo">
+Aucune minuterie active
+</div>
+
+</div>
+
+
+<!-- METEO -->
+
+<div class="panel" id="weatherPanel">
+
+<strong>☀️ Météo</strong>
+
+<br><br>
+
+<input id="city"
+type="text"
+placeholder="Votre ville"
+autocomplete="address-level2">
+
+<button class="action" onclick="getWeather()">
+Afficher
+</button>
+
+<div id="weatherResult" class="info">
+Entrez une ville pour afficher la météo.
+</div>
+
+</div>
+
+
+<!-- LIENS -->
+
+<div class="links">
+
+<a class="btn"
+href="https://cacaoradio.com">
+cacaoradio.com
+</a>
+
+<a class="btn"
+href="https://www.instagram.com/cacao_radio">
+Instagram
+</a>
+
+<a class="btn"
+href="https://www.facebook.com/share/1RcFB1YhKJ/">
+Facebook
+</a>
+
+</div>
+
+
+<!-- INSTALLATION -->
+
+<div class="install">
+
+<div class="install-title">
+📲 Installer Cacao Radio
+</div>
+
+<strong>🍎 Sur iPhone :</strong><br>
+Ouvrez cette page dans Safari → Partager →
+<strong>Ajouter à l’écran d’accueil</strong>.
+
+<br><br>
+
+<strong>🤖 Sur Android :</strong><br>
+Ouvrez cette page dans Chrome → menu ⋮ →
+<strong>Installer l’application</strong>.
+
+<hr>
+
+<strong>⏰ Important pour le réveil</strong><br>
+
+Pour que le réveil Cacao Radio fonctionne,
+<strong>laissez l’application ouverte.</strong>
+
+Si votre téléphone ferme ou suspend complètement
+l’application, le démarrage automatique de la radio
+ne peut pas être garanti.
+
+</div>
+
+</main>
+
+
+<script>
+
+const audio=document.getElementById("audio");
+const play=document.getElementById("play");
+const status=document.getElementById("status");
+const volume=document.getElementById("volume");
+
+let sleepTimer=null;
+let alarmTimer=null;
+
+
+/* LECTEUR */
+
+play.onclick=async()=>{
+
+ if(audio.paused){
+
+  status.textContent="Connexion…";
+
+  try{
+   await audio.play();
+  }
+
+  catch(e){
+   status.textContent="Impossible de lancer le direct";
+  }
+
+ }else{
+
+  audio.pause();
+
+ }
+
+};
+
+
+audio.onplaying=()=>{
+
+ play.textContent="❚❚";
+ status.textContent="En direct";
+
+};
+
+
+audio.onpause=()=>{
+
+ play.textContent="▶";
+ status.textContent="Prêt à écouter";
+
+};
+
+
+volume.oninput=()=>audio.volume=volume.value;
+
+
+/* PANNEAUX */
+
+function openPanel(id){
+
+ ["alarmPanel","sleepPanel","weatherPanel"]
+ .forEach(x=>{
+
+  document.getElementById(x).style.display=
+  x===id ? "block" : "none";
+
+ });
+
+}
+
+
+/* MINUTERIE */
+
+function setSleep(){
+
+ cancelSleep();
+
+ const minutes=
+ Number(document.getElementById("sleepTime").value);
+
+ const end=
+ Date.now()+minutes*60000;
+
+ localStorage.setItem("sleepEnd",end);
+
+ document.getElementById("sleepInfo").textContent=
+ "La radio s'arrêtera dans "+minutes+" minutes";
+
+ sleepTimer=setTimeout(()=>{
+
+  audio.pause();
+
+  localStorage.removeItem("sleepEnd");
+
+  document.getElementById("sleepInfo").textContent=
+  "La radio est arrêtée";
+
+ },minutes*60000);
+
+}
+
+
+function cancelSleep(){
+
+ if(sleepTimer)
+ clearTimeout(sleepTimer);
+
+ sleepTimer=null;
+
+ localStorage.removeItem("sleepEnd");
+
+ document.getElementById("sleepInfo").textContent=
+ "Aucune minuterie active";
+
+}
+
+
+/* REVEIL */
+
+function setAlarm(){
+
+ cancelAlarm();
+
+ const value=
+ document.getElementById("alarmTime").value;
+
+ if(!value){
+
+  document.getElementById("alarmInfo").textContent=
+  "Choisissez une heure";
+
+  return;
+
+ }
+
+ const parts=value.split(":");
+
+ const now=new Date();
+ const alarm=new Date();
+
+ alarm.setHours(
+  Number(parts[0]),
+  Number(parts[1]),
+  0,
+  0
+ );
+
+ if(alarm<=now)
+ alarm.setDate(alarm.getDate()+1);
+
+ localStorage.setItem(
+  "alarmTime",
+  alarm.getTime()
+ );
+
+ document.getElementById("alarmInfo").textContent=
+ "Réveil programmé à "+value;
+
+ alarmTimer=setTimeout(async()=>{
+
+  try{
+
+   await audio.play();
+
+   status.textContent=
+   "Réveil – Cacao Radio";
+
+  }
+
+  catch(e){
+
+   status.textContent=
+   "Touchez ▶ pour lancer Cacao Radio";
+
+  }
+
+  localStorage.removeItem("alarmTime");
+
+ },alarm-now);
+
+}
+
+
+function cancelAlarm(){
+
+ if(alarmTimer)
+ clearTimeout(alarmTimer);
+
+ alarmTimer=null;
+
+ localStorage.removeItem("alarmTime");
+
+ document.getElementById("alarmInfo").textContent=
+ "Aucun réveil programmé";
+
+}
+
+
+/* METEO */
+
+const weatherCodes={
+
+0:"☀️ Ciel dégagé",
+1:"🌤️ Plutôt dégagé",
+2:"⛅ Partiellement nuageux",
+3:"☁️ Couvert",
+45:"🌫️ Brouillard",
+48:"🌫️ Brouillard givrant",
+51:"🌦️ Bruine",
+53:"🌦️ Bruine",
+55:"🌧️ Bruine forte",
+61:"🌧️ Pluie faible",
+63:"🌧️ Pluie",
+65:"🌧️ Pluie forte",
+71:"🌨️ Neige faible",
+73:"🌨️ Neige",
+75:"❄️ Neige forte",
+80:"🌦️ Averses",
+81:"🌧️ Averses",
+82:"⛈️ Fortes averses",
+95:"⛈️ Orage",
+96:"⛈️ Orage avec grêle",
+99:"⛈️ Orage avec grêle"
+
+};
+
+
+async function getWeather(){
+
+ const city=
+ document.getElementById("city").value.trim();
+
+ const result=
+ document.getElementById("weatherResult");
+
+ if(!city){
+
+  result.textContent=
+  "Indiquez une ville.";
+
+  return;
+
+ }
+
+ result.textContent=
+ "Recherche de la météo…";
+
+ try{
+
+  const geo=
+  await fetch(
+   "https://geocoding-api.open-meteo.com/v1/search?name="+
+   encodeURIComponent(city)+
+   "&count=1&language=fr&format=json"
+  ).then(r=>r.json());
+
+  if(!geo.results?.length){
+
+   result.textContent=
+   "Ville introuvable.";
+
+   return;
+
+  }
+
+  const loc=geo.results[0];
+
+  localStorage.setItem(
+   "weatherCity",
+   city
+  );
+
+  const url=
+  "https://api.open-meteo.com/v1/forecast?latitude="+
+  loc.latitude+
+  "&longitude="+
+  loc.longitude+
+  "&current=temperature_2m,weather_code"+
+  "&daily=temperature_2m_max,temperature_2m_min"+
+  "&timezone=auto&forecast_days=1";
+
+  const weather=
+  await fetch(url).then(r=>r.json());
+
+  const description=
+  weatherCodes[weather.current.weather_code]
+  || "Météo";
+
+  result.innerHTML=
+
+  '<div class="weatherNow">'+
+  Math.round(weather.current.temperature_2m)+
+  ' °C</div>'+
+
+  description+
+
+  '<br><strong>'+
+  loc.name+
+  '</strong><br>'+
+
+  'Min. '+
+  Math.round(weather.daily.temperature_2m_min[0])+
+  ' °C · Max. '+
+
+  Math.round(weather.daily.temperature_2m_max[0])+
+  ' °C';
+
+ }
+
+ catch(e){
+
+  result.textContent=
+  "Météo momentanément indisponible.";
+
+ }
+
+}
+
+
+const savedCity=
+localStorage.getItem("weatherCity");
+
+if(savedCity){
+
+ document.getElementById("city").value=
+ savedCity;
+
+}
+
+
+/* MEDIA SESSION */
+
+if("mediaSession" in navigator){
+
+ navigator.mediaSession.metadata=
+ new MediaMetadata({
+
+  title:"Cacao Radio",
+
+  artist:"Easy Listening Radio",
+
+  album:"En direct",
+
+  artwork:[
+
+   {
+    src:"icon-192.png",
+    sizes:"192x192",
+    type:"image/png"
+   },
+
+   {
+    src:"icon-512.png",
+    sizes:"512x512",
+    type:"image/png"
+   }
+
+  ]
+
+ });
+
+
+ navigator.mediaSession.setActionHandler(
+ "play",
+ ()=>audio.play()
+ );
+
+
+ navigator.mediaSession.setActionHandler(
+ "pause",
+ ()=>audio.pause()
+ );
+
+}
+
+
+/* SERVICE WORKER */
+
+if("serviceWorker" in navigator){
+
+ navigator.serviceWorker.register("./sw.js");
+
+}
+
+</script>
+
+</body>
+</html>
