@@ -15,13 +15,60 @@ main{max-width:520px;margin:auto;padding:28px 18px 40px}
 .logo{width:min(260px,72vw);height:auto;border-radius:50%}
 h1{margin:18px 0 4px;font-size:30px}
 .tag{margin:0 0 22px;color:#6b3a29;font-size:17px}
-.radio{background:#371506;color:white;border-radius:18px;padding:24px 18px;margin-bottom:24px}
+
+.radio{
+ background:#371506;color:white;border-radius:18px;
+ padding:24px 18px;margin-bottom:18px
+}
+
 .status{font-size:14px;margin:8px 0 18px}
-.play{width:78px;height:78px;border:0;border-radius:50%;background:white;color:#371506;font-size:34px}
+
+.play{
+ width:78px;height:78px;border:0;border-radius:50%;
+ background:white;color:#371506;font-size:34px
+}
+
 .volume{margin-top:18px}
 .volume input{width:65%;accent-color:white}
+
+.tools{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:10px;margin-bottom:22px
+}
+
+.tool{
+ border:2px solid #371506;background:white;color:#371506;
+ border-radius:12px;padding:14px 8px;font-weight:bold;font-size:15px
+}
+
+.panel{
+ display:none;border:1px solid #ddd;border-radius:12px;
+ padding:16px;margin:-10px 0 20px;background:#faf7f5
+}
+
+.panel select,.panel input{
+ padding:10px;border-radius:8px;border:1px solid #aaa;
+ font-size:16px;margin:5px
+}
+
+.action{
+ background:#371506;color:white;border:0;
+ border-radius:8px;padding:11px 15px;font-weight:bold
+}
+
+.cancel{
+ background:#eee;color:#371506;border:0;
+ border-radius:8px;padding:11px 15px;font-weight:bold
+}
+
+.info{font-size:13px;color:#6b3a29;margin-top:10px}
+
 .links{display:grid;gap:10px}
-.btn{padding:14px;border-radius:10px;background:#371506;color:white;text-decoration:none;font-weight:bold}
+
+.btn{
+ padding:14px;border-radius:10px;background:#371506;
+ color:white;text-decoration:none;font-weight:bold
+}
 </style>
 </head>
 
@@ -34,77 +81,367 @@ h1{margin:18px 0 4px;font-size:30px}
 <p class="tag">Easy Listening Radio</p>
 
 <section class="radio">
+
 <strong>Écoutez Cacao Radio</strong>
-<div class="status" id="status">Prêt à écouter</div>
+
+<div class="status" id="status">
+Prêt à écouter
+</div>
 
 <button class="play" id="play">▶</button>
 
 <div class="volume">
 🔈
-<input id="volume" type="range" min="0" max="1" step="0.05" value="1">
+<input id="volume" type="range"
+min="0" max="1" step="0.05" value="1">
 🔊
 </div>
 
 <audio id="audio" preload="none" playsinline>
 <source src="https://stream10.vestaradio.com/Cacao-Radio">
 </audio>
+
 </section>
 
+
+<div class="tools">
+
+<button class="tool" onclick="openAlarm()">
+⏰ Réveil
+</button>
+
+<button class="tool" onclick="openSleep()">
+🌙 Minuterie
+</button>
+
+</div>
+
+
+<div class="panel" id="alarmPanel">
+
+<strong>⏰ Programmer le réveil</strong>
+
+<br><br>
+
+<input type="time" id="alarmTime">
+
+<br>
+
+<button class="action" onclick="setAlarm()">
+Activer
+</button>
+
+<button class="cancel" onclick="cancelAlarm()">
+Annuler
+</button>
+
+<div class="info" id="alarmInfo">
+Aucun réveil programmé
+</div>
+
+</div>
+
+
+<div class="panel" id="sleepPanel">
+
+<strong>🌙 Mise en veille</strong>
+
+<br><br>
+
+<select id="sleepTime">
+
+<option value="15">15 minutes</option>
+<option value="30">30 minutes</option>
+<option value="45">45 minutes</option>
+<option value="60">1 heure</option>
+<option value="90">1 h 30</option>
+<option value="120">2 heures</option>
+
+</select>
+
+<br>
+
+<button class="action" onclick="setSleep()">
+Démarrer
+</button>
+
+<button class="cancel" onclick="cancelSleep()">
+Annuler
+</button>
+
+<div class="info" id="sleepInfo">
+Aucune minuterie active
+</div>
+
+</div>
+
+
 <div class="links">
-<a class="btn" href="https://cacaoradio.com">cacaoradio.com</a>
-<a class="btn" href="https://www.instagram.com/cacao_radio">Instagram</a>
-<a class="btn" href="https://www.facebook.com/share/1RcFB1YhKJ/">Facebook</a>
+
+<a class="btn"
+href="https://cacaoradio.com">
+cacaoradio.com
+</a>
+
+<a class="btn"
+href="https://www.instagram.com/cacao_radio">
+Instagram
+</a>
+
+<a class="btn"
+href="https://www.facebook.com/share/1RcFB1YhKJ/">
+Facebook
+</a>
+
 </div>
 
 </main>
 
+
 <script>
+
 const audio=document.getElementById("audio");
 const play=document.getElementById("play");
 const status=document.getElementById("status");
 const volume=document.getElementById("volume");
 
+let sleepTimer=null;
+let alarmTimer=null;
+
+
 play.onclick=async()=>{
+
  if(audio.paused){
-   status.textContent="Connexion…";
-   try{await audio.play();}
-   catch(e){status.textContent="Impossible de lancer le direct";}
+
+  status.textContent="Connexion…";
+
+  try{
+   await audio.play();
+  }
+
+  catch(e){
+   status.textContent="Impossible de lancer le direct";
+  }
+
  }else{
-   audio.pause();
+
+  audio.pause();
+
  }
+
 };
+
 
 audio.onplaying=()=>{
+
  play.textContent="❚❚";
  status.textContent="En direct";
+
 };
 
+
 audio.onpause=()=>{
+
  play.textContent="▶";
  status.textContent="Prêt à écouter";
+
 };
+
 
 volume.oninput=()=>audio.volume=volume.value;
 
+
+/* MINUTERIE */
+
+function openSleep(){
+
+ document.getElementById("sleepPanel").style.display="block";
+ document.getElementById("alarmPanel").style.display="none";
+
+}
+
+
+function setSleep(){
+
+ cancelSleep();
+
+ const minutes=
+ Number(document.getElementById("sleepTime").value);
+
+ const end=Date.now()+minutes*60000;
+
+ localStorage.setItem("sleepEnd",end);
+
+ document.getElementById("sleepInfo").textContent=
+ "La radio s'arrêtera dans "+minutes+" minutes";
+
+ sleepTimer=setTimeout(()=>{
+
+  audio.pause();
+
+  localStorage.removeItem("sleepEnd");
+
+  document.getElementById("sleepInfo").textContent=
+  "La radio est arrêtée";
+
+ },minutes*60000);
+
+}
+
+
+function cancelSleep(){
+
+ if(sleepTimer) clearTimeout(sleepTimer);
+
+ sleepTimer=null;
+
+ localStorage.removeItem("sleepEnd");
+
+ document.getElementById("sleepInfo").textContent=
+ "Aucune minuterie active";
+
+}
+
+
+/* REVEIL */
+
+function openAlarm(){
+
+ document.getElementById("alarmPanel").style.display="block";
+ document.getElementById("sleepPanel").style.display="none";
+
+}
+
+
+function setAlarm(){
+
+ cancelAlarm();
+
+ const value=
+ document.getElementById("alarmTime").value;
+
+ if(!value){
+
+  document.getElementById("alarmInfo").textContent=
+  "Choisissez une heure";
+
+  return;
+
+ }
+
+ const parts=value.split(":");
+
+ const now=new Date();
+
+ const alarm=new Date();
+
+ alarm.setHours(
+  Number(parts[0]),
+  Number(parts[1]),
+  0,
+  0
+ );
+
+ if(alarm<=now){
+  alarm.setDate(alarm.getDate()+1);
+ }
+
+ const delay=alarm-now;
+
+ localStorage.setItem(
+  "alarmTime",
+  alarm.getTime()
+ );
+
+ document.getElementById("alarmInfo").textContent=
+ "Réveil programmé à "+value;
+
+ alarmTimer=setTimeout(async()=>{
+
+  try{
+
+   await audio.play();
+
+   status.textContent="Réveil – Cacao Radio";
+
+  }catch(e){
+
+   status.textContent=
+   "Touchez ▶ pour lancer Cacao Radio";
+
+  }
+
+  localStorage.removeItem("alarmTime");
+
+ },delay);
+
+}
+
+
+function cancelAlarm(){
+
+ if(alarmTimer) clearTimeout(alarmTimer);
+
+ alarmTimer=null;
+
+ localStorage.removeItem("alarmTime");
+
+ document.getElementById("alarmInfo").textContent=
+ "Aucun réveil programmé";
+
+}
+
+
+/* MEDIA SESSION */
+
 if("mediaSession" in navigator){
 
- navigator.mediaSession.metadata=new MediaMetadata({
-   title:"Cacao Radio",
-   artist:"Easy Listening Radio",
-   album:"En direct",
-   artwork:[
-     {src:"icon-192.png",sizes:"192x192",type:"image/png"},
-     {src:"icon-512.png",sizes:"512x512",type:"image/png"}
-   ]
+ navigator.mediaSession.metadata=
+ new MediaMetadata({
+
+  title:"Cacao Radio",
+  artist:"Easy Listening Radio",
+  album:"En direct",
+
+  artwork:[
+
+   {
+    src:"icon-192.png",
+    sizes:"192x192",
+    type:"image/png"
+   },
+
+   {
+    src:"icon-512.png",
+    sizes:"512x512",
+    type:"image/png"
+   }
+
+  ]
+
  });
 
- navigator.mediaSession.setActionHandler("play",()=>audio.play());
- navigator.mediaSession.setActionHandler("pause",()=>audio.pause());
+ navigator.mediaSession.setActionHandler(
+ "play",
+ ()=>audio.play()
+ );
+
+ navigator.mediaSession.setActionHandler(
+ "pause",
+ ()=>audio.pause()
+ );
+
 }
 
+
+/* SERVICE WORKER */
+
 if("serviceWorker" in navigator){
+
  navigator.serviceWorker.register("./sw.js");
+
 }
+
 </script>
 
 </body>
