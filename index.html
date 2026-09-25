@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#371506">
+  <meta name="description" content="Cacao Radio - Easy Listening Radio">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>Cacao Radio</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#fff;color:#32150b;font-family:Arial,Helvetica,sans-serif;text-align:center}
+    main{max-width:520px;margin:auto;padding:28px 18px 40px}
+    .logo{width:min(260px,72vw);height:auto;border-radius:50%}
+    h1{margin:18px 0 4px;font-size:30px}
+    .tag{margin:0 0 22px;color:#6b3a29;font-size:17px}
+    .player{display:flex;justify-content:center;margin:8px auto 24px}
+    iframe{width:360px;max-width:100%;height:556px;border:0;border-radius:12px}
+    .links{display:grid;gap:10px}
+    .btn{display:block;padding:14px 16px;border-radius:10px;background:#371506;color:#fff;
+         text-decoration:none;font-weight:700}
+    .install{margin-top:22px;font-size:13px;color:#735b52;line-height:1.45}
+  </style>
+</head>
+<body>
+<main>
+  <img class="logo" src="icon-512.png" alt="Logo Cacao Radio">
+  <h1>Cacao Radio</h1>
+  <p class="tag">Easy Listening Radio</p>
+
+  <div class="player">
+    <iframe src="https://studio10.vestaradio.com/embed/player.php?radio=Cacao-Radio&amp;style=vertical&amp;color=%23f0000c&amp;color2=%23ec0909&amp;bg=%23371506&amp;text=%23ffffff"
+      allow="autoplay" title="Lecteur Cacao Radio"></iframe>
+  </div>
+
+  <div class="links">
+    <a class="btn" href="https://cacaoradio.com" target="_blank" rel="noopener">cacaoradio.com</a>
+    <a class="btn" href="https://www.instagram.com/cacao_radio" target="_blank" rel="noopener">Instagram</a>
+    <a class="btn" href="https://www.facebook.com/share/1RcFB1YhKJ/" target="_blank" rel="noopener">Facebook</a>
+  </div>
+
+  <p class="install">Sur Android : menu du navigateur → Installer l'application.<br>
+  Sur iPhone : Safari → Partager → Sur l'écran d'accueil.</p>
+</main>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+}
+</script>
+</body>
+</html>
