@@ -158,35 +158,23 @@ footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
 .vol{width:62%}
 
 
-/* V14 — historique des titres VestaRadio */
-.history-btn{
- width:100%; margin:0 0 12px; padding:14px;
- border:1px solid var(--line); border-radius:14px;
- background:#fff; color:var(--brown); font-weight:800;
- font-size:16px;
-}
-.history-modal{
- display:none; position:fixed; inset:0; z-index:9999;
- background:rgba(35,16,9,.72); padding:18px;
- align-items:center; justify-content:center;
-}
-.history-box{
- width:min(390px,100%); max-height:92vh; overflow:auto;
- background:#fff8ef; border-radius:18px; padding:12px;
- box-shadow:0 12px 35px #0006;
-}
-.history-head{
- display:flex; align-items:center; justify-content:space-between;
- margin:2px 2px 10px; font-weight:800; font-size:17px;
-}
-.history-close{
- border:0; width:38px; height:38px; border-radius:50%;
- background:var(--brown); color:#fff; font-size:22px;
-}
-.history-frame{
- display:block; width:100%; height:556px; border:0;
- border-radius:12px; overflow:hidden; background:#371506;
-}
+
+
+/* V15 — titre en cours intégré */
+.now-card{padding:14px;margin:12px 0}
+.now-label{font-size:12px;font-weight:900;letter-spacing:.6px;text-align:center;margin-bottom:11px}
+.now-wrap{display:flex;align-items:center;gap:13px}
+.now-cover{width:82px;height:82px;flex:0 0 82px;border-radius:13px;object-fit:cover;background:#eee5df;border:1px solid var(--line)}
+.now-text{min-width:0;flex:1}
+.now-title{font-size:17px;font-weight:900;line-height:1.2;margin-bottom:5px}
+.now-artist{font-size:14px;color:#765443;line-height:1.25}
+.now-error{font-size:13px;color:#765443}
+.history-btn{width:100%;margin:0 0 12px;padding:13px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--brown);font-weight:800;font-size:15px}
+.history-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(35,16,9,.72);padding:18px;align-items:center;justify-content:center}
+.history-box{width:min(390px,100%);max-height:92vh;overflow:auto;background:#fff8ef;border-radius:18px;padding:12px;box-shadow:0 12px 35px #0006}
+.history-head{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 10px;font-weight:800;font-size:17px}
+.history-close{border:0;width:38px;height:38px;border-radius:50%;background:var(--brown);color:#fff;font-size:22px}
+.history-frame{display:block;width:100%;height:556px;border:0;border-radius:12px;overflow:hidden;background:#371506}
 
 </style>
 </head>
@@ -219,21 +207,27 @@ footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
 <section class="card panel" id="weatherPanel"><strong>☀️ La météo chez vous</strong><br><input id="city" type="text" placeholder="Votre ville"><br><button class="action" onclick="getWeather()">Afficher la météo</button><div class="info" id="weatherResult">Entrez une ville pour afficher la météo.</div></section>
 
 
-<button class="history-btn" onclick="openHistory()">🎵 Titres diffusés</button>
+
+<section class="card now-card" aria-live="polite">
+ <div class="now-label"><span class="dot"></span> EN CE MOMENT</div>
+ <div class="now-wrap">
+  <img class="now-cover" id="nowCover" src="icon-192.png" alt="">
+  <div class="now-text">
+   <div class="now-title" id="nowTitle">Cacao Radio</div>
+   <div class="now-artist" id="nowArtist">Chargement du titre…</div>
+  </div>
+ </div>
+</section>
+
+<button class="history-btn" onclick="openHistory()">🕘 Voir les 20 derniers titres</button>
 
 <div class="history-modal" id="historyModal" onclick="closeHistoryOutside(event)">
  <div class="history-box">
   <div class="history-head">
-   <span>🎵 Titres diffusés</span>
+   <span>🕘 Historique</span>
    <button class="history-close" onclick="closeHistory()" aria-label="Fermer">×</button>
   </div>
-  <iframe
-   class="history-frame"
-   id="historyFrame"
-   title="Historique Cacao Radio"
-   src="about:blank"
-   allow="autoplay">
-  </iframe>
+  <iframe class="history-frame" id="historyFrame" title="Historique Cacao Radio" src="about:blank" allow="autoplay"></iframe>
  </div>
 </div>
 
@@ -270,6 +264,34 @@ const wc={0:"☀️ Ciel dégagé",1:"🌤️ Plutôt dégagé",2:"⛅ Partielle
 async function getWeather(){const c=document.getElementById("city").value.trim(),r=document.getElementById("weatherResult");if(!c){r.textContent="Indiquez une ville.";return}r.textContent="Recherche…";try{const g=await fetch("https://geocoding-api.open-meteo.com/v1/search?name="+encodeURIComponent(c)+"&count=1&language=fr&format=json").then(x=>x.json());if(!g.results?.length){r.textContent="Ville introuvable.";return}const l=g.results[0];localStorage.setItem("weatherCity",c);const w=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+l.latitude+"&longitude="+l.longitude+"&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1").then(x=>x.json());r.innerHTML='<div class="weatherNow">'+Math.round(w.current.temperature_2m)+' °C</div>'+(wc[w.current.weather_code]||"Météo")+'<br><strong>'+l.name+'</strong><br>Min. '+Math.round(w.daily.temperature_2m_min[0])+' °C · Max. '+Math.round(w.daily.temperature_2m_max[0])+' °C'}catch(e){r.textContent="Météo momentanément indisponible."}}
 const saved=localStorage.getItem("weatherCity");if(saved)document.getElementById("city").value=saved;
 
+
+const STATUS_API="https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=status";
+async function updateNowPlaying(){
+ try{
+  const d=await fetch(STATUS_API,{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("API");return r.json()});
+  if(!d.success)throw new Error("API");
+  document.getElementById("nowTitle").textContent=d.title||d.now_playing||"Cacao Radio";
+  document.getElementById("nowArtist").textContent=d.artist||"En direct";
+  const cover=document.getElementById("nowCover");
+  cover.src=d.cover||d.logo||"icon-192.png";
+  cover.onerror=()=>{cover.onerror=null;cover.src="icon-192.png"};
+  if("mediaSession" in navigator){
+   const art=d.cover||d.logo;
+   navigator.mediaSession.metadata=new MediaMetadata({
+    title:d.title||"Cacao Radio",
+    artist:d.artist||"Easy Listening Radio",
+    album:"Cacao Radio • En direct",
+    artwork:art?[{src:art}]:[{src:"icon-192.png",sizes:"192x192",type:"image/png"},{src:"icon-512.png",sizes:"512x512",type:"image/png"}]
+   });
+  }
+ }catch(e){
+  document.getElementById("nowTitle").textContent="Cacao Radio";
+  document.getElementById("nowArtist").textContent="Titre momentanément indisponible";
+ }
+}
+updateNowPlaying();
+setInterval(updateNowPlaying,15000);
+
 function openHistory(){
  const modal=document.getElementById("historyModal");
  const frame=document.getElementById("historyFrame");
@@ -286,7 +308,7 @@ function closeHistoryOutside(e){
  if(e.target.id==="historyModal") closeHistory();
 }
 
-if("mediaSession" in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:"Cacao Radio",artist:"Easy Listening Radio",album:"En direct",artwork:[{src:"icon-192.png",sizes:"192x192",type:"image/png"},{src:"icon-512.png",sizes:"512x512",type:"image/png"}]});navigator.mediaSession.setActionHandler("play",()=>audio.play());navigator.mediaSession.setActionHandler("pause",()=>audio.pause())}
+if("mediaSession" in navigator){navigator.mediaSession.setActionHandler("play",()=>audio.play());navigator.mediaSession.setActionHandler("pause",()=>audio.pause())}
 if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js");
 </script>
 </body></html>
