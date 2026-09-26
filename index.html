@@ -4,648 +4,1213 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3b1d12">
+
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
+
 <title>Cacao Radio</title>
+
 <style>
-:root{--brown:#3b1d12;--brown2:#713c23;--cream:#fff8ef;--line:#ead8c7}
+:root{
+  --brown:#3b1d12;
+  --brown2:#713c23;
+  --cream:#fff8ef;
+  --line:#ead8c7;
+}
+
 *{box-sizing:border-box}
-body{margin:0;background:linear-gradient(#f8efe5,#fffaf4);font-family:Arial,sans-serif;color:var(--brown)}
-main{max-width:520px;margin:auto;padding:0 14px 34px}
-.hero{position:relative;margin:0 -14px 12px;background:#ead8c5;overflow:hidden}
-.hero>img{display:block;width:100%;height:auto}
 
-/* Vrai player placé dans le grand écran crème vide de la radio */
-.player-overlay{
- position:absolute;
- left:24%;
- top:43%;
- width:54%;
- height:15%;
- display:flex;
- flex-direction:column;
- justify-content:center;
- align-items:center;
- gap:5px;
-}
-.live{font-size:11px;font-weight:800;color:var(--brown);letter-spacing:.2px}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f23b35;margin-right:5px}
-.controls{width:90%;display:flex;align-items:center;justify-content:center;gap:9px}
-.play{width:52px;height:52px;flex:0 0 52px;border:2px solid #fff;border-radius:50%;background:var(--brown2);color:#fff;font-size:23px;font-weight:bold;box-shadow:0 3px 9px #0003}
-.play.playing{animation:pulse 1.5s infinite}@keyframes pulse{50%{box-shadow:0 0 0 7px #713c2325}}
-.vol{width:58%;accent-color:var(--brown2)}
-.status{font-size:10px;color:#75513e;min-height:12px}
-
-.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0}
-.tool{border:1px solid var(--line);background:#fff;border-radius:16px;padding:13px 4px;color:var(--brown);font-weight:bold;box-shadow:0 5px 15px #3a1d120c}
-.tool span{display:block;font-size:25px;margin-bottom:5px}
-.card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 18px #3a1d120c}
-.panel{display:none;padding:17px;margin-bottom:12px;text-align:center}
-.panel input,.panel select{width:min(280px,90%);padding:11px;border:1px solid #d6c0af;border-radius:10px;font-size:16px;margin:10px 0;background:#fff}
-.action,.cancel{border:0;border-radius:10px;padding:10px 14px;font-weight:bold;margin:3px}
-.action{background:var(--brown);color:#fff}.cancel{background:#eee5df;color:var(--brown)}
-.info{font-size:13px;color:#745344;margin-top:9px;line-height:1.4}.weatherNow{font-size:29px;font-weight:bold;margin:10px 0 3px}
-.links{display:grid;gap:8px;margin:12px 0}
-.btn{padding:13px;border-radius:12px;text-decoration:none;text-align:center;font-weight:bold;background:#fff;color:var(--brown);border:1px solid var(--line)}
-.btn.primary{background:var(--brown);color:#fff;border-color:var(--brown)}
-.install{padding:17px;font-size:13px;line-height:1.55;color:#674638}
-.install h3{text-align:center;margin:0 0 12px;font-size:17px;color:var(--brown)}
-.install hr{border:0;border-top:1px solid var(--line);margin:14px 0}
-.warning{background:#fff0f0;padding:11px;border-radius:10px}
-footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
-
-/* V11 : verrouillage précis du player dans l'écran crème */
-.player-overlay{
-  left:24%;
-  top:43.7%;
-  width:54%;
-  height:14.2%;
-  display:block;
-}
-.live{
-  position:absolute;
-  top:7%;
-  left:0;
-  width:100%;
-  text-align:center;
-  font-size:10px;
-  line-height:1;
-}
-.controls{
-  position:absolute;
-  left:5%;
-  top:27%;
-  width:90%;
-  height:68%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
+body{
+  margin:0;
+  background:linear-gradient(#f8efe5,#fffaf4);
+  font-family:Arial,sans-serif;
+  color:var(--brown);
 }
 
-
-/* V12 : player adapté au nouveau grand rectangle */
-.player-overlay{
-  left:22%;
-  top:49.5%;
-  width:57%;
-  height:17%;
-  display:block;
-}
-.live{
-  position:absolute;
-  top:4%;
-  left:0;
-  width:100%;
-  text-align:center;
-  font-size:10px;
-  line-height:1;
-}
-.controls{
-  position:absolute;
-  left:3%;
-  top:25%;
-  width:94%;
-  height:70%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-}
-.play{
-  width:50px;
-  height:50px;
-  flex:0 0 50px;
-}
-.vol{width:62%}
-
-
-/* V13 — player centré dans le nouveau grand écran crème */
-.player-overlay{
- position:absolute;
- left:21%;
- top:46.8%;
- width:58%;
- height:25%;
- display:block;
-}
-.live{
- position:absolute;
- top:17%;
- left:0;
- width:100%;
- text-align:center;
- font-size:11px;
- line-height:1;
- font-weight:800;
-}
-.controls{
- position:absolute;
- left:7%;
- top:37%;
- width:86%;
- height:45%;
- display:flex;
- align-items:center;
- justify-content:center;
- gap:12px;
-}
-.play{
- width:54px;
- height:54px;
- flex:0 0 54px;
-}
-.vol{width:62%}
-
-
-
-
-/* V15 — titre en cours intégré */
-.now-card{padding:14px;margin:12px 0}
-.now-label{font-size:12px;font-weight:900;letter-spacing:.6px;text-align:center;margin-bottom:11px}
-.now-wrap{display:flex;align-items:center;gap:13px}
-.now-cover{width:82px;height:82px;flex:0 0 82px;border-radius:13px;object-fit:cover;background:#eee5df;border:1px solid var(--line)}
-.now-text{min-width:0;flex:1}
-.now-title{font-size:17px;font-weight:900;line-height:1.2;margin-bottom:5px}
-.now-artist{font-size:14px;color:#765443;line-height:1.25}
-.now-error{font-size:13px;color:#765443}
-.history-btn{width:100%;margin:0 0 12px;padding:13px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--brown);font-weight:800;font-size:15px}
-.history-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(35,16,9,.72);padding:18px;align-items:center;justify-content:center}
-.history-box{width:min(390px,100%);max-height:92vh;overflow:auto;background:#fff8ef;border-radius:18px;padding:12px;box-shadow:0 12px 35px #0006}
-.history-head{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 10px;font-weight:800;font-size:17px}
-.history-close{border:0;width:38px;height:38px;border-radius:50%;background:var(--brown);color:#fff;font-size:22px}
-.history-frame{display:block;width:100%;height:556px;border:0;border-radius:12px;overflow:hidden;background:#371506}
-
-
-/* V16 — icônes Instagram et Facebook */
-.social-btn{display:flex!important;align-items:center;justify-content:center;gap:10px}
-.social-icon{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:0 0 28px;color:#fff;font-weight:900}
-.instagram-icon{border-radius:8px;background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);font-size:24px;line-height:1}
-.facebook-icon{border-radius:6px;background:#1877F2;font-family:Arial,sans-serif;font-size:25px;line-height:1;padding-top:4px}
-
-
-/* V17 — logos de marque propres */
-.brand-logo{width:30px;height:30px;display:block;object-fit:contain}
-
-
-/* V20 — player redescendu dans le panneau crème.
-   La zone du player V17 reste inchangée afin de ne bloquer aucun bouton. */
-.player-overlay .live{
-  transform:none;
-}
-.player-overlay .controls{
-  transform:none;
-}
-/* Seuls les vrais contrôles restent interactifs. */
-.player-overlay{
-  pointer-events:none;
-}
-.player-overlay .play,
-.player-overlay .vol,
-.player-overlay input,
-.player-overlay button{
-  pointer-events:auto;
+main{
+  max-width:520px;
+  margin:auto;
+  padding:0 14px 34px;
 }
 
+/* =========================
+   IMAGE DE LA RADIO
+   ========================= */
 
-/* V21 — proportions adaptées exactement au nouveau fond 16:9 */
-.player-overlay{
-  position:absolute;
-  left:24.3%;
-  top:52.4%;
-  width:48.2%;
-  height:24.3%;
-  display:block;
-  pointer-events:none;
-}
-.player-overlay .live{
-  position:absolute;
-  top:9%;
-  left:0;
-  width:100%;
-  text-align:center;
-  font-size:10px;
-  line-height:1;
-  transform:none;
-}
-.player-overlay .controls{
-  position:absolute;
-  left:7%;
-  top:29%;
-  width:86%;
-  height:60%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
-  transform:none;
-}
-.player-overlay .play{
-  width:44px;
-  height:44px;
-  flex:0 0 44px;
-  font-size:20px;
-  pointer-events:auto;
-}
-.player-overlay .vol{
-  width:57%;
-  pointer-events:auto;
-}
-
-
-/* V22 — panneau du player agrandi et abaissé */
-.player-overlay{
-  position:absolute;
-  left:22%;
-  top:54.5%;
-  width:56%;
-  height:25%;
-  box-sizing:border-box;
-  padding:0 10px;
-  border-radius:14px;
-  background:#fff0d9;
-  border:1px solid rgba(93,45,22,.55);
-  box-shadow:0 2px 5px rgba(80,35,15,.15);
-  pointer-events:none;
-}
-.player-overlay .live{
-  position:absolute;
-  top:10%;
-  left:0;
-  width:100%;
-  text-align:center;
-  font-size:10px;
-  line-height:1;
-  font-weight:800;
-  transform:none;
-}
-.player-overlay .controls{
-  position:absolute;
-  left:6%;
-  top:31%;
-  width:88%;
-  height:60%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  transform:none;
-}
-.player-overlay .play{
-  width:44px;
-  height:44px;
-  flex:0 0 44px;
-  font-size:20px;
-  pointer-events:auto;
-}
-.player-overlay .vol{
-  width:58%;
-  pointer-events:auto;
-}
-
-
-/* V23 — player recentré et contenu dans le panneau crème de la radio */
-.player-overlay{
-  position:absolute;
-  left:24.5%;
-  top:54.0%;
-  width:51%;
-  height:20%;
-  box-sizing:border-box;
-  padding:0;
-  border-radius:12px;
-  background:transparent;
-  border:0;
-  box-shadow:none;
-  pointer-events:none;
+.hero{
+  position:relative;
+  margin:0 -14px 12px;
+  background:#ead8c5;
   overflow:hidden;
 }
+
+.hero>img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+/* =========================
+   PLAYER
+   Réglage unique et propre
+   ========================= */
+
+.player-overlay{
+  position:absolute;
+
+  /* position du grand rectangle crème */
+  left:25%;
+  top:54%;
+
+  width:50%;
+  height:22%;
+
+  display:block;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+/* EN DIRECT */
+
 .player-overlay .live{
   position:absolute;
+  left:0;
   top:5%;
-  left:0;
+
   width:100%;
   text-align:center;
+
   font-size:10px;
   line-height:1;
   font-weight:800;
-  transform:none;
-}
-.player-overlay .controls{
-  position:absolute;
-  left:5%;
-  top:27%;
-  width:90%;
-  height:68%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  transform:none;
-}
-.player-overlay .play{
-  width:40px;
-  height:40px;
-  flex:0 0 40px;
-  font-size:18px;
-  pointer-events:auto;
-}
-.player-overlay .vol{
-  width:55%;
-  min-width:0;
-  pointer-events:auto;
+
+  color:var(--brown);
 }
 
+.dot{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#f23b35;
+  margin-right:5px;
+}
 
-/* V24 — calage final sur la nouvelle image : grand panneau crème */
-.player-overlay{
-  position:absolute;
-  left:23.5%;
-  top:47.8%;
-  width:53%;
-  height:24%;
-  box-sizing:border-box;
-  background:transparent;
-  border:0;
-  box-shadow:none;
-  overflow:hidden;
-  pointer-events:none;
-}
-.player-overlay .live{
-  position:absolute;
-  top:7%;
-  left:0;
-  width:100%;
-  text-align:center;
-  font-size:10px;
-  line-height:1;
-  font-weight:800;
-  transform:none;
-}
+/* commandes */
+
 .player-overlay .controls{
   position:absolute;
-  left:5%;
-  top:29%;
-  width:90%;
-  height:64%;
+
+  left:4%;
+  top:26%;
+
+  width:92%;
+  height:70%;
+
   display:flex;
   align-items:center;
   justify-content:center;
   gap:9px;
-  transform:none;
 }
-.player-overlay .play{
+
+/* bouton lecture */
+
+.play{
   width:42px;
   height:42px;
+
   flex:0 0 42px;
+
+  border:2px solid #fff;
+  border-radius:50%;
+
+  background:var(--brown2);
+  color:#fff;
+
   font-size:19px;
+  font-weight:bold;
+
+  box-shadow:0 3px 9px #0003;
+
   pointer-events:auto;
 }
-.player-overlay .vol{
-  width:58%;
+
+.play.playing{
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  50%{box-shadow:0 0 0 7px #713c2325}
+}
+
+/* volume */
+
+.vol{
+  width:56%;
   min-width:0;
+  accent-color:var(--brown2);
   pointer-events:auto;
 }
 
+/* =========================
+   BOUTONS OUTILS
+   ========================= */
 
-/* V25 — calage précis d'après la capture V24 */
-.player-overlay{
-  position:absolute;
-  left:25.5%;
-  top:55.0%;
-  width:49%;
-  height:19%;
-  box-sizing:border-box;
-  background:transparent;
-  border:0;
-  box-shadow:none;
-  overflow:hidden;
-  pointer-events:none;
+.tools{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin:12px 0;
 }
-.player-overlay .live{
-  position:absolute;
-  top:2%;
-  left:0;
-  width:100%;
+
+.tool{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:16px;
+  padding:13px 4px;
+  color:var(--brown);
+  font-weight:bold;
+  box-shadow:0 5px 15px #3a1d120c;
+}
+
+.tool span{
+  display:block;
+  font-size:25px;
+  margin-bottom:5px;
+}
+
+/* =========================
+   CARTES
+   ========================= */
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:17px;
+  box-shadow:0 6px 18px #3a1d120c;
+}
+
+.panel{
+  display:none;
+  padding:17px;
+  margin-bottom:12px;
   text-align:center;
-  font-size:9px;
-  line-height:1;
-  font-weight:800;
-  transform:none;
 }
-.player-overlay .controls{
-  position:absolute;
-  left:5%;
-  top:25%;
-  width:90%;
-  height:70%;
+
+.panel input,
+.panel select{
+  width:min(280px,90%);
+  padding:11px;
+  border:1px solid #d6c0af;
+  border-radius:10px;
+  font-size:16px;
+  margin:10px 0;
+  background:#fff;
+}
+
+.action,
+.cancel{
+  border:0;
+  border-radius:10px;
+  padding:10px 14px;
+  font-weight:bold;
+  margin:3px;
+}
+
+.action{
+  background:var(--brown);
+  color:#fff;
+}
+
+.cancel{
+  background:#eee5df;
+  color:var(--brown);
+}
+
+.info{
+  font-size:13px;
+  color:#745344;
+  margin-top:9px;
+  line-height:1.4;
+}
+
+.weatherNow{
+  font-size:29px;
+  font-weight:bold;
+  margin:10px 0 3px;
+}
+
+/* =========================
+   TITRE EN COURS
+   ========================= */
+
+.now-card{
+  padding:14px;
+  margin:12px 0;
+}
+
+.now-label{
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.6px;
+  text-align:center;
+  margin-bottom:11px;
+}
+
+.now-wrap{
   display:flex;
   align-items:center;
-  justify-content:center;
-  gap:7px;
-  transform:none;
+  gap:13px;
 }
-.player-overlay .play{
+
+.now-cover{
+  width:82px;
+  height:82px;
+  flex:0 0 82px;
+  border-radius:13px;
+  object-fit:cover;
+  background:#eee5df;
+  border:1px solid var(--line);
+}
+
+.now-text{
+  min-width:0;
+  flex:1;
+}
+
+.now-title{
+  font-size:17px;
+  font-weight:900;
+  line-height:1.2;
+  margin-bottom:5px;
+}
+
+.now-artist{
+  font-size:14px;
+  color:#765443;
+  line-height:1.25;
+}
+
+/* =========================
+   HISTORIQUE
+   ========================= */
+
+.history-btn{
+  width:100%;
+  margin:0 0 12px;
+  padding:13px;
+
+  border:1px solid var(--line);
+  border-radius:14px;
+
+  background:#fff;
+  color:var(--brown);
+
+  font-weight:800;
+  font-size:15px;
+}
+
+.history-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:9999;
+
+  background:rgba(35,16,9,.72);
+  padding:18px;
+
+  align-items:center;
+  justify-content:center;
+}
+
+.history-box{
+  width:min(390px,100%);
+  max-height:92vh;
+  overflow:auto;
+
+  background:#fff8ef;
+  border-radius:18px;
+  padding:12px;
+
+  box-shadow:0 12px 35px #0006;
+}
+
+.history-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin:2px 2px 10px;
+
+  font-weight:800;
+  font-size:17px;
+}
+
+.history-close{
+  border:0;
   width:38px;
   height:38px;
-  flex:0 0 38px;
-  font-size:17px;
-  pointer-events:auto;
-}
-.player-overlay .vol{
-  width:52%;
-  min-width:0;
-  pointer-events:auto;
+
+  border-radius:50%;
+
+  background:var(--brown);
+  color:#fff;
+
+  font-size:22px;
 }
 
-
-/* V26 — player recentré dans le rectangle crème vide */
-.player-overlay{
-  position:absolute;
-  left:23.5%;
-  top:52.5%;
-  width:53%;
-  height:22%;
-  box-sizing:border-box;
-  background:transparent;
-  border:0;
-  box-shadow:none;
-  overflow:hidden;
-  pointer-events:none;
-}
-.player-overlay .live{
-  position:absolute;
-  top:8%;
-  left:0;
+.history-frame{
+  display:block;
   width:100%;
-  text-align:center;
-  font-size:10px;
-  line-height:1;
-  font-weight:800;
-  transform:none;
+  height:556px;
+
+  border:0;
+  border-radius:12px;
+
+  overflow:hidden;
+  background:#371506;
 }
-.player-overlay .controls{
-  position:absolute;
-  left:5%;
-  top:31%;
-  width:90%;
-  height:62%;
-  display:flex;
+
+/* =========================
+   LIENS
+   ========================= */
+
+.links{
+  display:grid;
+  gap:8px;
+  margin:12px 0;
+}
+
+.btn{
+  padding:13px;
+  border-radius:12px;
+
+  text-decoration:none;
+  text-align:center;
+  font-weight:bold;
+
+  background:#fff;
+  color:var(--brown);
+
+  border:1px solid var(--line);
+}
+
+.btn.primary{
+  background:var(--brown);
+  color:#fff;
+  border-color:var(--brown);
+}
+
+.social-btn{
+  display:flex!important;
   align-items:center;
   justify-content:center;
-  gap:8px;
-  transform:none;
-}
-.player-overlay .play{
-  width:40px;
-  height:40px;
-  flex:0 0 40px;
-  font-size:18px;
-  pointer-events:auto;
-}
-.player-overlay .vol{
-  width:54%;
-  min-width:0;
-  pointer-events:auto;
+  gap:10px;
 }
 
+.brand-logo{
+  width:30px;
+  height:30px;
+  display:block;
+  object-fit:contain;
+}
 
-/* V29 — player descendu très légèrement, proportions inchangées */
-.player-overlay{ top:49.3%; }
+/* =========================
+   INSTALLATION
+   ========================= */
+
+.install{
+  padding:17px;
+  font-size:13px;
+  line-height:1.55;
+  color:#674638;
+}
+
+.install h3{
+  text-align:center;
+  margin:0 0 12px;
+  font-size:17px;
+  color:var(--brown);
+}
+
+.install hr{
+  border:0;
+  border-top:1px solid var(--line);
+  margin:14px 0;
+}
+
+.warning{
+  background:#fff0f0;
+  padding:11px;
+  border-radius:10px;
+}
+
+footer{
+  text-align:center;
+  color:#967867;
+  font-size:11px;
+  margin-top:14px;
+}
 
 </style>
 </head>
-<body><main>
+
+<body>
+
+<main>
 
 <section class="hero">
-<img src="radio-cacao-player-vide.png" alt="">
+
+<img src="radio-cacao-player-vide.png" alt="Cacao Radio">
+
 <div class="player-overlay">
- <div class="live"><span class="dot"></span> EN DIRECT</div>
- <div class="controls">
-   <button class="play" id="play" aria-label="Lecture">▶</button>
-   <input class="vol" id="volume" type="range" min="0" max="1" step=".05" value="1" aria-label="Volume">
-   <span>🔊</span>
+
+ <div class="live">
+  <span class="dot"></span>
+  EN DIRECT
  </div>
+
+ <div class="controls">
+
+   <button class="play" id="play" aria-label="Lecture">
+    ▶
+   </button>
+
+   <input
+    class="vol"
+    id="volume"
+    type="range"
+    min="0"
+    max="1"
+    step=".05"
+    value="1"
+    aria-label="Volume">
+
+   <span>🔊</span>
+
+ </div>
+
 </div>
+
 <span id="status" style="display:none" aria-live="polite"></span>
-<audio id="audio" preload="none" playsinline><source src="https://stream10.vestaradio.com/Cacao-Radio"></audio>
+
+<audio id="audio" preload="none" playsinline>
+ <source src="https://stream10.vestaradio.com/Cacao-Radio">
+</audio>
+
 </section>
 
+
 <div class="tools">
-<button class="tool" onclick="openPanel('alarmPanel')"><span>⏰</span>Réveil</button>
-<button class="tool" onclick="openPanel('sleepPanel')"><span>🌙</span>Minuterie</button>
-<button class="tool" onclick="openPanel('weatherPanel')"><span>☀️</span>Météo</button>
+
+<button class="tool" onclick="openPanel('alarmPanel')">
+<span>⏰</span>
+Réveil
+</button>
+
+<button class="tool" onclick="openPanel('sleepPanel')">
+<span>🌙</span>
+Minuterie
+</button>
+
+<button class="tool" onclick="openPanel('weatherPanel')">
+<span>☀️</span>
+Météo
+</button>
+
 </div>
 
-<section class="card panel" id="alarmPanel"><strong>⏰ Programmer le réveil</strong><br><input type="time" id="alarmTime"><br><button class="action" onclick="setAlarm()">Activer</button><button class="cancel" onclick="cancelAlarm()">Annuler</button><div class="info" id="alarmInfo">Aucun réveil programmé</div></section>
 
-<section class="card panel" id="sleepPanel"><strong>🌙 Mise en veille</strong><br><select id="sleepTime"><option value="15">15 minutes</option><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60">1 heure</option><option value="90">1 h 30</option><option value="120">2 heures</option></select><br><button class="action" onclick="setSleep()">Démarrer</button><button class="cancel" onclick="cancelSleep()">Annuler</button><div class="info" id="sleepInfo">Aucune minuterie active</div></section>
+<section class="card panel" id="alarmPanel">
 
-<section class="card panel" id="weatherPanel"><strong>☀️ La météo chez vous</strong><br><input id="city" type="text" placeholder="Votre ville"><br><button class="action" onclick="getWeather()">Afficher la météo</button><div class="info" id="weatherResult">Entrez une ville pour afficher la météo.</div></section>
+<strong>⏰ Programmer le réveil</strong><br>
 
+<input type="time" id="alarmTime"><br>
+
+<button class="action" onclick="setAlarm()">Activer</button>
+
+<button class="cancel" onclick="cancelAlarm()">Annuler</button>
+
+<div class="info" id="alarmInfo">
+Aucun réveil programmé
+</div>
+
+</section>
+
+
+<section class="card panel" id="sleepPanel">
+
+<strong>🌙 Mise en veille</strong><br>
+
+<select id="sleepTime">
+<option value="15">15 minutes</option>
+<option value="30">30 minutes</option>
+<option value="45">45 minutes</option>
+<option value="60">1 heure</option>
+<option value="90">1 h 30</option>
+<option value="120">2 heures</option>
+</select>
+
+<br>
+
+<button class="action" onclick="setSleep()">Démarrer</button>
+
+<button class="cancel" onclick="cancelSleep()">Annuler</button>
+
+<div class="info" id="sleepInfo">
+Aucune minuterie active
+</div>
+
+</section>
+
+
+<section class="card panel" id="weatherPanel">
+
+<strong>☀️ La météo chez vous</strong><br>
+
+<input id="city" type="text" placeholder="Votre ville"><br>
+
+<button class="action" onclick="getWeather()">
+Afficher la météo
+</button>
+
+<div class="info" id="weatherResult">
+Entrez une ville pour afficher la météo.
+</div>
+
+</section>
 
 
 <section class="card now-card" aria-live="polite">
- <div class="now-label"><span class="dot"></span> EN CE MOMENT</div>
- <div class="now-wrap">
-  <img class="now-cover" id="nowCover" src="icon-192.png" alt="">
-  <div class="now-text">
-   <div class="now-title" id="nowTitle">Cacao Radio</div>
-   <div class="now-artist" id="nowArtist">Chargement du titre…</div>
-  </div>
- </div>
+
+<div class="now-label">
+<span class="dot"></span>
+EN CE MOMENT
+</div>
+
+<div class="now-wrap">
+
+<img
+ class="now-cover"
+ id="nowCover"
+ src="icon-192.png"
+ alt="">
+
+<div class="now-text">
+
+<div class="now-title" id="nowTitle">
+Cacao Radio
+</div>
+
+<div class="now-artist" id="nowArtist">
+Chargement du titre…
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<button class="history-btn" onclick="openHistory()">🕘 Voir les 20 derniers titres</button>
 
-<div class="history-modal" id="historyModal" onclick="closeHistoryOutside(event)">
- <div class="history-box">
-  <div class="history-head">
-   <span>🕘 Historique</span>
-   <button class="history-close" onclick="closeHistory()" aria-label="Fermer">×</button>
-  </div>
-  <iframe class="history-frame" id="historyFrame" title="Historique Cacao Radio" src="about:blank" allow="autoplay"></iframe>
- </div>
+<button class="history-btn" onclick="openHistory()">
+🕘 Voir les 20 derniers titres
+</button>
+
+
+<div
+ class="history-modal"
+ id="historyModal"
+ onclick="closeHistoryOutside(event)">
+
+<div class="history-box">
+
+<div class="history-head">
+
+<span>🕘 Historique</span>
+
+<button
+ class="history-close"
+ onclick="closeHistory()"
+ aria-label="Fermer">
+×
+</button>
+
 </div>
+
+<iframe
+ class="history-frame"
+ id="historyFrame"
+ title="Historique Cacao Radio"
+ src="about:blank"
+ allow="autoplay">
+</iframe>
+
+</div>
+</div>
+
 
 <div class="links">
-<a class="btn primary" href="https://cacaoradio.com" target="_blank" rel="noopener">🌐 cacaoradio.com</a>
-<a class="btn social-btn" href="https://www.instagram.com/cacao_radio" target="_blank" rel="noopener"><img class="brand-logo" src="https://cdn.simpleicons.org/instagram/E4405F" alt=""><span>Instagram</span></a>
-<a class="btn social-btn" href="https://www.facebook.com/share/1RcFB1YhKJ/" target="_blank" rel="noopener"><img class="brand-logo" src="https://cdn.simpleicons.org/facebook/1877F2" alt=""><span>Facebook</span></a>
+
+<a
+ class="btn primary"
+ href="https://cacaoradio.com"
+ target="_blank"
+ rel="noopener">
+🌐 cacaoradio.com
+</a>
+
+<a
+ class="btn social-btn"
+ href="https://www.instagram.com/cacao_radio"
+ target="_blank"
+ rel="noopener">
+
+<img
+ class="brand-logo"
+ src="https://cdn.simpleicons.org/instagram/E4405F"
+ alt="">
+
+<span>Instagram</span>
+
+</a>
+
+
+<a
+ class="btn social-btn"
+ href="https://www.facebook.com/share/1RcFB1YhKJ/"
+ target="_blank"
+ rel="noopener">
+
+<img
+ class="brand-logo"
+ src="https://cdn.simpleicons.org/facebook/1877F2"
+ alt="">
+
+<span>Facebook</span>
+
+</a>
+
 </div>
 
+
 <section class="card install">
+
 <h3>📲 Installer Cacao Radio</h3>
-<strong>🍎 Sur iPhone :</strong><br>Ouvrez cette page dans <strong>Safari</strong> → Partager → <strong>Ajouter à l’écran d’accueil</strong>.<br><br>
-<strong>🤖 Sur Android :</strong><br>Ouvrez cette page dans <strong>Chrome</strong> → menu ⋮ → <strong>Installer l’application</strong>.
+
+<strong>🍎 Sur iPhone :</strong><br>
+
+Ouvrez cette page dans <strong>Safari</strong> →
+Partager →
+<strong>Ajouter à l’écran d’accueil</strong>.
+
+<br><br>
+
+<strong>🤖 Sur Android :</strong><br>
+
+Ouvrez cette page dans <strong>Chrome</strong> →
+menu ⋮ →
+<strong>Installer l’application</strong>.
+
 <hr>
-<div class="warning"><strong>⏰ Important pour le réveil</strong><br>Pour que le réveil Cacao Radio fonctionne, <strong>laissez l’application ouverte en arrière-plan</strong>. Si votre téléphone ferme ou suspend complètement l’application, le démarrage automatique de la radio ne peut pas être garanti.</div>
+
+<div class="warning">
+
+<strong>⏰ Important pour le réveil</strong><br>
+
+Pour que le réveil Cacao Radio fonctionne,
+<strong>laissez l’application ouverte en arrière-plan</strong>.
+
+Si votre téléphone ferme ou suspend complètement
+l’application, le démarrage automatique de la radio
+ne peut pas être garanti.
+
+</div>
+
 </section>
-<footer>Cacao Radio • Easy Listening Radio</footer>
+
+<footer>
+Cacao Radio • Easy Listening Radio
+</footer>
+
 </main>
 
+
 <script>
-const audio=document.getElementById("audio"),play=document.getElementById("play"),status=document.getElementById("status"),volume=document.getElementById("volume");
-let sleepTimer=null,alarmTimer=null;
-play.onclick=async()=>{if(audio.paused){status.textContent="Connexion…";try{await audio.play()}catch(e){status.textContent="Touchez ▶ pour écouter"}}else audio.pause()};
-audio.onplaying=()=>{play.textContent="❚❚";play.classList.add("playing");status.textContent="Cacao Radio à l'écoute"};
-audio.onpause=()=>{play.textContent="▶";play.classList.remove("playing");status.textContent="Prêt à écouter"};
-audio.onwaiting=()=>status.textContent="Connexion…";
-volume.oninput=()=>audio.volume=Number(volume.value);
-function openPanel(id){["alarmPanel","sleepPanel","weatherPanel"].forEach(x=>{const e=document.getElementById(x);e.style.display=(x===id&&e.style.display!=="block")?"block":"none"})}
-function setSleep(){cancelSleep();const m=Number(document.getElementById("sleepTime").value);localStorage.setItem("sleepEnd",Date.now()+m*60000);document.getElementById("sleepInfo").textContent="La radio s'arrêtera dans "+m+" minutes";sleepTimer=setTimeout(()=>{audio.pause();localStorage.removeItem("sleepEnd");document.getElementById("sleepInfo").textContent="La radio est arrêtée"},m*60000)}
-function cancelSleep(){if(sleepTimer)clearTimeout(sleepTimer);sleepTimer=null;localStorage.removeItem("sleepEnd");document.getElementById("sleepInfo").textContent="Aucune minuterie active"}
-function setAlarm(){cancelAlarm();const v=document.getElementById("alarmTime").value;if(!v){document.getElementById("alarmInfo").textContent="Choisissez une heure";return}const p=v.split(":"),now=new Date(),alarm=new Date();alarm.setHours(+p[0],+p[1],0,0);if(alarm<=now)alarm.setDate(alarm.getDate()+1);localStorage.setItem("alarmTime",alarm.getTime());document.getElementById("alarmInfo").textContent="Réveil programmé à "+v;alarmTimer=setTimeout(async()=>{try{await audio.play()}catch(e){status.textContent="Touchez ▶ pour écouter"}localStorage.removeItem("alarmTime")},alarm-now)}
-function cancelAlarm(){if(alarmTimer)clearTimeout(alarmTimer);alarmTimer=null;localStorage.removeItem("alarmTime");document.getElementById("alarmInfo").textContent="Aucun réveil programmé"}
-const wc={0:"☀️ Ciel dégagé",1:"🌤️ Plutôt dégagé",2:"⛅ Partiellement nuageux",3:"☁️ Couvert",45:"🌫️ Brouillard",48:"🌫️ Brouillard",51:"🌦️ Bruine",53:"🌦️ Bruine",55:"🌧️ Bruine forte",61:"🌧️ Pluie faible",63:"🌧️ Pluie",65:"🌧️ Pluie forte",71:"🌨️ Neige",73:"🌨️ Neige",75:"❄️ Neige forte",80:"🌦️ Averses",81:"🌧️ Averses",82:"⛈️ Fortes averses",95:"⛈️ Orage",96:"⛈️ Orage avec grêle",99:"⛈️ Orage avec grêle"};
-async function getWeather(){const c=document.getElementById("city").value.trim(),r=document.getElementById("weatherResult");if(!c){r.textContent="Indiquez une ville.";return}r.textContent="Recherche…";try{const g=await fetch("https://geocoding-api.open-meteo.com/v1/search?name="+encodeURIComponent(c)+"&count=1&language=fr&format=json").then(x=>x.json());if(!g.results?.length){r.textContent="Ville introuvable.";return}const l=g.results[0];localStorage.setItem("weatherCity",c);const w=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+l.latitude+"&longitude="+l.longitude+"&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1").then(x=>x.json());r.innerHTML='<div class="weatherNow">'+Math.round(w.current.temperature_2m)+' °C</div>'+(wc[w.current.weather_code]||"Météo")+'<br><strong>'+l.name+'</strong><br>Min. '+Math.round(w.daily.temperature_2m_min[0])+' °C · Max. '+Math.round(w.daily.temperature_2m_max[0])+' °C'}catch(e){r.textContent="Météo momentanément indisponible."}}
-const saved=localStorage.getItem("weatherCity");if(saved)document.getElementById("city").value=saved;
+
+const audio=document.getElementById("audio");
+const play=document.getElementById("play");
+const status=document.getElementById("status");
+const volume=document.getElementById("volume");
+
+let sleepTimer=null;
+let alarmTimer=null;
 
 
-const STATUS_API="https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=status";
-async function updateNowPlaying(){
- try{
-  const d=await fetch(STATUS_API,{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("API");return r.json()});
-  if(!d.success)throw new Error("API");
-  document.getElementById("nowTitle").textContent=d.title||d.now_playing||"Cacao Radio";
-  document.getElementById("nowArtist").textContent=d.artist||"En direct";
-  const cover=document.getElementById("nowCover");
-  cover.src=d.cover||d.logo||"icon-192.png";
-  cover.onerror=()=>{cover.onerror=null;cover.src="icon-192.png"};
-  if("mediaSession" in navigator){
-   const art=d.cover||d.logo;
-   navigator.mediaSession.metadata=new MediaMetadata({
-    title:d.title||"Cacao Radio",
-    artist:d.artist||"Easy Listening Radio",
-    album:"Cacao Radio • En direct",
-    artwork:art?[{src:art}]:[{src:"icon-192.png",sizes:"192x192",type:"image/png"},{src:"icon-512.png",sizes:"512x512",type:"image/png"}]
-   });
+/* PLAYER */
+
+play.onclick=async()=>{
+
+ if(audio.paused){
+
+  status.textContent="Connexion…";
+
+  try{
+   await audio.play();
   }
- }catch(e){
-  document.getElementById("nowTitle").textContent="Cacao Radio";
-  document.getElementById("nowArtist").textContent="Titre momentanément indisponible";
+  catch(e){
+   status.textContent="Touchez ▶ pour écouter";
+  }
+
+ }else{
+
+  audio.pause();
+
  }
+
+};
+
+
+audio.onplaying=()=>{
+
+ play.textContent="❚❚";
+ play.classList.add("playing");
+ status.textContent="Cacao Radio à l'écoute";
+
+};
+
+
+audio.onpause=()=>{
+
+ play.textContent="▶";
+ play.classList.remove("playing");
+ status.textContent="Prêt à écouter";
+
+};
+
+
+audio.onwaiting=()=>status.textContent="Connexion…";
+
+
+volume.oninput=()=>{
+ audio.volume=Number(volume.value);
+};
+
+
+/* PANNEAUX */
+
+function openPanel(id){
+
+ ["alarmPanel","sleepPanel","weatherPanel"].forEach(x=>{
+
+  const e=document.getElementById(x);
+
+  e.style.display=
+   (x===id && e.style.display!=="block")
+   ?"block"
+   :"none";
+
+ });
+
 }
+
+
+/* MINUTERIE */
+
+function setSleep(){
+
+ cancelSleep();
+
+ const m=Number(
+  document.getElementById("sleepTime").value
+ );
+
+ localStorage.setItem(
+  "sleepEnd",
+  Date.now()+m*60000
+ );
+
+ document.getElementById("sleepInfo").textContent=
+  "La radio s'arrêtera dans "+m+" minutes";
+
+ sleepTimer=setTimeout(()=>{
+
+  audio.pause();
+
+  localStorage.removeItem("sleepEnd");
+
+  document.getElementById("sleepInfo").textContent=
+   "La radio est arrêtée";
+
+ },m*60000);
+
+}
+
+
+function cancelSleep(){
+
+ if(sleepTimer)clearTimeout(sleepTimer);
+
+ sleepTimer=null;
+
+ localStorage.removeItem("sleepEnd");
+
+ document.getElementById("sleepInfo").textContent=
+  "Aucune minuterie active";
+
+}
+
+
+/* REVEIL */
+
+function setAlarm(){
+
+ cancelAlarm();
+
+ const v=document.getElementById("alarmTime").value;
+
+ if(!v){
+
+  document.getElementById("alarmInfo").textContent=
+   "Choisissez une heure";
+
+  return;
+
+ }
+
+ const p=v.split(":");
+
+ const now=new Date();
+ const alarm=new Date();
+
+ alarm.setHours(+p[0],+p[1],0,0);
+
+ if(alarm<=now){
+  alarm.setDate(alarm.getDate()+1);
+ }
+
+ localStorage.setItem(
+  "alarmTime",
+  alarm.getTime()
+ );
+
+ document.getElementById("alarmInfo").textContent=
+  "Réveil programmé à "+v;
+
+ alarmTimer=setTimeout(async()=>{
+
+  try{
+   await audio.play();
+  }
+  catch(e){
+   status.textContent="Touchez ▶ pour écouter";
+  }
+
+  localStorage.removeItem("alarmTime");
+
+ },alarm-now);
+
+}
+
+
+function cancelAlarm(){
+
+ if(alarmTimer)clearTimeout(alarmTimer);
+
+ alarmTimer=null;
+
+ localStorage.removeItem("alarmTime");
+
+ document.getElementById("alarmInfo").textContent=
+  "Aucun réveil programmé";
+
+}
+
+
+/* METEO */
+
+const wc={
+0:"☀️ Ciel dégagé",
+1:"🌤️ Plutôt dégagé",
+2:"⛅ Partiellement nuageux",
+3:"☁️ Couvert",
+45:"🌫️ Brouillard",
+48:"🌫️ Brouillard",
+51:"🌦️ Bruine",
+53:"🌦️ Bruine",
+55:"🌧️ Bruine forte",
+61:"🌧️ Pluie faible",
+63:"🌧️ Pluie",
+65:"🌧️ Pluie forte",
+71:"🌨️ Neige",
+73:"🌨️ Neige",
+75:"❄️ Neige forte",
+80:"🌦️ Averses",
+81:"🌧️ Averses",
+82:"⛈️ Fortes averses",
+95:"⛈️ Orage",
+96:"⛈️ Orage avec grêle",
+99:"⛈️ Orage avec grêle"
+};
+
+
+async function getWeather(){
+
+ const c=
+  document.getElementById("city").value.trim();
+
+ const r=
+  document.getElementById("weatherResult");
+
+ if(!c){
+
+  r.textContent="Indiquez une ville.";
+  return;
+
+ }
+
+ r.textContent="Recherche…";
+
+ try{
+
+  const g=await fetch(
+   "https://geocoding-api.open-meteo.com/v1/search?name="+
+   encodeURIComponent(c)+
+   "&count=1&language=fr&format=json"
+  ).then(x=>x.json());
+
+  if(!g.results?.length){
+
+   r.textContent="Ville introuvable.";
+   return;
+
+  }
+
+  const l=g.results[0];
+
+  localStorage.setItem("weatherCity",c);
+
+  const w=await fetch(
+   "https://api.open-meteo.com/v1/forecast?latitude="+
+   l.latitude+
+   "&longitude="+
+   l.longitude+
+   "&current=temperature_2m,weather_code"+
+   "&daily=temperature_2m_max,temperature_2m_min"+
+   "&timezone=auto&forecast_days=1"
+  ).then(x=>x.json());
+
+  r.innerHTML=
+   '<div class="weatherNow">'+
+   Math.round(w.current.temperature_2m)+
+   ' °C</div>'+
+   (wc[w.current.weather_code]||"Météo")+
+   '<br><strong>'+
+   l.name+
+   '</strong><br>Min. '+
+   Math.round(w.daily.temperature_2m_min[0])+
+   ' °C · Max. '+
+   Math.round(w.daily.temperature_2m_max[0])+
+   ' °C';
+
+ }
+ catch(e){
+
+  r.textContent=
+   "Météo momentanément indisponible.";
+
+ }
+
+}
+
+
+const saved=
+ localStorage.getItem("weatherCity");
+
+if(saved){
+ document.getElementById("city").value=saved;
+}
+
+
+/* TITRE EN COURS */
+
+const STATUS_API=
+"https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=status";
+
+
+async function updateNowPlaying(){
+
+ try{
+
+  const d=await fetch(
+   STATUS_API,
+   {cache:"no-store"}
+  ).then(r=>{
+
+   if(!r.ok)throw new Error("API");
+
+   return r.json();
+
+  });
+
+  if(!d.success)throw new Error("API");
+
+
+  document.getElementById("nowTitle").textContent=
+   d.title||
+   d.now_playing||
+   "Cacao Radio";
+
+
+  document.getElementById("nowArtist").textContent=
+   d.artist||
+   "En direct";
+
+
+  const cover=
+   document.getElementById("nowCover");
+
+
+  cover.src=
+   d.cover||
+   d.logo||
+   "icon-192.png";
+
+
+  cover.onerror=()=>{
+
+   cover.onerror=null;
+   cover.src="icon-192.png";
+
+  };
+
+
+  if("mediaSession" in navigator){
+
+   const art=d.cover||d.logo;
+
+   navigator.mediaSession.metadata=
+    new MediaMetadata({
+
+     title:d.title||"Cacao Radio",
+
+     artist:
+      d.artist||
+      "Easy Listening Radio",
+
+     album:
+      "Cacao Radio • En direct",
+
+     artwork:
+      art
+      ?[{src:art}]
+      :[
+       {
+        src:"icon-192.png",
+        sizes:"192x192",
+        type:"image/png"
+       },
+       {
+        src:"icon-512.png",
+        sizes:"512x512",
+        type:"image/png"
+       }
+      ]
+
+    });
+
+  }
+
+ }
+ catch(e){
+
+  document.getElementById("nowTitle").textContent=
+   "Cacao Radio";
+
+  document.getElementById("nowArtist").textContent=
+   "Titre momentanément indisponible";
+
+ }
+
+}
+
+
 updateNowPlaying();
-setInterval(updateNowPlaying,15000);
+
+setInterval(
+ updateNowPlaying,
+ 15000
+);
+
+
+/* HISTORIQUE */
 
 function openHistory(){
- const modal=document.getElementById("historyModal");
- const frame=document.getElementById("historyFrame");
- frame.src="https://studio10.vestaradio.com/embed/player.php?radio=Cacao-Radio&style=vertical&color=%23713c23&color2=%233b1d12&bg=%23fff8ef&text=%233b1d12";
+
+ const modal=
+  document.getElementById("historyModal");
+
+ const frame=
+  document.getElementById("historyFrame");
+
+ frame.src=
+ "https://studio10.vestaradio.com/embed/player.php?radio=Cacao-Radio&style=vertical&color=%23713c23&color2=%233b1d12&bg=%23fff8ef&text=%233b1d12";
+
  modal.style.display="flex";
+
  document.body.style.overflow="hidden";
-}
-function closeHistory(){
- document.getElementById("historyModal").style.display="none";
- document.getElementById("historyFrame").src="about:blank";
- document.body.style.overflow="";
-}
-function closeHistoryOutside(e){
- if(e.target.id==="historyModal") closeHistory();
+
 }
 
-if("mediaSession" in navigator){navigator.mediaSession.setActionHandler("play",()=>audio.play());navigator.mediaSession.setActionHandler("pause",()=>audio.pause())}
-if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js");
+
+function closeHistory(){
+
+ document.getElementById("historyModal").style.display=
+  "none";
+
+ document.getElementById("historyFrame").src=
+  "about:blank";
+
+ document.body.style.overflow="";
+
+}
+
+
+function closeHistoryOutside(e){
+
+ if(e.target.id==="historyModal"){
+  closeHistory();
+ }
+
+}
+
+
+/* COMMANDES ECRAN VERROUILLE */
+
+if("mediaSession" in navigator){
+
+ navigator.mediaSession.setActionHandler(
+  "play",
+  ()=>audio.play()
+ );
+
+ navigator.mediaSession.setActionHandler(
+  "pause",
+  ()=>audio.pause()
+ );
+
+}
+
+
+/* PWA */
+
+if("serviceWorker" in navigator){
+
+ navigator.serviceWorker.register("./sw.js");
+
+}
+
 </script>
-</body></html>
+
+</body>
+</html>
