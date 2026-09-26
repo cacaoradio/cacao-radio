@@ -187,6 +187,26 @@ footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
 /* V17 — logos de marque propres */
 .brand-logo{width:30px;height:30px;display:block;object-fit:contain}
 
+
+/* V19 — correction visuelle uniquement.
+   La zone du player V17 reste inchangée afin de ne bloquer aucun bouton. */
+.player-overlay .live{
+  transform:translateY(-86px);
+}
+.player-overlay .controls{
+  transform:translateY(-86px);
+}
+/* Seuls les vrais contrôles restent interactifs. */
+.player-overlay{
+  pointer-events:none;
+}
+.player-overlay .play,
+.player-overlay .vol,
+.player-overlay input,
+.player-overlay button{
+  pointer-events:auto;
+}
+
 </style>
 </head>
 <body><main>
