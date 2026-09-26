@@ -157,6 +157,37 @@ footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
 }
 .vol{width:62%}
 
+
+/* V14 — historique des titres VestaRadio */
+.history-btn{
+ width:100%; margin:0 0 12px; padding:14px;
+ border:1px solid var(--line); border-radius:14px;
+ background:#fff; color:var(--brown); font-weight:800;
+ font-size:16px;
+}
+.history-modal{
+ display:none; position:fixed; inset:0; z-index:9999;
+ background:rgba(35,16,9,.72); padding:18px;
+ align-items:center; justify-content:center;
+}
+.history-box{
+ width:min(390px,100%); max-height:92vh; overflow:auto;
+ background:#fff8ef; border-radius:18px; padding:12px;
+ box-shadow:0 12px 35px #0006;
+}
+.history-head{
+ display:flex; align-items:center; justify-content:space-between;
+ margin:2px 2px 10px; font-weight:800; font-size:17px;
+}
+.history-close{
+ border:0; width:38px; height:38px; border-radius:50%;
+ background:var(--brown); color:#fff; font-size:22px;
+}
+.history-frame{
+ display:block; width:100%; height:556px; border:0;
+ border-radius:12px; overflow:hidden; background:#371506;
+}
+
 </style>
 </head>
 <body><main>
@@ -186,6 +217,25 @@ footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
 <section class="card panel" id="sleepPanel"><strong>🌙 Mise en veille</strong><br><select id="sleepTime"><option value="15">15 minutes</option><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60">1 heure</option><option value="90">1 h 30</option><option value="120">2 heures</option></select><br><button class="action" onclick="setSleep()">Démarrer</button><button class="cancel" onclick="cancelSleep()">Annuler</button><div class="info" id="sleepInfo">Aucune minuterie active</div></section>
 
 <section class="card panel" id="weatherPanel"><strong>☀️ La météo chez vous</strong><br><input id="city" type="text" placeholder="Votre ville"><br><button class="action" onclick="getWeather()">Afficher la météo</button><div class="info" id="weatherResult">Entrez une ville pour afficher la météo.</div></section>
+
+
+<button class="history-btn" onclick="openHistory()">🎵 Titres diffusés</button>
+
+<div class="history-modal" id="historyModal" onclick="closeHistoryOutside(event)">
+ <div class="history-box">
+  <div class="history-head">
+   <span>🎵 Titres diffusés</span>
+   <button class="history-close" onclick="closeHistory()" aria-label="Fermer">×</button>
+  </div>
+  <iframe
+   class="history-frame"
+   id="historyFrame"
+   title="Historique Cacao Radio"
+   src="about:blank"
+   allow="autoplay">
+  </iframe>
+ </div>
+</div>
 
 <div class="links">
 <a class="btn primary" href="https://cacaoradio.com" target="_blank" rel="noopener">🌐 cacaoradio.com</a>
@@ -219,6 +269,23 @@ function cancelAlarm(){if(alarmTimer)clearTimeout(alarmTimer);alarmTimer=null;lo
 const wc={0:"☀️ Ciel dégagé",1:"🌤️ Plutôt dégagé",2:"⛅ Partiellement nuageux",3:"☁️ Couvert",45:"🌫️ Brouillard",48:"🌫️ Brouillard",51:"🌦️ Bruine",53:"🌦️ Bruine",55:"🌧️ Bruine forte",61:"🌧️ Pluie faible",63:"🌧️ Pluie",65:"🌧️ Pluie forte",71:"🌨️ Neige",73:"🌨️ Neige",75:"❄️ Neige forte",80:"🌦️ Averses",81:"🌧️ Averses",82:"⛈️ Fortes averses",95:"⛈️ Orage",96:"⛈️ Orage avec grêle",99:"⛈️ Orage avec grêle"};
 async function getWeather(){const c=document.getElementById("city").value.trim(),r=document.getElementById("weatherResult");if(!c){r.textContent="Indiquez une ville.";return}r.textContent="Recherche…";try{const g=await fetch("https://geocoding-api.open-meteo.com/v1/search?name="+encodeURIComponent(c)+"&count=1&language=fr&format=json").then(x=>x.json());if(!g.results?.length){r.textContent="Ville introuvable.";return}const l=g.results[0];localStorage.setItem("weatherCity",c);const w=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+l.latitude+"&longitude="+l.longitude+"&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1").then(x=>x.json());r.innerHTML='<div class="weatherNow">'+Math.round(w.current.temperature_2m)+' °C</div>'+(wc[w.current.weather_code]||"Météo")+'<br><strong>'+l.name+'</strong><br>Min. '+Math.round(w.daily.temperature_2m_min[0])+' °C · Max. '+Math.round(w.daily.temperature_2m_max[0])+' °C'}catch(e){r.textContent="Météo momentanément indisponible."}}
 const saved=localStorage.getItem("weatherCity");if(saved)document.getElementById("city").value=saved;
+
+function openHistory(){
+ const modal=document.getElementById("historyModal");
+ const frame=document.getElementById("historyFrame");
+ frame.src="https://studio10.vestaradio.com/embed/player.php?radio=Cacao-Radio&style=vertical&color=%23713c23&color2=%233b1d12&bg=%23fff8ef&text=%233b1d12";
+ modal.style.display="flex";
+ document.body.style.overflow="hidden";
+}
+function closeHistory(){
+ document.getElementById("historyModal").style.display="none";
+ document.getElementById("historyFrame").src="about:blank";
+ document.body.style.overflow="";
+}
+function closeHistoryOutside(e){
+ if(e.target.id==="historyModal") closeHistory();
+}
+
 if("mediaSession" in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:"Cacao Radio",artist:"Easy Listening Radio",album:"En direct",artwork:[{src:"icon-192.png",sizes:"192x192",type:"image/png"},{src:"icon-512.png",sizes:"512x512",type:"image/png"}]});navigator.mediaSession.setActionHandler("play",()=>audio.play());navigator.mediaSession.setActionHandler("pause",()=>audio.pause())}
 if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js");
 </script>
