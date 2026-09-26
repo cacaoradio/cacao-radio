@@ -32,6 +32,44 @@ main{max-width:520px;margin:auto;padding:0 14px 35px}
 .links{display:grid;gap:8px;margin:12px 0}.btn{padding:13px;border-radius:12px;text-decoration:none;text-align:center;font-weight:bold;background:#fff;color:var(--brown);border:1px solid var(--line)}.btn.primary{background:var(--brown);color:#fff;border-color:var(--brown)}
 .install{padding:17px;font-size:13px;line-height:1.55;color:#674638}.install h3{text-align:center;margin:0 0 12px;font-size:17px;color:var(--brown)}.install hr{border:0;border-top:1px solid var(--line);margin:14px 0}.warning{background:var(--pink);padding:11px;border-radius:10px}
 footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
+
+/* Ajustement du player pour l'intégrer dans la façade de la radio */
+.real-controls{
+  left:50%;
+  bottom:20.5%;
+  transform:translateX(-50%);
+  width:48%;
+  min-height:54px;
+  padding:5px 8px;
+  gap:7px;
+  border-radius:14px;
+  background:rgba(58,29,18,.12);
+  box-shadow:none;
+  backdrop-filter:none;
+}
+.play{
+  flex:0 0 46px;
+  width:46px;
+  height:46px;
+  font-size:20px;
+  background:#6a351f;
+  color:#fff;
+  border:2px solid #fff8ef;
+  box-shadow:0 2px 8px rgba(0,0,0,.20);
+}
+.vol{width:54%;accent-color:#6a351f}
+.real-controls > span{color:#4b2517 !important}
+.live-status{
+  left:50%;
+  bottom:30.5%;
+  transform:translateX(-50%);
+  background:transparent;
+  color:#3a1d12;
+  padding:0;
+  font-size:10px;
+  text-shadow:none;
+}
+
 </style>
 </head>
 <body><main>
