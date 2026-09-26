@@ -303,6 +303,59 @@ footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
   pointer-events:auto;
 }
 
+
+/* V23 — player recentré et contenu dans le panneau crème de la radio */
+.player-overlay{
+  position:absolute;
+  left:24.5%;
+  top:54.0%;
+  width:51%;
+  height:20%;
+  box-sizing:border-box;
+  padding:0;
+  border-radius:12px;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  pointer-events:none;
+  overflow:hidden;
+}
+.player-overlay .live{
+  position:absolute;
+  top:5%;
+  left:0;
+  width:100%;
+  text-align:center;
+  font-size:10px;
+  line-height:1;
+  font-weight:800;
+  transform:none;
+}
+.player-overlay .controls{
+  position:absolute;
+  left:5%;
+  top:27%;
+  width:90%;
+  height:68%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transform:none;
+}
+.player-overlay .play{
+  width:40px;
+  height:40px;
+  flex:0 0 40px;
+  font-size:18px;
+  pointer-events:auto;
+}
+.player-overlay .vol{
+  width:55%;
+  min-width:0;
+  pointer-events:auto;
+}
+
 </style>
 </head>
 <body><main>
