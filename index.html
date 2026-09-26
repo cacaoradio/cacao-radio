@@ -207,6 +207,51 @@ footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
   pointer-events:auto;
 }
 
+
+/* V21 — proportions adaptées exactement au nouveau fond 16:9 */
+.player-overlay{
+  position:absolute;
+  left:24.3%;
+  top:52.4%;
+  width:48.2%;
+  height:24.3%;
+  display:block;
+  pointer-events:none;
+}
+.player-overlay .live{
+  position:absolute;
+  top:9%;
+  left:0;
+  width:100%;
+  text-align:center;
+  font-size:10px;
+  line-height:1;
+  transform:none;
+}
+.player-overlay .controls{
+  position:absolute;
+  left:7%;
+  top:29%;
+  width:86%;
+  height:60%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  transform:none;
+}
+.player-overlay .play{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  font-size:20px;
+  pointer-events:auto;
+}
+.player-overlay .vol{
+  width:57%;
+  pointer-events:auto;
+}
+
 </style>
 </head>
 <body><main>
