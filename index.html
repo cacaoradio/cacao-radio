@@ -83,12 +83,86 @@ footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
   gap:9px;
 }
 
+
+/* V12 : player adapté au nouveau grand rectangle */
+.player-overlay{
+  left:22%;
+  top:49.5%;
+  width:57%;
+  height:17%;
+  display:block;
+}
+.live{
+  position:absolute;
+  top:4%;
+  left:0;
+  width:100%;
+  text-align:center;
+  font-size:10px;
+  line-height:1;
+}
+.controls{
+  position:absolute;
+  left:3%;
+  top:25%;
+  width:94%;
+  height:70%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+.play{
+  width:50px;
+  height:50px;
+  flex:0 0 50px;
+}
+.vol{width:62%}
+
+
+/* V13 — player centré dans le nouveau grand écran crème */
+.player-overlay{
+ position:absolute;
+ left:21%;
+ top:46.8%;
+ width:58%;
+ height:25%;
+ display:block;
+}
+.live{
+ position:absolute;
+ top:17%;
+ left:0;
+ width:100%;
+ text-align:center;
+ font-size:11px;
+ line-height:1;
+ font-weight:800;
+}
+.controls{
+ position:absolute;
+ left:7%;
+ top:37%;
+ width:86%;
+ height:45%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:12px;
+}
+.play{
+ width:54px;
+ height:54px;
+ flex:0 0 54px;
+}
+.vol{width:62%}
+
 </style>
 </head>
 <body><main>
 
 <section class="hero">
-<img src="radio-cacao-vide.png" alt="">
+<img src="radio-cacao-player-vide.png" alt="">
 <div class="player-overlay">
  <div class="live"><span class="dot"></span> EN DIRECT</div>
  <div class="controls">
