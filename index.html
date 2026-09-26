@@ -356,6 +356,57 @@ footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
   pointer-events:auto;
 }
 
+
+/* V24 — calage final sur la nouvelle image : grand panneau crème */
+.player-overlay{
+  position:absolute;
+  left:23.5%;
+  top:47.8%;
+  width:53%;
+  height:24%;
+  box-sizing:border-box;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  overflow:hidden;
+  pointer-events:none;
+}
+.player-overlay .live{
+  position:absolute;
+  top:7%;
+  left:0;
+  width:100%;
+  text-align:center;
+  font-size:10px;
+  line-height:1;
+  font-weight:800;
+  transform:none;
+}
+.player-overlay .controls{
+  position:absolute;
+  left:5%;
+  top:29%;
+  width:90%;
+  height:64%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  transform:none;
+}
+.player-overlay .play{
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+  font-size:19px;
+  pointer-events:auto;
+}
+.player-overlay .vol{
+  width:58%;
+  min-width:0;
+  pointer-events:auto;
+}
+
 </style>
 </head>
 <body><main>
