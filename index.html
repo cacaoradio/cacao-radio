@@ -3,23 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#3a1d12">
+<meta name="theme-color" content="#3b1d12">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Cacao Radio</title>
 <style>
-:root{--brown:#3a1d12;--brown2:#6a3c26;--cream:#fff8ef;--line:#e9d8c9;--pink:#fff0f0}
+:root{--brown:#3b1d12;--brown2:#713c23;--cream:#fff8ef;--line:#ead8c7}
 *{box-sizing:border-box}
-body{margin:0;background:linear-gradient(#f7efe6,#fffaf4);font-family:Arial,sans-serif;color:var(--brown)}
-main{max-width:520px;margin:auto;padding:0 14px 35px}
-.hero{position:relative;margin:0 -14px 12px;overflow:hidden;background:#e7d5c3}
-.hero img{display:block;width:100%;height:auto}
-.real-controls{position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);width:62%;display:flex;align-items:center;justify-content:center;gap:10px;background:#3a1d12e8;padding:9px 12px;border-radius:18px;box-shadow:0 5px 16px #0005}
-.play{flex:0 0 50px;width:50px;height:50px;border:0;border-radius:50%;background:#fff;color:var(--brown);font-size:22px;font-weight:bold;box-shadow:0 3px 10px #0004}
-.play.playing{animation:pulse 1.5s infinite}@keyframes pulse{50%{box-shadow:0 0 0 8px #fff3}}
-.vol{width:52%;accent-color:#fff}
-.live-status{position:absolute;left:50%;bottom:17.5%;transform:translateX(-50%);background:#35170de8;color:#fff;border-radius:20px;padding:5px 11px;font-size:11px;font-weight:bold;white-space:nowrap}
-.dot{display:inline-block;width:7px;height:7px;background:#ff5147;border-radius:50%;margin-right:5px}
+body{margin:0;background:linear-gradient(#f8efe5,#fffaf4);font-family:Arial,sans-serif;color:var(--brown)}
+main{max-width:520px;margin:auto;padding:0 14px 34px}
+.hero{position:relative;margin:0 -14px 12px;background:#ead8c5;overflow:hidden}
+.hero>img{display:block;width:100%;height:auto}
+
+/* Vrai player placé dans le grand écran crème vide de la radio */
+.player-overlay{
+ position:absolute;
+ left:24%;
+ top:43%;
+ width:54%;
+ height:15%;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ gap:5px;
+}
+.live{font-size:11px;font-weight:800;color:var(--brown);letter-spacing:.2px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f23b35;margin-right:5px}
+.controls{width:90%;display:flex;align-items:center;justify-content:center;gap:9px}
+.play{width:52px;height:52px;flex:0 0 52px;border:2px solid #fff;border-radius:50%;background:var(--brown2);color:#fff;font-size:23px;font-weight:bold;box-shadow:0 3px 9px #0003}
+.play.playing{animation:pulse 1.5s infinite}@keyframes pulse{50%{box-shadow:0 0 0 7px #713c2325}}
+.vol{width:58%;accent-color:var(--brown2)}
+.status{font-size:10px;color:#75513e;min-height:12px}
+
 .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0}
 .tool{border:1px solid var(--line);background:#fff;border-radius:16px;padding:13px 4px;color:var(--brown);font-weight:bold;box-shadow:0 5px 15px #3a1d120c}
 .tool span{display:block;font-size:25px;margin-bottom:5px}
@@ -29,57 +45,28 @@ main{max-width:520px;margin:auto;padding:0 14px 35px}
 .action,.cancel{border:0;border-radius:10px;padding:10px 14px;font-weight:bold;margin:3px}
 .action{background:var(--brown);color:#fff}.cancel{background:#eee5df;color:var(--brown)}
 .info{font-size:13px;color:#745344;margin-top:9px;line-height:1.4}.weatherNow{font-size:29px;font-weight:bold;margin:10px 0 3px}
-.links{display:grid;gap:8px;margin:12px 0}.btn{padding:13px;border-radius:12px;text-decoration:none;text-align:center;font-weight:bold;background:#fff;color:var(--brown);border:1px solid var(--line)}.btn.primary{background:var(--brown);color:#fff;border-color:var(--brown)}
-.install{padding:17px;font-size:13px;line-height:1.55;color:#674638}.install h3{text-align:center;margin:0 0 12px;font-size:17px;color:var(--brown)}.install hr{border:0;border-top:1px solid var(--line);margin:14px 0}.warning{background:var(--pink);padding:11px;border-radius:10px}
+.links{display:grid;gap:8px;margin:12px 0}
+.btn{padding:13px;border-radius:12px;text-decoration:none;text-align:center;font-weight:bold;background:#fff;color:var(--brown);border:1px solid var(--line)}
+.btn.primary{background:var(--brown);color:#fff;border-color:var(--brown)}
+.install{padding:17px;font-size:13px;line-height:1.55;color:#674638}
+.install h3{text-align:center;margin:0 0 12px;font-size:17px;color:var(--brown)}
+.install hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+.warning{background:#fff0f0;padding:11px;border-radius:10px}
 footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
-
-/* Ajustement du player pour l'intégrer dans la façade de la radio */
-.real-controls{
-  left:50%;
-  bottom:20.5%;
-  transform:translateX(-50%);
-  width:48%;
-  min-height:54px;
-  padding:5px 8px;
-  gap:7px;
-  border-radius:14px;
-  background:rgba(58,29,18,.12);
-  box-shadow:none;
-  backdrop-filter:none;
-}
-.play{
-  flex:0 0 46px;
-  width:46px;
-  height:46px;
-  font-size:20px;
-  background:#6a351f;
-  color:#fff;
-  border:2px solid #fff8ef;
-  box-shadow:0 2px 8px rgba(0,0,0,.20);
-}
-.vol{width:54%;accent-color:#6a351f}
-.real-controls > span{color:#4b2517 !important}
-.live-status{
-  left:50%;
-  bottom:30.5%;
-  transform:translateX(-50%);
-  background:transparent;
-  color:#3a1d12;
-  padding:0;
-  font-size:10px;
-  text-shadow:none;
-}
-
 </style>
 </head>
 <body><main>
+
 <section class="hero">
-<img src="radio-cacao-player.png" alt="Radio Cacao Radio avec oursons chocolat et guimauve">
-<div class="live-status"><span class="dot"></span><span id="status">PRÊT À ÉCOUTER</span></div>
-<div class="real-controls">
-<button class="play" id="play" aria-label="Lecture">▶</button>
-<input class="vol" id="volume" type="range" min="0" max="1" step=".05" value="1" aria-label="Volume">
-<span style="color:white">🔊</span>
+<img src="radio-cacao-vide.png" alt="">
+<div class="player-overlay">
+ <div class="live"><span class="dot"></span> EN DIRECT</div>
+ <div class="controls">
+   <button class="play" id="play" aria-label="Lecture">▶</button>
+   <input class="vol" id="volume" type="range" min="0" max="1" step=".05" value="1" aria-label="Volume">
+   <span>🔊</span>
+ </div>
+ <div class="status" id="status">Prêt à écouter</div>
 </div>
 <audio id="audio" preload="none" playsinline><source src="https://stream10.vestaradio.com/Cacao-Radio"></audio>
 </section>
@@ -115,24 +102,19 @@ footer{text-align:center;color:#967867;font-size:11px;margin-top:14px}
 <script>
 const audio=document.getElementById("audio"),play=document.getElementById("play"),status=document.getElementById("status"),volume=document.getElementById("volume");
 let sleepTimer=null,alarmTimer=null;
-play.onclick=async()=>{if(audio.paused){status.textContent="CONNEXION…";try{await audio.play()}catch(e){status.textContent="TOUCHEZ ▶ POUR ÉCOUTER"}}else audio.pause()};
-audio.onplaying=()=>{play.textContent="❚❚";play.classList.add("playing");status.textContent="EN DIRECT"};
-audio.onpause=()=>{play.textContent="▶";play.classList.remove("playing");status.textContent="PRÊT À ÉCOUTER"};
-audio.onwaiting=()=>status.textContent="CONNEXION…";
+play.onclick=async()=>{if(audio.paused){status.textContent="Connexion…";try{await audio.play()}catch(e){status.textContent="Touchez ▶ pour écouter"}}else audio.pause()};
+audio.onplaying=()=>{play.textContent="❚❚";play.classList.add("playing");status.textContent="Cacao Radio à l'écoute"};
+audio.onpause=()=>{play.textContent="▶";play.classList.remove("playing");status.textContent="Prêt à écouter"};
+audio.onwaiting=()=>status.textContent="Connexion…";
 volume.oninput=()=>audio.volume=Number(volume.value);
-
 function openPanel(id){["alarmPanel","sleepPanel","weatherPanel"].forEach(x=>{const e=document.getElementById(x);e.style.display=(x===id&&e.style.display!=="block")?"block":"none"})}
-
 function setSleep(){cancelSleep();const m=Number(document.getElementById("sleepTime").value);localStorage.setItem("sleepEnd",Date.now()+m*60000);document.getElementById("sleepInfo").textContent="La radio s'arrêtera dans "+m+" minutes";sleepTimer=setTimeout(()=>{audio.pause();localStorage.removeItem("sleepEnd");document.getElementById("sleepInfo").textContent="La radio est arrêtée"},m*60000)}
 function cancelSleep(){if(sleepTimer)clearTimeout(sleepTimer);sleepTimer=null;localStorage.removeItem("sleepEnd");document.getElementById("sleepInfo").textContent="Aucune minuterie active"}
-
-function setAlarm(){cancelAlarm();const v=document.getElementById("alarmTime").value;if(!v){document.getElementById("alarmInfo").textContent="Choisissez une heure";return}const p=v.split(":"),now=new Date(),alarm=new Date();alarm.setHours(+p[0],+p[1],0,0);if(alarm<=now)alarm.setDate(alarm.getDate()+1);localStorage.setItem("alarmTime",alarm.getTime());document.getElementById("alarmInfo").textContent="Réveil programmé à "+v;alarmTimer=setTimeout(async()=>{try{await audio.play();status.textContent="RÉVEIL • EN DIRECT"}catch(e){status.textContent="TOUCHEZ ▶ POUR ÉCOUTER"}localStorage.removeItem("alarmTime")},alarm-now)}
+function setAlarm(){cancelAlarm();const v=document.getElementById("alarmTime").value;if(!v){document.getElementById("alarmInfo").textContent="Choisissez une heure";return}const p=v.split(":"),now=new Date(),alarm=new Date();alarm.setHours(+p[0],+p[1],0,0);if(alarm<=now)alarm.setDate(alarm.getDate()+1);localStorage.setItem("alarmTime",alarm.getTime());document.getElementById("alarmInfo").textContent="Réveil programmé à "+v;alarmTimer=setTimeout(async()=>{try{await audio.play()}catch(e){status.textContent="Touchez ▶ pour écouter"}localStorage.removeItem("alarmTime")},alarm-now)}
 function cancelAlarm(){if(alarmTimer)clearTimeout(alarmTimer);alarmTimer=null;localStorage.removeItem("alarmTime");document.getElementById("alarmInfo").textContent="Aucun réveil programmé"}
-
-const wc={0:"☀️ Ciel dégagé",1:"🌤️ Plutôt dégagé",2:"⛅ Partiellement nuageux",3:"☁️ Couvert",45:"🌫️ Brouillard",48:"🌫️ Brouillard givrant",51:"🌦️ Bruine",53:"🌦️ Bruine",55:"🌧️ Bruine forte",61:"🌧️ Pluie faible",63:"🌧️ Pluie",65:"🌧️ Pluie forte",71:"🌨️ Neige faible",73:"🌨️ Neige",75:"❄️ Neige forte",80:"🌦️ Averses",81:"🌧️ Averses",82:"⛈️ Fortes averses",95:"⛈️ Orage",96:"⛈️ Orage avec grêle",99:"⛈️ Orage avec grêle"};
-async function getWeather(){const c=document.getElementById("city").value.trim(),r=document.getElementById("weatherResult");if(!c){r.textContent="Indiquez une ville.";return}r.textContent="Recherche de la météo…";try{const g=await fetch("https://geocoding-api.open-meteo.com/v1/search?name="+encodeURIComponent(c)+"&count=1&language=fr&format=json").then(x=>x.json());if(!g.results?.length){r.textContent="Ville introuvable.";return}const l=g.results[0];localStorage.setItem("weatherCity",c);const w=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+l.latitude+"&longitude="+l.longitude+"&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1").then(x=>x.json());r.innerHTML='<div class="weatherNow">'+Math.round(w.current.temperature_2m)+' °C</div>'+(wc[w.current.weather_code]||"Météo")+'<br><strong>'+l.name+'</strong><br>Min. '+Math.round(w.daily.temperature_2m_min[0])+' °C · Max. '+Math.round(w.daily.temperature_2m_max[0])+' °C'}catch(e){r.textContent="Météo momentanément indisponible."}}
+const wc={0:"☀️ Ciel dégagé",1:"🌤️ Plutôt dégagé",2:"⛅ Partiellement nuageux",3:"☁️ Couvert",45:"🌫️ Brouillard",48:"🌫️ Brouillard",51:"🌦️ Bruine",53:"🌦️ Bruine",55:"🌧️ Bruine forte",61:"🌧️ Pluie faible",63:"🌧️ Pluie",65:"🌧️ Pluie forte",71:"🌨️ Neige",73:"🌨️ Neige",75:"❄️ Neige forte",80:"🌦️ Averses",81:"🌧️ Averses",82:"⛈️ Fortes averses",95:"⛈️ Orage",96:"⛈️ Orage avec grêle",99:"⛈️ Orage avec grêle"};
+async function getWeather(){const c=document.getElementById("city").value.trim(),r=document.getElementById("weatherResult");if(!c){r.textContent="Indiquez une ville.";return}r.textContent="Recherche…";try{const g=await fetch("https://geocoding-api.open-meteo.com/v1/search?name="+encodeURIComponent(c)+"&count=1&language=fr&format=json").then(x=>x.json());if(!g.results?.length){r.textContent="Ville introuvable.";return}const l=g.results[0];localStorage.setItem("weatherCity",c);const w=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+l.latitude+"&longitude="+l.longitude+"&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1").then(x=>x.json());r.innerHTML='<div class="weatherNow">'+Math.round(w.current.temperature_2m)+' °C</div>'+(wc[w.current.weather_code]||"Météo")+'<br><strong>'+l.name+'</strong><br>Min. '+Math.round(w.daily.temperature_2m_min[0])+' °C · Max. '+Math.round(w.daily.temperature_2m_max[0])+' °C'}catch(e){r.textContent="Météo momentanément indisponible."}}
 const saved=localStorage.getItem("weatherCity");if(saved)document.getElementById("city").value=saved;
-
 if("mediaSession" in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:"Cacao Radio",artist:"Easy Listening Radio",album:"En direct",artwork:[{src:"icon-192.png",sizes:"192x192",type:"image/png"},{src:"icon-512.png",sizes:"512x512",type:"image/png"}]});navigator.mediaSession.setActionHandler("play",()=>audio.play());navigator.mediaSession.setActionHandler("pause",()=>audio.pause())}
 if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js");
 </script>
