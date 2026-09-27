@@ -11,7 +11,6 @@
 <title>Cacao Radio</title>
 
 <style>
-
 :root{
   --brown:#3b1d12;
   --brown2:#713c23;
@@ -19,20 +18,11 @@
   --line:#ead8c7;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  background:linear-gradient(
-    to bottom,
-    #efbd8d 0%,
-    #f5d1ad 30%,
-    #fae3cd 58%,
-    #fff4e9 80%,
-    #ffffff 100%
-  );
+  background:linear-gradient(#f8efe5,#fffaf4);
   font-family:Arial,sans-serif;
   color:var(--brown);
 }
@@ -43,13 +33,12 @@ main{
   padding:0 14px 34px;
 }
 
-/* =========================
-   IMAGE DE LA RADIO
-   ========================= */
+/* IMAGE DE LA RADIO */
 
 .hero{
   position:relative;
   margin:0 -14px 12px;
+  background:#ead8c5;
   overflow:hidden;
 }
 
@@ -59,20 +48,187 @@ main{
   height:auto;
 }
 
-/* =========================
-   PLAYER
-   ========================= */
+/* PLAYER */
 
 .player-overlay{
   position:absolute;
-
-  left:26%;
-  top:56%;
-
-  width:48%;
-  height:18%;
-
+  left:25%;
+  top:54%;
+  width:50%;
+  height:22%;
+  display:block;
   overflow:hidden;
   pointer-events:none;
+}
 
- 
+/* EN DIRECT */
+
+.player-overlay .live{
+  position:absolute;
+  left:0;
+  top:5%;
+  width:100%;
+  text-align:center;
+  font-size:10px;
+  line-height:1;
+  font-weight:800;
+  color:#fff;
+}
+
+.dot{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#f23b35;
+  margin-right:5px;
+}
+
+.player-overlay .live .dot{
+  background:#fff;
+}
+
+/* COMMANDES */
+
+.player-overlay .controls{
+  position:absolute;
+  left:4%;
+  top:26%;
+  width:92%;
+  height:70%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+}
+
+/* BOUTON LECTURE */
+
+.play{
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  border:2px solid #fff;
+  border-radius:50%;
+  background:transparent;
+  color:#fff;
+  font-size:17px;
+  font-weight:bold;
+  box-shadow:0 3px 9px #0003;
+  pointer-events:auto;
+}
+
+.play.playing{
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  50%{box-shadow:0 0 0 7px #ffffff25}
+}
+
+/* VOLUME */
+
+.vol{
+  width:54%;
+  min-width:0;
+  accent-color:#fff;
+  pointer-events:auto;
+}
+
+/* BOUTONS OUTILS */
+
+.tools{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin:12px 0;
+}
+
+.tool{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:16px;
+  padding:13px 4px;
+  color:var(--brown);
+  font-weight:bold;
+  box-shadow:0 5px 15px #3a1d120c;
+}
+
+.tool span{
+  display:block;
+  font-size:25px;
+  margin-bottom:5px;
+}
+
+/* CARTES */
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:17px;
+  box-shadow:0 6px 18px #3a1d120c;
+}
+
+.panel{
+  display:none;
+  padding:17px;
+  margin-bottom:12px;
+  text-align:center;
+}
+
+.panel input,
+.panel select{
+  width:min(280px,90%);
+  padding:11px;
+  border:1px solid #d6c0af;
+  border-radius:10px;
+  font-size:16px;
+  margin:10px 0;
+  background:#fff;
+}
+
+.action,
+.cancel{
+  border:0;
+  border-radius:10px;
+  padding:10px 14px;
+  font-weight:bold;
+  margin:3px;
+}
+
+.action{
+  background:var(--brown);
+  color:#fff;
+}
+
+.cancel{
+  background:#eee5df;
+  color:var(--brown);
+}
+
+.info{
+  font-size:13px;
+  color:#745344;
+  margin-top:9px;
+  line-height:1.4;
+}
+
+.weatherNow{
+  font-size:29px;
+  font-weight:bold;
+  margin:10px 0 3px;
+}
+
+/* TITRE EN COURS */
+
+.now-card{
+  padding:14px;
+  margin:12px 0;
+}
+
+.now-label{
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.6px;
+  text-align:center;
+  margin-bottom:11px
