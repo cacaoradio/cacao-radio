@@ -55,6 +55,7 @@ main{
 }
 
 /* Lecteur rouge */
+
 .player-overlay{
   position:absolute;
   left:27%;
@@ -132,9 +133,6 @@ main{
   position:absolute;
 
   left:50%;
-
-  /* SEULE MODIFICATION :
-     logo + GIF descendus ensemble */
   top:47%;
 
   transform:translate(-50%,-50%);
@@ -552,7 +550,6 @@ main{
 .history-btn span,
 .btn span{
   grid-column:2;
-
   text-align:center;
 }
 
@@ -699,67 +696,182 @@ main{
     drop-shadow(0 5px 5px rgba(59,29,18,.28));
 }
 
-/* =========================
-   INSTALLATION
-========================= */
+/* ==================================================
+   FICHES "RECETTE DE PÂTISSERIE"
+   UNIQUEMENT LES DEUX BLOCS DU BAS
+================================================== */
 
-.install{
+.recipe-note{
   position:relative;
-  overflow:hidden;
 
-  margin:0 35px 14px;
-
-  padding:25px 18px 18px;
-
-  border-radius:22px;
-
-  font-size:13px;
-  line-height:1.55;
+  margin:0 35px 20px;
+  padding:30px 25px 26px;
 
   color:#54230f;
+
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:14px;
+  line-height:1.65;
+
+  /*
+    Papier crème / fiche de recette.
+    Aucune image chocolat blanc.
+  */
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 31px,
+      rgba(122,83,50,.10) 32px,
+      transparent 33px
+    ),
+    linear-gradient(
+      135deg,
+      #fffdf3 0%,
+      #fff8df 55%,
+      #f4e5bd 100%
+    );
+
+  border:1px solid rgba(108,66,34,.24);
+
+  border-radius:4px 7px 5px 6px;
+
+  box-shadow:
+    0 8px 16px rgba(49,18,6,.26),
+    inset 0 0 25px rgba(151,105,51,.06);
+
+  overflow:visible;
 }
 
-.install::before{
+/* léger effet papier artisanal */
+
+.recipe-note::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(118,72,35,.055) 0 1px,
+      transparent 1.5px
+    ),
+    radial-gradient(
+      circle at 75% 60%,
+      rgba(118,72,35,.045) 0 1px,
+      transparent 1.5px
+    );
+
+  background-size:19px 23px, 27px 29px;
+
+  border-radius:inherit;
+}
+
+/* petit morceau de ruban adhésif en haut */
+
+.recipe-note::after{
   content:"";
 
   position:absolute;
 
-  top:0;
-  left:0;
-  right:0;
+  width:78px;
+  height:22px;
 
-  height:8px;
+  top:-12px;
+  left:50%;
 
-  background:#6b321d;
+  transform:
+    translateX(-50%)
+    rotate(-2deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(225,196,135,.82),
+      rgba(247,224,170,.88),
+      rgba(216,183,119,.82)
+    );
+
+  border-left:1px solid rgba(132,94,50,.14);
+  border-right:1px solid rgba(132,94,50,.14);
+
+  box-shadow:
+    0 2px 3px rgba(65,31,11,.12);
+
+  opacity:.9;
 }
 
-.install-content{
+.recipe-content{
   position:relative;
   z-index:2;
 }
 
-.install h3{
+/* titre façon carnet de recettes */
+
+.recipe-note h3{
   display:flex;
   justify-content:center;
   align-items:center;
 
   gap:10px;
 
-  margin:0 0 15px;
+  margin:0 0 20px;
 
-  font-size:17px;
+  color:#54230f;
+
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:19px;
+  line-height:1.2;
+
+  text-align:center;
 }
 
-.install h3 img{
+.recipe-note h3 img{
   width:32px;
   height:32px;
 
   object-fit:contain;
 }
 
-.alarm-warning{
-  margin-top:0;
+/* petit trait manuscrit sous le titre */
+
+.recipe-title-line{
+  width:72px;
+  height:2px;
+
+  margin:-11px auto 20px;
+
+  background:#b77a4c;
+
+  border-radius:50%;
+
+  opacity:.65;
+
+  transform:rotate(-1deg);
 }
+
+.recipe-note strong{
+  color:#4b210f;
+}
+
+/* La seconde fiche est très légèrement inclinée
+   comme deux vraies notes posées à la main */
+
+.alarm-warning{
+  transform:rotate(.45deg);
+  margin-top:4px;
+}
+
+.install-note{
+  transform:rotate(-.35deg);
+}
+
+/* =========================
+   FOOTER
+========================= */
 
 footer{
   text-align:center;
@@ -1267,11 +1379,13 @@ alt="Nounours lisant le mode d'emploi">
 </div>
 
 
-<!-- INSTALLATION -->
+<!-- =======================================
+     FICHE RECETTE : INSTALLATION
+======================================= -->
 
-<section class="install choco-white">
+<section class="recipe-note install-note">
 
-<div class="install-content">
+<div class="recipe-content">
 
 <h3>
 
@@ -1282,6 +1396,8 @@ alt="">
 Installer Cacao Radio
 
 </h3>
+
+<div class="recipe-title-line"></div>
 
 <strong>Sur iPhone :</strong>
 
@@ -1308,14 +1424,19 @@ Ouvrez cette page dans
 </section>
 
 
-<section
-class="install alarm-warning choco-white">
+<!-- =======================================
+     FICHE RECETTE : RÉVEIL
+======================================= -->
 
-<div class="install-content">
+<section class="recipe-note alarm-warning">
+
+<div class="recipe-content">
 
 <h3>
 ⏰ Important pour le réveil
 </h3>
+
+<div class="recipe-title-line"></div>
 
 Pour que le réveil Cacao Radio fonctionne,
 
