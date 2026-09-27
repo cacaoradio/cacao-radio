@@ -55,7 +55,6 @@ main{
 }
 
 /* Lecteur rouge */
-
 .player-overlay{
   position:absolute;
   left:27%;
@@ -131,10 +130,8 @@ main{
 
 .radio-logo{
   position:absolute;
-
   left:50%;
   top:47%;
-
   transform:translate(-50%,-50%);
 
   width:48px;
@@ -369,10 +366,8 @@ main{
 
 .now-card{
   position:relative;
-
   padding:27px 18px 22px;
   margin:18px 20px 20px;
-
   border-radius:28px;
   text-align:center;
 }
@@ -419,11 +414,9 @@ main{
   object-fit:cover;
 
   background:#fff;
-
   border:5px solid #fffaf0;
 
-  box-shadow:
-    0 6px 12px rgba(72,31,10,.28);
+  box-shadow:0 6px 12px rgba(72,31,10,.28);
 
   margin:0 auto 16px;
 }
@@ -438,9 +431,7 @@ main{
   font-size:20px;
   font-weight:900;
   line-height:1.15;
-
   color:#592915;
-
   margin:0 auto 8px;
 }
 
@@ -482,10 +473,8 @@ main{
 
 .history-bear img{
   display:block;
-
   width:115px;
   height:auto;
-
   object-fit:contain;
 
   filter:
@@ -517,11 +506,9 @@ main{
   text-decoration:none;
 
   display:grid;
-
   grid-template-columns:38px 1fr 38px;
 
   align-items:center;
-
   text-align:center;
 
   gap:10px;
@@ -540,7 +527,6 @@ main{
   object-fit:contain;
 
   justify-self:center;
-
   grid-column:1;
 
   filter:
@@ -564,7 +550,6 @@ main{
   height:24px;
 
   grid-column:1;
-
   justify-self:center;
 
   position:relative;
@@ -578,7 +563,6 @@ main{
   content:"";
 
   position:absolute;
-
   top:3px;
 
   width:18px;
@@ -627,7 +611,6 @@ main{
   background:#fff8ef;
 
   border-radius:18px;
-
   padding:12px;
 }
 
@@ -663,7 +646,6 @@ main{
   height:556px;
 
   border:0;
-
   border-radius:12px;
 
   background:#371506;
@@ -679,7 +661,7 @@ main{
 
   width:100%;
 
-  margin:16px 0 14px;
+  margin:16px 0 8px;
 }
 
 .mode-emploi-bear img{
@@ -696,181 +678,37 @@ main{
     drop-shadow(0 5px 5px rgba(59,29,18,.28));
 }
 
-/* ==================================================
-   FICHES "RECETTE DE PÂTISSERIE"
-   UNIQUEMENT LES DEUX BLOCS DU BAS
-================================================== */
+/* =========================
+   NOUVELLES FICHES
+   MODE D'EMPLOI
+========================= */
 
-.recipe-note{
-  position:relative;
-
-  margin:0 35px 20px;
-  padding:30px 25px 26px;
-
-  color:#54230f;
-
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:14px;
-  line-height:1.65;
-
-  /*
-    Papier crème / fiche de recette.
-    Aucune image chocolat blanc.
-  */
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 31px,
-      rgba(122,83,50,.10) 32px,
-      transparent 33px
-    ),
-    linear-gradient(
-      135deg,
-      #fffdf3 0%,
-      #fff8df 55%,
-      #f4e5bd 100%
-    );
-
-  border:1px solid rgba(108,66,34,.24);
-
-  border-radius:4px 7px 5px 6px;
-
-  box-shadow:
-    0 8px 16px rgba(49,18,6,.26),
-    inset 0 0 25px rgba(151,105,51,.06);
-
-  overflow:visible;
-}
-
-/* léger effet papier artisanal */
-
-.recipe-note::before{
-  content:"";
-
-  position:absolute;
-  inset:0;
-
-  pointer-events:none;
-
-  background:
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(118,72,35,.055) 0 1px,
-      transparent 1.5px
-    ),
-    radial-gradient(
-      circle at 75% 60%,
-      rgba(118,72,35,.045) 0 1px,
-      transparent 1.5px
-    );
-
-  background-size:19px 23px, 27px 29px;
-
-  border-radius:inherit;
-}
-
-/* petit morceau de ruban adhésif en haut */
-
-.recipe-note::after{
-  content:"";
-
-  position:absolute;
-
-  width:78px;
-  height:22px;
-
-  top:-12px;
-  left:50%;
-
-  transform:
-    translateX(-50%)
-    rotate(-2deg);
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(225,196,135,.82),
-      rgba(247,224,170,.88),
-      rgba(216,183,119,.82)
-    );
-
-  border-left:1px solid rgba(132,94,50,.14);
-  border-right:1px solid rgba(132,94,50,.14);
-
-  box-shadow:
-    0 2px 3px rgba(65,31,11,.12);
-
-  opacity:.9;
-}
-
-.recipe-content{
-  position:relative;
-  z-index:2;
-}
-
-/* titre façon carnet de recettes */
-
-.recipe-note h3{
+.fiches-mode-emploi{
+  width:100%;
   display:flex;
   justify-content:center;
-  align-items:center;
+  align-items:flex-start;
 
-  gap:10px;
-
-  margin:0 0 20px;
-
-  color:#54230f;
-
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:19px;
-  line-height:1.2;
-
-  text-align:center;
+  margin:0 auto 12px;
 }
 
-.recipe-note h3 img{
-  width:32px;
-  height:32px;
+.fiches-mode-emploi img{
+  display:block;
+
+  width:100%;
+  max-width:480px;
+  height:auto;
 
   object-fit:contain;
-}
 
-/* petit trait manuscrit sous le titre */
+  margin:0 auto;
 
-.recipe-title-line{
-  width:72px;
-  height:2px;
-
-  margin:-11px auto 20px;
-
-  background:#b77a4c;
-
-  border-radius:50%;
-
-  opacity:.65;
-
-  transform:rotate(-1deg);
-}
-
-.recipe-note strong{
-  color:#4b210f;
-}
-
-/* La seconde fiche est très légèrement inclinée
-   comme deux vraies notes posées à la main */
-
-.alarm-warning{
-  transform:rotate(.45deg);
-  margin-top:4px;
-}
-
-.install-note{
-  transform:rotate(-.35deg);
+  border:0;
+  background:transparent;
 }
 
 /* =========================
-   FOOTER
+   PIED DE PAGE
 ========================= */
 
 footer{
@@ -880,7 +718,7 @@ footer{
 
   font-size:12px;
 
-  margin-top:22px;
+  margin-top:10px;
 
   text-shadow:0 1px 3px #3b1d12;
 }
@@ -1379,78 +1217,15 @@ alt="Nounours lisant le mode d'emploi">
 </div>
 
 
-<!-- =======================================
-     FICHE RECETTE : INSTALLATION
-======================================= -->
+<!-- NOUVELLES FICHES MODE D'EMPLOI -->
 
-<section class="recipe-note install-note">
-
-<div class="recipe-content">
-
-<h3>
+<div class="fiches-mode-emploi">
 
 <img
-src="icon-install.png"
-alt="">
-
-Installer Cacao Radio
-
-</h3>
-
-<div class="recipe-title-line"></div>
-
-<strong>Sur iPhone :</strong>
-
-<br>
-
-Ouvrez cette page dans
-<strong>Safari</strong>
-→ Partager →
-<strong>Ajouter à l’écran d’accueil</strong>.
-
-<br><br>
-
-<strong>Sur Android :</strong>
-
-<br>
-
-Ouvrez cette page dans
-<strong>Chrome</strong>
-→ menu ⋮ →
-<strong>Installer l’application</strong>.
+src="fiches-mode-emploi.png"
+alt="Installer Cacao Radio et informations importantes pour le réveil">
 
 </div>
-
-</section>
-
-
-<!-- =======================================
-     FICHE RECETTE : RÉVEIL
-======================================= -->
-
-<section class="recipe-note alarm-warning">
-
-<div class="recipe-content">
-
-<h3>
-⏰ Important pour le réveil
-</h3>
-
-<div class="recipe-title-line"></div>
-
-Pour que le réveil Cacao Radio fonctionne,
-
-<strong>
-laissez l’application ouverte en arrière-plan.
-</strong>
-
-Si votre téléphone ferme ou suspend complètement
-l’application, le démarrage automatique de la radio
-ne peut pas être garanti.
-
-</div>
-
-</section>
 
 
 <footer>
