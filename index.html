@@ -43,9 +43,9 @@ main{
 }
 
 
-/* ==================================================
+/* ================================
    RADIO
-================================================== */
+================================ */
 
 .hero{
   position:relative;
@@ -60,16 +60,16 @@ main{
 }
 
 
-/* ==================================================
-   PETIT LOGO FIXE + GIF SUR LA RADIO
-================================================== */
+/* ================================
+   LOGO FIXE + GIF
+================================ */
 
 .radio-logo-zone{
   position:absolute;
 
-  /* emplacement sur le petit logo de la façade */
+  /* POSITION CORRIGÉE */
   left:50%;
-  top:42%;
+  top:46.5%;
 
   width:11%;
   aspect-ratio:1/1;
@@ -111,9 +111,9 @@ main{
 }
 
 
-/* ==================================================
+/* ================================
    LECTEUR
-================================================== */
+================================ */
 
 .player-overlay{
   position:absolute;
@@ -154,13 +154,18 @@ main{
   width:30px;
   height:30px;
   flex:0 0 30px;
+
   border:2px solid #fff;
   border-radius:50%;
+
   background:var(--brown2);
   color:#fff;
+
   font-size:13px;
   font-weight:bold;
+
   box-shadow:0 2px 5px #0003;
+
   pointer-events:auto;
 }
 
@@ -213,16 +218,20 @@ main{
 }
 
 
-/* ==================================================
+/* ================================
    BANDEAU CACAO RADIO
-================================================== */
+================================ */
 
 .cacao-marquee{
   position:relative;
+
   width:calc(100% + 28px);
   height:32px;
+
   margin:0 -14px 12px;
+
   overflow:hidden;
+
   display:flex;
   align-items:center;
 
@@ -242,7 +251,9 @@ main{
   display:flex;
   align-items:center;
   flex-wrap:nowrap;
+
   width:max-content;
+
   white-space:nowrap;
 
   animation:cacaoScroll 24s linear infinite;
@@ -255,11 +266,13 @@ main{
 
 .marquee-text{
   display:inline-block;
+
   margin:0 9px;
 
   font-family:Impact,"Arial Black",sans-serif;
   font-size:15px;
   font-weight:900;
+
   letter-spacing:-.6px;
 
   color:#783619;
@@ -272,10 +285,14 @@ main{
 
 .marquee-bear-img{
   display:block;
+
   width:26px;
   height:26px;
+
   flex:0 0 26px;
+
   object-fit:contain;
+
   margin:0 5px;
 
   filter:drop-shadow(
@@ -291,16 +308,10 @@ main{
 }
 
 .bear-white{
-  width:26px;
-  height:26px;
-  flex-basis:26px;
   transform:rotate(4deg);
 }
 
 .bear-dark{
-  width:26px;
-  height:26px;
-  flex-basis:26px;
   transform:rotate(-3deg);
 }
 
@@ -315,15 +326,16 @@ main{
   from{
     transform:translateX(0);
   }
+
   to{
     transform:translateX(-50%);
   }
 }
 
 
-/* ==================================================
+/* ================================
    CHOCOLAT BLANC
-================================================== */
+================================ */
 
 .choco-white{
   position:relative;
@@ -349,15 +361,18 @@ main{
 }
 
 
-/* ==================================================
-   BOUTONS RÉVEIL / MINUTERIE / MÉTÉO
-================================================== */
+/* ================================
+   RÉVEIL / MINUTERIE / MÉTÉO
+================================ */
 
 .icon-choco{
   display:block;
+
   width:42px;
   height:42px;
+
   margin:0 auto 5px;
+
   object-fit:contain;
 
   filter:drop-shadow(
@@ -368,13 +383,17 @@ main{
 .tools{
   display:grid;
   grid-template-columns:repeat(3,1fr);
+
   gap:18px;
+
   margin:15px 27px 20px;
 }
 
 .tool{
   min-height:102px;
+
   border-radius:22px;
+
   padding:12px 3px 10px;
 
   color:#54230f;
@@ -392,26 +411,31 @@ main{
 }
 
 
-/* ==================================================
+/* ================================
    PANNEAUX
-================================================== */
+================================ */
 
 .panel{
   display:none;
+
   padding:18px;
+
   margin-bottom:15px;
+
   text-align:center;
 }
 
 .panel input,
 .panel select{
   width:min(280px,90%);
+
   padding:11px;
 
   border:1px solid #c9a66b;
   border-radius:11px;
 
   font-size:16px;
+
   margin:10px 0;
 
   background:#fffaf0;
@@ -420,9 +444,13 @@ main{
 .action,
 .cancel{
   border:0;
+
   border-radius:10px;
+
   padding:10px 14px;
+
   font-weight:bold;
+
   margin:3px;
 }
 
@@ -438,28 +466,36 @@ main{
 
 .info{
   font-size:13px;
+
   color:#67402d;
+
   margin-top:9px;
+
   line-height:1.4;
 }
 
 .weatherNow{
   font-size:29px;
+
   font-weight:bold;
+
   margin:10px 0 3px;
 }
 
 
-/* ==================================================
+/* ================================
    EN CE MOMENT
-================================================== */
+================================ */
 
 .now-card{
   position:relative;
+
   padding:27px 18px 22px;
+
   margin:18px 20px 20px;
 
   border-radius:28px;
+
   text-align:center;
 }
 
@@ -467,6 +503,7 @@ main{
   content:"";
 
   position:absolute;
+
   top:0;
   left:0;
   right:0;
@@ -482,10 +519,12 @@ main{
 
 .now-label{
   position:relative;
+
   z-index:2;
 
   font-size:14px;
   font-weight:900;
+
   letter-spacing:.5px;
 
   text-align:center;
@@ -497,12 +536,14 @@ main{
 
 .now-wrap{
   position:relative;
+
   z-index:2;
 
   display:flex;
+
   flex-direction:column;
+
   align-items:center;
-  justify-content:center;
 
   width:100%;
 }
@@ -531,8 +572,9 @@ main{
 
 .now-text{
   width:100%;
-  min-width:0;
+
   text-align:center;
+
   padding:0 8px;
 }
 
@@ -541,6 +583,7 @@ main{
 
   font-size:20px;
   font-weight:900;
+
   line-height:1.15;
 
   color:#592915;
@@ -548,15 +591,13 @@ main{
   text-align:center;
 
   margin:0 auto 8px;
-
-  max-width:100%;
 }
 
 .now-artist{
-  font-family:Arial,sans-serif;
-
   font-size:15px;
+
   font-weight:800;
+
   line-height:1.25;
 
   color:#75412b;
@@ -567,20 +608,21 @@ main{
 }
 
 
-/* ==================================================
-   NOUNOURS QUI PORTE LE LOGO
-================================================== */
+/* ================================
+   NOUNOURS CACAO RADIO
+================================ */
 
 .history-bear{
   position:relative;
 
   display:flex;
+
   justify-content:center;
+
   align-items:flex-end;
 
   width:100%;
 
-  /* PAS D'ESPACE SOUS LE NOUNOURS */
   margin:0 0 -1px;
 
   z-index:5;
@@ -592,14 +634,14 @@ main{
   display:block;
 
   width:115px;
+
   max-width:31%;
 
   height:auto;
 
   object-fit:contain;
 
-  /* descend très légèrement pour que
-     les pieds touchent le chocolat blanc */
+  /* LES PIEDS TOUCHENT LE CHOCOLAT BLANC */
   transform:translateY(1px);
 
   filter:drop-shadow(
@@ -608,9 +650,9 @@ main{
 }
 
 
-/* ==================================================
+/* ================================
    BOUTONS DU BAS
-================================================== */
+================================ */
 
 .history-btn,
 .btn{
@@ -629,14 +671,15 @@ main{
   color:#54230f;
 
   font-family:Arial,sans-serif;
+
   font-weight:900;
+
   font-size:15px;
 
   text-decoration:none;
 
   display:grid;
 
-  /* même emplacement pour toutes les icônes */
   grid-template-columns:38px 1fr 38px;
 
   align-items:center;
@@ -648,18 +691,14 @@ main{
     0 2px 1px rgba(82,35,12,.18);
 }
 
-.history-btn{
-  cursor:pointer;
-}
-
+.history-btn,
 button.btn{
   cursor:pointer;
 }
 
 
-/* ==================================================
-   TOUTES LES ICÔNES IDENTIQUES À GAUCHE
-================================================== */
+/* TOUTES LES ICÔNES À GAUCHE,
+   MÊME TAILLE */
 
 .icon-inline{
   grid-column:1;
@@ -689,10 +728,14 @@ button.btn{
   text-align:center;
 }
 
+.links{
+  display:grid;
+}
 
-/* ==================================================
+
+/* ================================
    CONTACT
-================================================== */
+================================ */
 
 .contact-envelope{
   grid-column:1;
@@ -739,19 +782,16 @@ button.btn{
   transform-origin:right center;
 }
 
-.links{
-  display:grid;
-}
 
-
-/* ==================================================
+/* ================================
    HISTORIQUE
-================================================== */
+================================ */
 
 .history-modal{
   display:none;
 
   position:fixed;
+
   inset:0;
 
   z-index:9999;
@@ -761,6 +801,7 @@ button.btn{
   padding:18px;
 
   align-items:center;
+
   justify-content:center;
 }
 
@@ -777,18 +818,20 @@ button.btn{
 
   padding:12px;
 
-  box-shadow:
-    0 12px 35px #0006;
+  box-shadow:0 12px 35px #0006;
 }
 
 .history-head{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
   margin:2px 2px 10px;
 
   font-weight:800;
+
   font-size:17px;
 }
 
@@ -811,6 +854,7 @@ button.btn{
   display:block;
 
   width:100%;
+
   height:556px;
 
   border:0;
@@ -821,13 +865,15 @@ button.btn{
 }
 
 
-/* ==================================================
+/* ================================
    NOUNOURS MODE D'EMPLOI
-================================================== */
+================================ */
 
 .mode-emploi-bear{
   display:flex;
+
   justify-content:center;
+
   align-items:center;
 
   width:100%;
@@ -854,9 +900,9 @@ button.btn{
 }
 
 
-/* ==================================================
+/* ================================
    INSTALLATION
-================================================== */
+================================ */
 
 .install{
   position:relative;
@@ -902,6 +948,7 @@ button.btn{
   display:flex;
 
   justify-content:center;
+
   align-items:center;
 
   gap:10px;
@@ -945,8 +992,7 @@ footer{
 
   margin-top:22px;
 
-  text-shadow:
-    0 1px 3px #3b1d12;
+  text-shadow:0 1px 3px #3b1d12;
 }
 
 </style>
@@ -958,9 +1004,7 @@ footer{
 <main>
 
 
-<!-- ==================================================
-     RADIO
-================================================== -->
+<!-- RADIO -->
 
 <section class="hero" id="hero">
 
@@ -969,7 +1013,7 @@ footer{
   alt="Cacao Radio">
 
 
-<!-- LOGO FIXE / GIF -->
+<!-- PETIT LOGO SUR LA RADIO -->
 
 <div class="radio-logo-zone">
 
@@ -1001,6 +1045,7 @@ footer{
 EN DIRECT
 
 </div>
+
 
 <div class="controls">
 
@@ -1043,9 +1088,7 @@ EN DIRECT
 </section>
 
 
-<!-- ==================================================
-     BANDEAU
-================================================== -->
+<!-- BANDEAU -->
 
 <div
   class="cacao-marquee"
@@ -1089,9 +1132,6 @@ CACAO RADIO
   src="ourson-lait-allonge.png"
   alt="">
 
-
-<!-- deuxième série -->
-
 <span class="marquee-text">
 CACAO RADIO
 </span>
@@ -1133,9 +1173,7 @@ CACAO RADIO
 </div>
 
 
-<!-- ==================================================
-     OUTILS
-================================================== -->
+<!-- OUTILS -->
 
 <div class="tools">
 
@@ -1183,9 +1221,7 @@ Météo
 </div>
 
 
-<!-- ==================================================
-     RÉVEIL
-================================================== -->
+<!-- RÉVEIL -->
 
 <section
   class="card panel choco-white"
@@ -1230,9 +1266,7 @@ Aucun réveil programmé
 </section>
 
 
-<!-- ==================================================
-     MINUTERIE
-================================================== -->
+<!-- MINUTERIE -->
 
 <section
   class="card panel choco-white"
@@ -1246,29 +1280,12 @@ Mise en veille
 
 <select id="sleepTime">
 
-<option value="15">
-15 minutes
-</option>
-
-<option value="30">
-30 minutes
-</option>
-
-<option value="45">
-45 minutes
-</option>
-
-<option value="60">
-1 heure
-</option>
-
-<option value="90">
-1 h 30
-</option>
-
-<option value="120">
-2 heures
-</option>
+<option value="15">15 minutes</option>
+<option value="30">30 minutes</option>
+<option value="45">45 minutes</option>
+<option value="60">1 heure</option>
+<option value="90">1 h 30</option>
+<option value="120">2 heures</option>
 
 </select>
 
@@ -1301,9 +1318,7 @@ Aucune minuterie active
 </section>
 
 
-<!-- ==================================================
-     MÉTÉO
-================================================== -->
+<!-- MÉTÉO -->
 
 <section
   class="card panel choco-white"
@@ -1341,9 +1356,7 @@ Entrez une ville pour afficher la météo.
 </section>
 
 
-<!-- ==================================================
-     TITRE EN COURS
-================================================== -->
+<!-- EN CE MOMENT -->
 
 <section
   class="card now-card choco-white">
@@ -1356,7 +1369,6 @@ EN CE MOMENT
 
 </div>
 
-
 <div class="now-wrap">
 
 <img
@@ -1364,7 +1376,6 @@ EN CE MOMENT
   id="nowCover"
   src="icon-192.png"
   alt="Pochette">
-
 
 <div class="now-text">
 
@@ -1375,7 +1386,6 @@ EN CE MOMENT
 Cacao Radio
 
 </div>
-
 
 <div
   class="now-artist"
@@ -1392,9 +1402,7 @@ Chargement du titre…
 </section>
 
 
-<!-- ==================================================
-     NOUNOURS SUR LE BOUTON
-================================================== -->
+<!-- NOUNOURS CACAO RADIO -->
 
 <div class="history-bear">
 
@@ -1405,9 +1413,7 @@ Chargement du titre…
 </div>
 
 
-<!-- ==================================================
-     20 DERNIERS TITRES
-================================================== -->
+<!-- 20 DERNIERS TITRES -->
 
 <button
   class="history-btn choco-white"
@@ -1425,7 +1431,7 @@ Voir les 20 derniers titres
 </button>
 
 
-<!-- MODALE HISTORIQUE -->
+<!-- HISTORIQUE -->
 
 <div
   class="history-modal"
@@ -1450,7 +1456,6 @@ Historique
 
 </div>
 
-
 <iframe
   class="history-frame"
   id="historyFrame"
@@ -1464,9 +1469,7 @@ Historique
 </div>
 
 
-<!-- ==================================================
-     LIENS
-================================================== -->
+<!-- LIENS -->
 
 <div class="links">
 
@@ -1561,9 +1564,7 @@ Contact
 </div>
 
 
-<!-- ==================================================
-     NOUNOURS MODE D'EMPLOI
-================================================== -->
+<!-- NOUNOURS MODE D'EMPLOI -->
 
 <div class="mode-emploi-bear">
 
@@ -1574,9 +1575,7 @@ Contact
 </div>
 
 
-<!-- ==================================================
-     INSTALLATION
-================================================== -->
+<!-- INSTALLATION -->
 
 <section class="install choco-white">
 
@@ -1592,11 +1591,7 @@ Installer Cacao Radio
 
 </h3>
 
-<strong>
-Sur iPhone :
-</strong>
-
-<br>
+<strong>Sur iPhone :</strong><br>
 
 Ouvrez cette page dans
 <strong>Safari</strong>
@@ -1605,11 +1600,7 @@ Ouvrez cette page dans
 
 <br><br>
 
-<strong>
-Sur Android :
-</strong>
-
-<br>
+<strong>Sur Android :</strong><br>
 
 Ouvrez cette page dans
 <strong>Chrome</strong>
@@ -1621,9 +1612,7 @@ Ouvrez cette page dans
 </section>
 
 
-<!-- ==================================================
-     AVERTISSEMENT RÉVEIL
-================================================== -->
+<!-- RÉVEIL INFO -->
 
 <section
   class="install alarm-warning choco-white">
@@ -1657,10 +1646,6 @@ Cacao Radio • Easy Listening Radio
 
 <script>
 
-/* ==================================================
-   RADIO
-================================================== */
-
 const audio =
   document.getElementById("audio");
 
@@ -1683,9 +1668,9 @@ let sleepTimer = null;
 let alarmTimer = null;
 
 
-/* ==================================================
-   PLAY / PAUSE
-================================================== */
+/* ================================
+   PLAY
+================================ */
 
 play.addEventListener(
   "click",
@@ -1716,9 +1701,9 @@ play.addEventListener(
 );
 
 
-/* ==================================================
+/* ================================
    RADIO EN LECTURE
-================================================== */
+================================ */
 
 audio.addEventListener(
   "playing",
@@ -1734,11 +1719,7 @@ audio.addEventListener(
       "playing"
     );
 
-    /*
-       IMPORTANT :
-       le logo fixe disparaît
-       et le GIF apparaît
-    */
+    /* LE GIF APPARAÎT */
 
     hero.classList.add(
       "radio-playing"
@@ -1748,9 +1729,9 @@ audio.addEventListener(
 );
 
 
-/* ==================================================
-   RADIO EN PAUSE
-================================================== */
+/* ================================
+   PAUSE
+================================ */
 
 audio.addEventListener(
   "pause",
@@ -1766,9 +1747,7 @@ audio.addEventListener(
       "playing"
     );
 
-    /*
-       Retour au logo fixe
-    */
+    /* RETOUR AU LOGO FIXE */
 
     hero.classList.remove(
       "radio-playing"
@@ -1794,9 +1773,9 @@ audio.addEventListener(
 );
 
 
-/* ==================================================
+/* ================================
    VOLUME
-================================================== */
+================================ */
 
 volume.addEventListener(
   "input",
@@ -1809,9 +1788,9 @@ volume.addEventListener(
 );
 
 
-/* ==================================================
+/* ================================
    PANNEAUX
-================================================== */
+================================ */
 
 function openPanel(id){
 
@@ -1829,11 +1808,13 @@ function openPanel(id){
       e.style.display !== "block"
     ){
 
-      e.style.display = "block";
+      e.style.display =
+        "block";
 
     }else{
 
-      e.style.display = "none";
+      e.style.display =
+        "none";
 
     }
 
@@ -1842,9 +1823,9 @@ function openPanel(id){
 }
 
 
-/* ==================================================
+/* ================================
    MINUTERIE
-================================================== */
+================================ */
 
 function setSleep(){
 
@@ -1888,6 +1869,7 @@ function setSleep(){
           "La radio est arrêtée";
 
       },
+
       minutes * 60000
     );
 
@@ -1918,9 +1900,9 @@ function cancelSleep(){
 }
 
 
-/* ==================================================
+/* ================================
    RÉVEIL
-================================================== */
+================================ */
 
 function setAlarm(){
 
@@ -1996,6 +1978,7 @@ function setAlarm(){
         );
 
       },
+
       delay
     );
 
@@ -2026,9 +2009,9 @@ function cancelAlarm(){
 }
 
 
-/* ==================================================
+/* ================================
    MÉTÉO
-================================================== */
+================================ */
 
 const weatherCodes = {
 
@@ -2091,9 +2074,13 @@ async function getWeather(){
 
     const geoResponse =
       await fetch(
+
         "https://geocoding-api.open-meteo.com/v1/search?name=" +
+
         encodeURIComponent(city) +
+
         "&count=1&language=fr&format=json"
+
       );
 
     const geo =
@@ -2210,9 +2197,9 @@ if(savedCity){
 }
 
 
-/* ==================================================
+/* ================================
    TITRE EN COURS
-================================================== */
+================================ */
 
 const STATUS_API =
 "https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=status";
@@ -2248,6 +2235,7 @@ async function updateNowPlaying(){
     document.getElementById(
       "nowTitle"
     ).textContent =
+
       data.title ||
       data.now_playing ||
       "Cacao Radio";
@@ -2256,6 +2244,7 @@ async function updateNowPlaying(){
     document.getElementById(
       "nowArtist"
     ).textContent =
+
       data.artist ||
       "En direct";
 
@@ -2266,6 +2255,7 @@ async function updateNowPlaying(){
       );
 
     cover.src =
+
       data.cover ||
       data.logo ||
       "icon-192.png";
@@ -2274,7 +2264,8 @@ async function updateNowPlaying(){
     cover.onerror =
       function(){
 
-        cover.onerror = null;
+        cover.onerror =
+          null;
 
         cover.src =
           "icon-192.png";
@@ -2335,7 +2326,6 @@ async function updateNowPlaying(){
 
       }
 
-
       navigator.mediaSession.metadata =
         new MediaMetadata(
           metadata
@@ -2368,9 +2358,9 @@ setInterval(
 );
 
 
-/* ==================================================
+/* ================================
    HISTORIQUE
-================================================== */
+================================ */
 
 function openHistory(){
 
@@ -2428,9 +2418,9 @@ function closeHistoryOutside(event){
 }
 
 
-/* ==================================================
+/* ================================
    PARTAGE
-================================================== */
+================================ */
 
 async function shareApp(){
 
@@ -2483,9 +2473,9 @@ async function shareApp(){
 }
 
 
-/* ==================================================
+/* ================================
    MEDIA SESSION
-================================================== */
+================================ */
 
 if(
   "mediaSession" in navigator
@@ -2502,7 +2492,6 @@ if(
       }
     );
 
-
     navigator.mediaSession.setActionHandler(
       "pause",
       function(){
@@ -2517,9 +2506,9 @@ if(
 }
 
 
-/* ==================================================
+/* ================================
    SERVICE WORKER
-================================================== */
+================================ */
 
 if(
   "serviceWorker" in navigator
