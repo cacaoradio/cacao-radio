@@ -16,6 +16,7 @@
 :root{
   --brown:#3b1d12;
   --brown2:#713c23;
+  --milk:#6b321d;
 }
 
 *{
@@ -26,10 +27,16 @@ body{
   margin:0;
   font-family:Arial,sans-serif;
   color:var(--brown);
+
   background-color:#6b321d;
+
   background-image:
-    linear-gradient(rgba(75,31,13,.10),rgba(75,31,13,.10)),
+    linear-gradient(
+      rgba(75,31,13,.10),
+      rgba(75,31,13,.10)
+    ),
     url("chocolat-lait.jpg");
+
   background-size:520px auto;
   background-repeat:repeat;
   background-attachment:fixed;
@@ -140,23 +147,29 @@ main{
 }
 
 @keyframes livePulse{
+
   0%,100%{
     opacity:1;
     transform:scale(1);
   }
+
   50%{
     opacity:.35;
     transform:scale(.65);
   }
+
 }
 
 @keyframes playPulse{
+
   0%,100%{
     box-shadow:0 0 0 0 rgba(255,255,255,.15);
   }
+
   50%{
     box-shadow:0 0 0 5px rgba(255,255,255,.30);
   }
+
 }
 
 
@@ -170,6 +183,7 @@ main{
   height:32px;
   margin:0 -14px 12px;
   overflow:hidden;
+
   display:flex;
   align-items:center;
 
@@ -191,6 +205,7 @@ main{
   flex-wrap:nowrap;
   width:max-content;
   white-space:nowrap;
+
   animation:cacaoScroll 24s linear infinite;
   animation-play-state:paused;
 }
@@ -202,11 +217,14 @@ main{
 .marquee-text{
   display:inline-block;
   margin:0 9px;
+
   font-family:Impact,"Arial Black",sans-serif;
   font-size:15px;
   font-weight:900;
   letter-spacing:-.6px;
+
   color:#783619;
+
   text-shadow:
     0 1px 0 #bd7040,
     0 2px 0 #4d1d0d,
@@ -218,9 +236,13 @@ main{
   width:26px;
   height:26px;
   flex:0 0 26px;
+
   object-fit:contain;
+
   margin:0 5px;
-  filter:drop-shadow(0 1px 1px rgba(66,27,8,.30));
+
+  filter:
+    drop-shadow(0 1px 1px rgba(66,27,8,.30));
 }
 
 .bear-standing{
@@ -252,18 +274,20 @@ main{
 }
 
 @keyframes cacaoScroll{
+
   from{
     transform:translateX(0);
   }
+
   to{
     transform:translateX(-50%);
   }
+
 }
 
 
 /* =========================
    CHOCOLAT BLANC
-   AUCUNE BORDURE SOMBRE
 ========================= */
 
 .choco-white{
@@ -299,18 +323,30 @@ main{
   width:42px;
   height:42px;
   margin:0 auto 5px;
+
   object-fit:contain;
-  filter:drop-shadow(0 3px 2px rgba(60,22,7,.28));
+
+  filter:
+    drop-shadow(0 3px 2px rgba(60,22,7,.28));
 }
+
+
+/* ICÔNES DES BARRES DU BAS
+   ramenées à 28 px */
 
 .icon-inline{
   display:block;
-  width:32px;
-  height:32px;
-  flex:0 0 32px;
+
+  width:28px;
+  height:28px;
+  flex:0 0 28px;
+
   object-fit:contain;
+
   background:transparent;
-  filter:drop-shadow(0 2px 2px rgba(60,22,7,.28));
+
+  filter:
+    drop-shadow(0 2px 2px rgba(60,22,7,.28));
 }
 
 
@@ -321,17 +357,24 @@ main{
 .tools{
   display:grid;
   grid-template-columns:repeat(3,1fr);
+
   gap:18px;
+
   margin:15px 27px 20px;
 }
 
 .tool{
   min-height:102px;
+
   border-radius:22px;
+
   padding:12px 3px 10px;
+
   color:#54230f;
+
   font-size:15px;
   font-weight:900;
+
   text-shadow:
     0 1px 0 rgba(255,218,165,.70),
     0 2px 1px rgba(93,43,18,.20);
@@ -348,28 +391,40 @@ main{
 
 .panel{
   display:none;
+
   padding:18px;
+
   margin-bottom:15px;
+
   text-align:center;
 }
 
 .panel input,
 .panel select{
   width:min(280px,90%);
+
   padding:11px;
+
   border:1px solid #c9a66b;
   border-radius:11px;
+
   font-size:16px;
+
   margin:10px 0;
+
   background:#fffaf0;
 }
 
 .action,
 .cancel{
   border:0;
+
   border-radius:10px;
+
   padding:10px 14px;
+
   font-weight:bold;
+
   margin:3px;
 }
 
@@ -386,13 +441,16 @@ main{
 .info{
   font-size:13px;
   color:#67402d;
+
   margin-top:9px;
+
   line-height:1.4;
 }
 
 .weatherNow{
   font-size:29px;
   font-weight:bold;
+
   margin:10px 0 3px;
 }
 
@@ -402,68 +460,122 @@ main{
 ========================= */
 
 .now-card{
-  padding:20px 18px 22px;
+  position:relative;
+
+  padding:27px 18px 22px;
+
   margin:18px 20px 20px;
+
   border-radius:28px;
+
   text-align:center;
 
-  /* sécurité supplémentaire :
-     aucune ombre ou bordure en haut */
   border:none;
   outline:none;
   box-shadow:none;
 }
 
+
+/* =========================
+   TRANCHE CHOCOLAT AU LAIT
+   AU-DESSUS DU BLOC
+========================= */
+
+.now-card::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:0;
+  right:0;
+
+  height:8px;
+
+  background:#6b321d;
+
+  border-radius:28px 28px 0 0;
+
+  z-index:1;
+}
+
+
 .now-label{
   position:relative;
   z-index:2;
+
   font-size:14px;
   font-weight:900;
+
   letter-spacing:.5px;
+
   text-align:center;
+
   margin-bottom:15px;
+
   color:#4a210f;
 }
 
 .now-wrap{
   position:relative;
   z-index:2;
+
   display:flex;
   flex-direction:column;
+
   align-items:center;
   justify-content:center;
+
   width:100%;
 }
 
 .now-cover{
   display:block;
+
   width:220px;
   height:220px;
+
   max-width:82vw;
+
   border-radius:20px;
+
   object-fit:cover;
+
   background:#fff;
+
   border:5px solid #fffaf0;
-  box-shadow:0 6px 12px rgba(72,31,10,.28);
+
+  box-shadow:
+    0 6px 12px rgba(72,31,10,.28);
+
   margin:0 auto 16px;
 }
 
 .now-text{
   width:100%;
   min-width:0;
+
   text-align:center;
+
   padding:0 8px;
 }
 
 .now-title{
   font-family:Georgia,serif;
+
   font-size:20px;
   font-weight:900;
+
   line-height:1.15;
+
   color:#592915;
+
   text-align:center;
+
   margin:0 auto 8px;
+
   max-width:100%;
+
   overflow-wrap:normal;
   word-break:normal;
   hyphens:none;
@@ -471,11 +583,16 @@ main{
 
 .now-artist{
   font-family:Arial,sans-serif;
+
   font-size:15px;
   font-weight:800;
+
   line-height:1.25;
+
   color:#75412b;
+
   text-align:center;
+
   margin:0 auto;
 }
 
@@ -487,21 +604,35 @@ main{
 .history-btn,
 .btn{
   position:relative;
+
   width:calc(100% - 70px);
+
   min-height:56px;
+
   margin:0 35px 11px;
+
   border-radius:19px;
+
   padding:7px 15px;
+
   color:#54230f;
+
   font-family:Arial,sans-serif;
+
   font-weight:900;
   font-size:15px;
+
   text-decoration:none;
+
   text-align:center;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   gap:10px;
+
   text-shadow:
     0 1px 0 rgba(255,218,165,.75),
     0 2px 1px rgba(82,35,12,.18);
@@ -522,33 +653,45 @@ button.btn{
 ========================= */
 
 .contact-envelope{
-  width:32px;
-  height:24px;
-  flex:0 0 32px;
+  width:28px;
+  height:21px;
+
+  flex:0 0 28px;
+
   position:relative;
+
   border:3px solid #713015;
+
   border-radius:5px;
 }
 
 .contact-envelope::before,
 .contact-envelope::after{
   content:"";
+
   position:absolute;
+
   top:3px;
-  width:18px;
+
+  width:16px;
   height:3px;
+
   background:#713015;
 }
 
 .contact-envelope::before{
   left:0;
+
   transform:rotate(35deg);
+
   transform-origin:left center;
 }
 
 .contact-envelope::after{
   right:0;
+
   transform:rotate(-35deg);
+
   transform-origin:right center;
 }
 
@@ -559,92 +702,149 @@ button.btn{
 
 .history-modal{
   display:none;
+
   position:fixed;
+
   inset:0;
+
   z-index:9999;
+
   background:rgba(35,16,9,.72);
+
   padding:18px;
+
   align-items:center;
   justify-content:center;
 }
 
 .history-box{
   width:min(390px,100%);
+
   max-height:92vh;
+
   overflow:auto;
+
   background:#fff8ef;
+
   border-radius:18px;
+
   padding:12px;
-  box-shadow:0 12px 35px #0006;
+
+  box-shadow:
+    0 12px 35px #0006;
 }
 
 .history-head{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   margin:2px 2px 10px;
+
   font-weight:800;
+
   font-size:17px;
 }
 
 .history-close{
   border:0;
+
   width:38px;
   height:38px;
+
   border-radius:50%;
+
   background:var(--brown);
+
   color:#fff;
+
   font-size:22px;
 }
 
 .history-frame{
   display:block;
+
   width:100%;
+
   height:556px;
+
   border:0;
+
   border-radius:12px;
+
   background:#371506;
 }
 
 
 /* =========================
-   INSTALLATION / REVEIL
+   INSTALLATION
 ========================= */
 
 .install{
   position:relative;
+
   overflow:hidden;
-  margin:0 35px 14px;
+
+  /*
+     PLUS GRAND ESPACE
+     APRÈS CONTACT
+  */
+
+  margin:25px 35px 14px;
+
   padding:18px;
+
   border-radius:22px;
+
   font-size:13px;
+
   line-height:1.55;
+
   color:#54230f;
 }
 
 .install h3{
   position:relative;
   z-index:2;
+
   display:flex;
+
   justify-content:center;
   align-items:center;
+
   gap:10px;
+
   margin:0 0 15px;
+
   font-size:17px;
 }
 
 .install h3 img{
-  width:32px;
-  height:32px;
+  width:28px;
+  height:28px;
+
   object-fit:contain;
 }
 
 .install-content{
   position:relative;
+
   z-index:2;
 }
 
+
+/* =========================
+   INFORMATION REVEIL
+========================= */
+
 .alarm-warning{
+
+  /*
+    Le deuxième bloc ne doit pas
+    avoir le grand espace supplémentaire.
+  */
+
   margin-top:0;
 }
 
@@ -663,37 +863,60 @@ button.btn{
 
 footer{
   text-align:center;
+
   color:#fff5e9;
+
   font-size:12px;
+
   margin-top:22px;
-  text-shadow:0 1px 3px #3b1d12;
+
+  text-shadow:
+    0 1px 3px #3b1d12;
 }
 
 </style>
 </head>
 
+
 <body>
 
 <main>
 
-<!-- RADIO -->
+
+<!-- =======================
+     RADIO
+======================= -->
 
 <section class="hero">
 
-<img src="radio-cacao-player-vide.png" alt="Cacao Radio">
+<img
+  src="radio-cacao-player-vide.png"
+  alt="Cacao Radio">
 
-<div class="player-overlay" id="playerOverlay">
+<div
+  class="player-overlay"
+  id="playerOverlay">
 
 <div class="live">
+
 <span class="dot"></span>
+
 EN DIRECT
+
 </div>
+
 
 <div class="controls">
 
-<button class="play" id="play" aria-label="Lecture">
+<button
+  class="play"
+  id="play"
+  aria-label="Lecture">
+
 ▶
+
 </button>
+
 
 <input
   class="vol"
@@ -705,152 +928,371 @@ EN DIRECT
   value="1"
   aria-label="Volume">
 
+
 <span>🔊</span>
 
 </div>
+
 </div>
 
-<span id="status" style="display:none">
+
+<span
+  id="status"
+  style="display:none">
+
 Prêt à écouter
+
 </span>
 
-<audio id="audio" preload="none" playsinline>
-<source src="https://stream10.vestaradio.com/Cacao-Radio">
+
+<audio
+  id="audio"
+  preload="none"
+  playsinline>
+
+<source
+  src="https://stream10.vestaradio.com/Cacao-Radio">
+
 </audio>
 
 </section>
 
 
-<!-- BANDEAU -->
+<!-- =======================
+     BANDEAU
+======================= -->
 
-<div class="cacao-marquee" id="cacaoMarquee">
+<div
+  class="cacao-marquee"
+  id="cacaoMarquee">
 
 <div class="cacao-marquee-track">
 
-<span class="marquee-text">CACAO RADIO</span>
-<img class="marquee-bear-img bear-standing" src="ourson-lait-debout.png" alt="">
 
-<span class="marquee-text">CACAO RADIO</span>
-<img class="marquee-bear-img bear-white" src="ourson-blanc-tablette.png" alt="">
+<span class="marquee-text">
+CACAO RADIO
+</span>
 
-<span class="marquee-text">CACAO RADIO</span>
-<img class="marquee-bear-img bear-dark" src="ourson-noir-tablette.png" alt="">
+<img
+  class="marquee-bear-img bear-standing"
+  src="ourson-lait-debout.png"
+  alt="">
 
-<span class="marquee-text">CACAO RADIO</span>
-<img class="marquee-bear-img bear-lying" src="ourson-lait-allonge.png" alt="">
 
-<span class="marquee-text">CACAO RADIO</span>
-<img class="marquee-bear-img bear-standing" src="ourson-lait-debout.png" alt="">
+<span class="marquee-text">
+CACAO RADIO
+</span>
 
-<span class="marquee-text">CACAO RADIO</span>
-<img class="marquee-bear-img bear-white" src="ourson-blanc-tablette.png" alt="">
+<img
+  class="marquee-bear-img bear-white"
+  src="ourson-blanc-tablette.png"
+  alt="">
 
-<span class="marquee-text">CACAO RADIO</span>
-<img class="marquee-bear-img bear-dark" src="ourson-noir-tablette.png" alt="">
 
-<span class="marquee-text">CACAO RADIO</span>
-<img class="marquee-bear-img bear-lying" src="ourson-lait-allonge.png" alt="">
+<span class="marquee-text">
+CACAO RADIO
+</span>
+
+<img
+  class="marquee-bear-img bear-dark"
+  src="ourson-noir-tablette.png"
+  alt="">
+
+
+<span class="marquee-text">
+CACAO RADIO
+</span>
+
+<img
+  class="marquee-bear-img bear-lying"
+  src="ourson-lait-allonge.png"
+  alt="">
+
+
+<span class="marquee-text">
+CACAO RADIO
+</span>
+
+<img
+  class="marquee-bear-img bear-standing"
+  src="ourson-lait-debout.png"
+  alt="">
+
+
+<span class="marquee-text">
+CACAO RADIO
+</span>
+
+<img
+  class="marquee-bear-img bear-white"
+  src="ourson-blanc-tablette.png"
+  alt="">
+
+
+<span class="marquee-text">
+CACAO RADIO
+</span>
+
+<img
+  class="marquee-bear-img bear-dark"
+  src="ourson-noir-tablette.png"
+  alt="">
+
+
+<span class="marquee-text">
+CACAO RADIO
+</span>
+
+<img
+  class="marquee-bear-img bear-lying"
+  src="ourson-lait-allonge.png"
+  alt="">
+
 
 </div>
+
 </div>
 
 
-<!-- OUTILS -->
+<!-- =======================
+     OUTILS
+======================= -->
 
 <div class="tools">
 
-<button class="tool choco-white" onclick="openPanel('alarmPanel')">
-<img class="icon-choco" src="icon-reveil.png" alt="">
+
+<button
+  class="tool choco-white"
+  onclick="openPanel('alarmPanel')">
+
+<img
+  class="icon-choco"
+  src="icon-reveil.png"
+  alt="">
+
 Réveil
+
 </button>
 
-<button class="tool choco-white" onclick="openPanel('sleepPanel')">
-<img class="icon-choco" src="icon-minuterie.png" alt="">
+
+<button
+  class="tool choco-white"
+  onclick="openPanel('sleepPanel')">
+
+<img
+  class="icon-choco"
+  src="icon-minuterie.png"
+  alt="">
+
 Minuterie
+
 </button>
 
-<button class="tool choco-white" onclick="openPanel('weatherPanel')">
-<img class="icon-choco" src="icon-meteo.png" alt="">
+
+<button
+  class="tool choco-white"
+  onclick="openPanel('weatherPanel')">
+
+<img
+  class="icon-choco"
+  src="icon-meteo.png"
+  alt="">
+
 Météo
+
 </button>
 
+
 </div>
 
 
-<!-- REVEIL -->
+<!-- =======================
+     REVEIL
+======================= -->
 
-<section class="card panel choco-white" id="alarmPanel">
+<section
+  class="card panel choco-white"
+  id="alarmPanel">
 
-<strong>Programmer le réveil</strong><br>
-
-<input type="time" id="alarmTime"><br>
-
-<button class="action" onclick="setAlarm()">Activer</button>
-<button class="cancel" onclick="cancelAlarm()">Annuler</button>
-
-<div class="info" id="alarmInfo">
-Aucun réveil programmé
-</div>
-
-</section>
-
-
-<!-- MINUTERIE -->
-
-<section class="card panel choco-white" id="sleepPanel">
-
-<strong>Mise en veille</strong><br>
-
-<select id="sleepTime">
-<option value="15">15 minutes</option>
-<option value="30">30 minutes</option>
-<option value="45">45 minutes</option>
-<option value="60">1 heure</option>
-<option value="90">1 h 30</option>
-<option value="120">2 heures</option>
-</select>
+<strong>
+Programmer le réveil
+</strong>
 
 <br>
 
-<button class="action" onclick="setSleep()">Démarrer</button>
-<button class="cancel" onclick="cancelSleep()">Annuler</button>
+<input
+  type="time"
+  id="alarmTime">
 
-<div class="info" id="sleepInfo">
-Aucune minuterie active
-</div>
+<br>
 
-</section>
+<button
+  class="action"
+  onclick="setAlarm()">
 
+Activer
 
-<!-- METEO -->
-
-<section class="card panel choco-white" id="weatherPanel">
-
-<strong>La météo chez vous</strong><br>
-
-<input id="city" type="text" placeholder="Votre ville"><br>
-
-<button class="action" onclick="getWeather()">
-Afficher la météo
 </button>
 
-<div class="info" id="weatherResult">
-Entrez une ville pour afficher la météo.
+
+<button
+  class="cancel"
+  onclick="cancelAlarm()">
+
+Annuler
+
+</button>
+
+
+<div
+  class="info"
+  id="alarmInfo">
+
+Aucun réveil programmé
+
 </div>
 
 </section>
 
 
-<!-- EN CE MOMENT -->
+<!-- =======================
+     MINUTERIE
+======================= -->
 
-<section class="card now-card choco-white">
+<section
+  class="card panel choco-white"
+  id="sleepPanel">
 
-<div class="now-label">
-<span class="dot"></span>
-EN CE MOMENT
+<strong>
+Mise en veille
+</strong>
+
+<br>
+
+
+<select id="sleepTime">
+
+<option value="15">
+15 minutes
+</option>
+
+<option value="30">
+30 minutes
+</option>
+
+<option value="45">
+45 minutes
+</option>
+
+<option value="60">
+1 heure
+</option>
+
+<option value="90">
+1 h 30
+</option>
+
+<option value="120">
+2 heures
+</option>
+
+</select>
+
+
+<br>
+
+
+<button
+  class="action"
+  onclick="setSleep()">
+
+Démarrer
+
+</button>
+
+
+<button
+  class="cancel"
+  onclick="cancelSleep()">
+
+Annuler
+
+</button>
+
+
+<div
+  class="info"
+  id="sleepInfo">
+
+Aucune minuterie active
+
 </div>
 
+</section>
+
+
+<!-- =======================
+     METEO
+======================= -->
+
+<section
+  class="card panel choco-white"
+  id="weatherPanel">
+
+<strong>
+La météo chez vous
+</strong>
+
+<br>
+
+
+<input
+  id="city"
+  type="text"
+  placeholder="Votre ville">
+
+<br>
+
+
+<button
+  class="action"
+  onclick="getWeather()">
+
+Afficher la météo
+
+</button>
+
+
+<div
+  class="info"
+  id="weatherResult">
+
+Entrez une ville pour afficher la météo.
+
+</div>
+
+</section>
+
+
+<!-- =======================
+     EN CE MOMENT
+======================= -->
+
+<section
+  class="card now-card choco-white">
+
+
+<div class="now-label">
+
+<span class="dot"></span>
+
+EN CE MOMENT
+
+</div>
+
+
 <div class="now-wrap">
+
 
 <img
   class="now-cover"
@@ -858,28 +1300,54 @@ EN CE MOMENT
   src="icon-192.png"
   alt="Pochette">
 
+
 <div class="now-text">
 
-<div class="now-title" id="nowTitle">
+
+<div
+  class="now-title"
+  id="nowTitle">
+
 Cacao Radio
+
 </div>
 
-<div class="now-artist" id="nowArtist">
+
+<div
+  class="now-artist"
+  id="nowArtist">
+
 Chargement du titre…
-</div>
 
 </div>
+
+
+</div>
+
 </div>
 
 </section>
 
 
-<!-- HISTORIQUE -->
+<!-- =======================
+     HISTORIQUE
+======================= -->
 
-<button class="history-btn choco-white" onclick="openHistory()">
+<button
+  class="history-btn choco-white"
+  onclick="openHistory()">
 
-<img class="icon-inline" src="icon-historique.png" alt="">
-<span>Voir les 20 derniers titres</span>
+
+<img
+  class="icon-inline"
+  src="icon-historique.png"
+  alt="">
+
+
+<span>
+Voir les 20 derniers titres
+</span>
+
 
 </button>
 
@@ -889,17 +1357,29 @@ Chargement du titre…
   id="historyModal"
   onclick="closeHistoryOutside(event)">
 
+
 <div class="history-box">
+
 
 <div class="history-head">
 
-<span>Historique</span>
 
-<button class="history-close" onclick="closeHistory()">
+<span>
+Historique
+</span>
+
+
+<button
+  class="history-close"
+  onclick="closeHistory()">
+
 ×
+
 </button>
 
+
 </div>
+
 
 <iframe
   class="history-frame"
@@ -908,13 +1388,18 @@ Chargement du titre…
   allow="autoplay">
 </iframe>
 
+
 </div>
+
 </div>
 
 
-<!-- LIENS -->
+<!-- =======================
+     LIENS
+======================= -->
 
 <div class="links">
+
 
 <a
   class="btn choco-white"
@@ -922,8 +1407,17 @@ Chargement du titre…
   target="_blank"
   rel="noopener">
 
-<img class="icon-inline" src="icon-site.png" alt="">
-<span>cacaoradio.com</span>
+
+<img
+  class="icon-inline"
+  src="icon-site.png"
+  alt="">
+
+
+<span>
+cacaoradio.com
+</span>
+
 
 </a>
 
@@ -934,8 +1428,17 @@ Chargement du titre…
   target="_blank"
   rel="noopener">
 
-<img class="icon-inline" src="icon-instagram.png" alt="">
-<span>Instagram</span>
+
+<img
+  class="icon-inline"
+  src="icon-instagram.png"
+  alt="">
+
+
+<span>
+Instagram
+</span>
+
 
 </a>
 
@@ -946,8 +1449,17 @@ Chargement du titre…
   target="_blank"
   rel="noopener">
 
-<img class="icon-inline" src="icon-facebook.png" alt="">
-<span>Facebook</span>
+
+<img
+  class="icon-inline"
+  src="icon-facebook.png"
+  alt="">
+
+
+<span>
+Facebook
+</span>
+
 
 </a>
 
@@ -957,8 +1469,17 @@ Chargement du titre…
   type="button"
   onclick="shareApp()">
 
-<img class="icon-inline" src="icon-partage.png" alt="">
-<span>Partager l'application</span>
+
+<img
+  class="icon-inline"
+  src="icon-partage.png"
+  alt="">
+
+
+<span>
+Partager l'application
+</span>
+
 
 </button>
 
@@ -968,54 +1489,104 @@ Chargement du titre…
   href="mailto:cacaoradiostation@gmail.com"
   aria-label="Contacter Cacao Radio">
 
-<span class="contact-envelope" aria-hidden="true"></span>
-<span>Contact</span>
+
+<span
+  class="contact-envelope"
+  aria-hidden="true">
+</span>
+
+
+<span>
+Contact
+</span>
+
 
 </a>
+
 
 </div>
 
 
-<!-- INSTALLATION -->
+<!-- =======================
+     INSTALLATION
+======================= -->
 
-<section class="install choco-white">
+<section
+  class="install choco-white">
+
 
 <div class="install-content">
 
+
 <h3>
-<img src="icon-install.png" alt="">
+
+<img
+  src="icon-install.png"
+  alt="">
+
 Installer Cacao Radio
+
 </h3>
 
-<strong>Sur iPhone :</strong><br>
-Ouvrez cette page dans <strong>Safari</strong> →
-Partager → <strong>Ajouter à l’écran d’accueil</strong>.
+
+<strong>
+Sur iPhone :
+</strong>
+
+<br>
+
+Ouvrez cette page dans
+<strong>Safari</strong>
+→ Partager →
+<strong>Ajouter à l’écran d’accueil</strong>.
+
 
 <br><br>
 
-<strong>Sur Android :</strong><br>
-Ouvrez cette page dans <strong>Chrome</strong> →
-menu ⋮ → <strong>Installer l’application</strong>.
+
+<strong>
+Sur Android :
+</strong>
+
+<br>
+
+Ouvrez cette page dans
+<strong>Chrome</strong>
+→ menu ⋮ →
+<strong>Installer l’application</strong>.
+
 
 </div>
 
 </section>
 
 
-<!-- INFORMATION REVEIL -->
+<!-- =======================
+     INFORMATION REVEIL
+======================= -->
 
-<section class="install alarm-warning choco-white">
+<section
+  class="install alarm-warning choco-white">
+
 
 <div class="install-content">
 
-<h3>⏰ Important pour le réveil</h3>
+
+<h3>
+⏰ Important pour le réveil
+</h3>
+
 
 Pour que le réveil Cacao Radio fonctionne,
-<strong>laissez l’application ouverte en arrière-plan.</strong>
+<strong>
+laissez l’application ouverte en arrière-plan.
+</strong>
+
 
 Si votre téléphone ferme ou suspend complètement
 l’application, le démarrage automatique de la radio
 ne peut pas être garanti.
+
 
 </div>
 
@@ -1023,125 +1594,230 @@ ne peut pas être garanti.
 
 
 <footer>
+
 Cacao Radio • Easy Listening Radio
+
 </footer>
+
 
 </main>
 
 
 <script>
 
-const audio = document.getElementById("audio");
-const play = document.getElementById("play");
-const status = document.getElementById("status");
-const volume = document.getElementById("volume");
-const cacaoMarquee = document.getElementById("cacaoMarquee");
-const playerOverlay = document.getElementById("playerOverlay");
+
+const audio =
+  document.getElementById("audio");
+
+const play =
+  document.getElementById("play");
+
+const status =
+  document.getElementById("status");
+
+const volume =
+  document.getElementById("volume");
+
+const cacaoMarquee =
+  document.getElementById("cacaoMarquee");
+
+const playerOverlay =
+  document.getElementById("playerOverlay");
+
 
 let sleepTimer = null;
 let alarmTimer = null;
 
 
-/* AUDIO */
+/* =========================
+   AUDIO
+========================= */
 
-play.addEventListener("click", async function(){
+play.addEventListener(
+  "click",
+  async function(){
 
-  if(audio.paused){
+    if(audio.paused){
 
-    status.textContent = "Connexion…";
+      status.textContent =
+        "Connexion…";
 
-    try{
-      await audio.play();
+      try{
+
+        await audio.play();
+
+      }
+      catch(e){
+
+        status.textContent =
+          "Touchez ▶ pour écouter";
+
+      }
+
+    }else{
+
+      audio.pause();
+
     }
-    catch(e){
-      status.textContent = "Touchez ▶ pour écouter";
-    }
 
-  }else{
-    audio.pause();
   }
-
-});
-
-
-audio.addEventListener("playing", function(){
-
-  play.textContent = "❚❚";
-  status.textContent = "Cacao Radio à l'écoute";
-
-  playerOverlay.classList.add("live-playing");
-  cacaoMarquee.classList.add("playing");
-
-});
+);
 
 
-audio.addEventListener("pause", function(){
+audio.addEventListener(
+  "playing",
+  function(){
 
-  play.textContent = "▶";
-  status.textContent = "Prêt à écouter";
+    play.textContent =
+      "❚❚";
 
-  playerOverlay.classList.remove("live-playing");
-  cacaoMarquee.classList.remove("playing");
+    status.textContent =
+      "Cacao Radio à l'écoute";
 
-});
+    playerOverlay
+      .classList
+      .add("live-playing");
+
+    cacaoMarquee
+      .classList
+      .add("playing");
+
+  }
+);
 
 
-audio.addEventListener("waiting", function(){
-  status.textContent = "Connexion…";
-});
+audio.addEventListener(
+  "pause",
+  function(){
+
+    play.textContent =
+      "▶";
+
+    status.textContent =
+      "Prêt à écouter";
+
+    playerOverlay
+      .classList
+      .remove("live-playing");
+
+    cacaoMarquee
+      .classList
+      .remove("playing");
+
+  }
+);
 
 
-volume.addEventListener("input", function(){
-  audio.volume = Number(volume.value);
-});
+audio.addEventListener(
+  "waiting",
+  function(){
+
+    status.textContent =
+      "Connexion…";
+
+  }
+);
 
 
-/* PANNEAUX */
+volume.addEventListener(
+  "input",
+  function(){
+
+    audio.volume =
+      Number(volume.value);
+
+  }
+);
+
+
+/* =========================
+   PANNEAUX
+========================= */
 
 function openPanel(id){
 
-  ["alarmPanel","sleepPanel","weatherPanel"].forEach(function(x){
+  [
+    "alarmPanel",
+    "sleepPanel",
+    "weatherPanel"
+  ].forEach(
+    function(x){
 
-    const e = document.getElementById(x);
+      const e =
+        document.getElementById(x);
 
-    if(x === id && e.style.display !== "block"){
-      e.style.display = "block";
-    }else{
-      e.style.display = "none";
+      if(
+        x === id &&
+        e.style.display !== "block"
+      ){
+
+        e.style.display =
+          "block";
+
+      }else{
+
+        e.style.display =
+          "none";
+
+      }
+
     }
-
-  });
+  );
 
 }
 
 
-/* MINUTERIE */
+/* =========================
+   MINUTERIE
+========================= */
 
 function setSleep(){
 
   cancelSleep();
 
   const minutes =
-    Number(document.getElementById("sleepTime").value);
+    Number(
+      document
+        .getElementById("sleepTime")
+        .value
+    );
 
-  document.getElementById("sleepInfo").textContent =
-    "La radio s'arrêtera dans " + minutes + " minutes";
+  document
+    .getElementById("sleepInfo")
+    .textContent =
+      "La radio s'arrêtera dans " +
+      minutes +
+      " minutes";
+
 
   localStorage.setItem(
     "sleepEnd",
-    String(Date.now() + minutes * 60000)
+    String(
+      Date.now() +
+      minutes * 60000
+    )
   );
 
-  sleepTimer = setTimeout(function(){
 
-    audio.pause();
+  sleepTimer =
+    setTimeout(
+      function(){
 
-    localStorage.removeItem("sleepEnd");
+        audio.pause();
 
-    document.getElementById("sleepInfo").textContent =
-      "La radio est arrêtée";
+        localStorage
+          .removeItem("sleepEnd");
 
-  }, minutes * 60000);
+        document
+          .getElementById("sleepInfo")
+          .textContent =
+            "La radio est arrêtée";
+
+      },
+
+      minutes * 60000
+
+    );
 
 }
 
@@ -1149,39 +1825,61 @@ function setSleep(){
 function cancelSleep(){
 
   if(sleepTimer){
-    clearTimeout(sleepTimer);
+
+    clearTimeout(
+      sleepTimer
+    );
+
   }
 
   sleepTimer = null;
 
-  localStorage.removeItem("sleepEnd");
+  localStorage
+    .removeItem("sleepEnd");
 
-  document.getElementById("sleepInfo").textContent =
-    "Aucune minuterie active";
+  document
+    .getElementById("sleepInfo")
+    .textContent =
+      "Aucune minuterie active";
 
 }
 
 
-/* REVEIL */
+/* =========================
+   REVEIL
+========================= */
 
 function setAlarm(){
 
   cancelAlarm();
 
   const value =
-    document.getElementById("alarmTime").value;
+    document
+      .getElementById("alarmTime")
+      .value;
+
 
   if(!value){
 
-    document.getElementById("alarmInfo").textContent =
-      "Choisissez une heure";
+    document
+      .getElementById("alarmInfo")
+      .textContent =
+        "Choisissez une heure";
 
     return;
+
   }
 
-  const parts = value.split(":");
-  const now = new Date();
-  const alarm = new Date();
+
+  const parts =
+    value.split(":");
+
+  const now =
+    new Date();
+
+  const alarm =
+    new Date();
+
 
   alarm.setHours(
     Number(parts[0]),
@@ -1190,33 +1888,58 @@ function setAlarm(){
     0
   );
 
+
   if(alarm <= now){
-    alarm.setDate(alarm.getDate() + 1);
+
+    alarm.setDate(
+      alarm.getDate() + 1
+    );
+
   }
 
+
   const delay =
-    alarm.getTime() - now.getTime();
+    alarm.getTime() -
+    now.getTime();
+
 
   localStorage.setItem(
     "alarmTime",
     String(alarm.getTime())
   );
 
-  document.getElementById("alarmInfo").textContent =
-    "Réveil programmé à " + value;
 
-  alarmTimer = setTimeout(async function(){
+  document
+    .getElementById("alarmInfo")
+    .textContent =
+      "Réveil programmé à " +
+      value;
 
-    try{
-      await audio.play();
-    }
-    catch(e){
-      status.textContent = "Touchez ▶ pour écouter";
-    }
 
-    localStorage.removeItem("alarmTime");
+  alarmTimer =
+    setTimeout(
+      async function(){
 
-  }, delay);
+        try{
+
+          await audio.play();
+
+        }
+        catch(e){
+
+          status.textContent =
+            "Touchez ▶ pour écouter";
+
+        }
+
+        localStorage
+          .removeItem("alarmTime");
+
+      },
+
+      delay
+
+    );
 
 }
 
@@ -1224,127 +1947,219 @@ function setAlarm(){
 function cancelAlarm(){
 
   if(alarmTimer){
-    clearTimeout(alarmTimer);
+
+    clearTimeout(
+      alarmTimer
+    );
+
   }
 
   alarmTimer = null;
 
-  localStorage.removeItem("alarmTime");
+  localStorage
+    .removeItem("alarmTime");
 
-  document.getElementById("alarmInfo").textContent =
-    "Aucun réveil programmé";
+  document
+    .getElementById("alarmInfo")
+    .textContent =
+      "Aucun réveil programmé";
 
 }
 
 
-/* METEO */
+/* =========================
+   METEO
+========================= */
 
 const weatherCodes = {
+
   0:"☀️ Ciel dégagé",
+
   1:"🌤️ Plutôt dégagé",
+
   2:"⛅ Partiellement nuageux",
+
   3:"☁️ Couvert",
+
   45:"🌫️ Brouillard",
+
   48:"🌫️ Brouillard",
+
   51:"🌦️ Bruine",
+
   53:"🌦️ Bruine",
+
   55:"🌧️ Bruine forte",
+
   61:"🌧️ Pluie faible",
+
   63:"🌧️ Pluie",
+
   65:"🌧️ Pluie forte",
+
   71:"🌨️ Neige",
+
   73:"🌨️ Neige",
+
   75:"❄️ Neige forte",
+
   80:"🌦️ Averses",
+
   81:"🌧️ Averses",
+
   82:"⛈️ Fortes averses",
+
   95:"⛈️ Orage",
+
   96:"⛈️ Orage avec grêle",
+
   99:"⛈️ Orage avec grêle"
+
 };
 
 
 async function getWeather(){
 
   const city =
-    document.getElementById("city").value.trim();
+    document
+      .getElementById("city")
+      .value
+      .trim();
+
 
   const result =
-    document.getElementById("weatherResult");
+    document
+      .getElementById("weatherResult");
+
 
   if(!city){
 
-    result.textContent = "Indiquez une ville.";
+    result.textContent =
+      "Indiquez une ville.";
+
     return;
 
   }
 
-  result.textContent = "Recherche…";
+
+  result.textContent =
+    "Recherche…";
+
 
   try{
 
-    const geoResponse = await fetch(
-      "https://geocoding-api.open-meteo.com/v1/search?name=" +
-      encodeURIComponent(city) +
-      "&count=1&language=fr&format=json"
-    );
 
-    const geo = await geoResponse.json();
+    const geoResponse =
+      await fetch(
 
-    if(!geo.results || !geo.results.length){
+        "https://geocoding-api.open-meteo.com/v1/search?name=" +
 
-      result.textContent = "Ville introuvable.";
+        encodeURIComponent(city) +
+
+        "&count=1&language=fr&format=json"
+
+      );
+
+
+    const geo =
+      await geoResponse.json();
+
+
+    if(
+      !geo.results ||
+      !geo.results.length
+    ){
+
+      result.textContent =
+        "Ville introuvable.";
+
       return;
 
     }
 
-    const place = geo.results[0];
 
-    localStorage.setItem("weatherCity",city);
+    const place =
+      geo.results[0];
 
-    const weatherResponse = await fetch(
 
-      "https://api.open-meteo.com/v1/forecast?latitude=" +
-      place.latitude +
-
-      "&longitude=" +
-      place.longitude +
-
-      "&current=temperature_2m,weather_code" +
-
-      "&daily=temperature_2m_max,temperature_2m_min" +
-
-      "&timezone=auto&forecast_days=1"
-
+    localStorage.setItem(
+      "weatherCity",
+      city
     );
+
+
+    const weatherResponse =
+      await fetch(
+
+        "https://api.open-meteo.com/v1/forecast?latitude=" +
+
+        place.latitude +
+
+        "&longitude=" +
+
+        place.longitude +
+
+        "&current=temperature_2m,weather_code" +
+
+        "&daily=temperature_2m_max,temperature_2m_min" +
+
+        "&timezone=auto&forecast_days=1"
+
+      );
+
 
     const weather =
       await weatherResponse.json();
 
+
     const temperature =
-      Math.round(weather.current.temperature_2m);
+      Math.round(
+        weather.current.temperature_2m
+      );
+
 
     const minimum =
-      Math.round(weather.daily.temperature_2m_min[0]);
+      Math.round(
+        weather.daily.temperature_2m_min[0]
+      );
+
 
     const maximum =
-      Math.round(weather.daily.temperature_2m_max[0]);
+      Math.round(
+        weather.daily.temperature_2m_max[0]
+      );
+
 
     const description =
-      weatherCodes[weather.current.weather_code] || "Météo";
+      weatherCodes[
+        weather.current.weather_code
+      ] || "Météo";
+
 
     result.innerHTML =
+
       '<div class="weatherNow">' +
+
       temperature +
+
       ' °C</div>' +
+
       description +
+
       '<br><strong>' +
+
       place.name +
+
       '</strong><br>Min. ' +
+
       minimum +
+
       ' °C · Max. ' +
+
       maximum +
+
       ' °C';
+
 
   }
   catch(e){
@@ -1358,16 +2173,26 @@ async function getWeather(){
 
 
 const savedCity =
-  localStorage.getItem("weatherCity");
+  localStorage
+    .getItem("weatherCity");
+
 
 if(savedCity){
-  document.getElementById("city").value = savedCity;
+
+  document
+    .getElementById("city")
+    .value =
+      savedCity;
+
 }
 
 
-/* TITRE EN COURS */
+/* =========================
+   TITRE EN COURS
+========================= */
 
 const STATUS_API =
+
 "https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=status";
 
 
@@ -1375,70 +2200,119 @@ async function updateNowPlaying(){
 
   try{
 
+
     const response =
-      await fetch(STATUS_API,{cache:"no-store"});
+      await fetch(
+        STATUS_API,
+        {
+          cache:"no-store"
+        }
+      );
+
 
     if(!response.ok){
+
       throw new Error("API");
+
     }
+
 
     const data =
       await response.json();
 
+
     if(!data.success){
+
       throw new Error("API");
+
     }
 
-    document.getElementById("nowTitle").textContent =
-      data.title ||
-      data.now_playing ||
-      "Cacao Radio";
 
-    document.getElementById("nowArtist").textContent =
-      data.artist ||
-      "En direct";
+    document
+      .getElementById("nowTitle")
+      .textContent =
+
+        data.title ||
+
+        data.now_playing ||
+
+        "Cacao Radio";
+
+
+    document
+      .getElementById("nowArtist")
+      .textContent =
+
+        data.artist ||
+
+        "En direct";
+
 
     const cover =
-      document.getElementById("nowCover");
+      document
+        .getElementById("nowCover");
+
 
     cover.src =
+
       data.cover ||
+
       data.logo ||
+
       "icon-192.png";
 
-    cover.onerror = function(){
 
-      cover.onerror = null;
-      cover.src = "icon-192.png";
+    cover.onerror =
+      function(){
 
-    };
+        cover.onerror = null;
+
+        cover.src =
+          "icon-192.png";
+
+      };
 
 
-    if("mediaSession" in navigator){
+    if(
+      "mediaSession"
+      in navigator
+    ){
+
 
       const artwork =
+
         data.cover ||
+
         data.logo;
+
 
       const metadata = {
 
         title:
+
           data.title ||
+
           "Cacao Radio",
 
         artist:
+
           data.artist ||
+
           "Easy Listening Radio",
 
         album:
+
           "Cacao Radio • En direct"
 
       };
 
+
       if(artwork){
 
         metadata.artwork = [
-          {src:artwork}
+          {
+            src:artwork
+          }
         ];
 
       }else{
@@ -1461,19 +2335,31 @@ async function updateNowPlaying(){
 
       }
 
+
       navigator.mediaSession.metadata =
-        new MediaMetadata(metadata);
+
+        new MediaMetadata(
+          metadata
+        );
 
     }
+
 
   }
   catch(e){
 
-    document.getElementById("nowTitle").textContent =
-      "Cacao Radio";
 
-    document.getElementById("nowArtist").textContent =
-      "Titre momentanément indisponible";
+    document
+      .getElementById("nowTitle")
+      .textContent =
+        "Cacao Radio";
+
+
+    document
+      .getElementById("nowArtist")
+      .textContent =
+        "Titre momentanément indisponible";
+
 
   }
 
@@ -1482,60 +2368,88 @@ async function updateNowPlaying(){
 
 updateNowPlaying();
 
+
 setInterval(
   updateNowPlaying,
   15000
 );
 
 
-/* HISTORIQUE */
+/* =========================
+   HISTORIQUE
+========================= */
 
 function openHistory(){
 
   const modal =
-    document.getElementById("historyModal");
+    document
+      .getElementById("historyModal");
+
 
   const frame =
-    document.getElementById("historyFrame");
+    document
+      .getElementById("historyFrame");
+
 
   frame.src =
+
     "https://studio10.vestaradio.com/embed/player.php?radio=Cacao-Radio&style=vertical&color=%23713c23&color2=%233b1d12&bg=%23fff8ef&text=%233b1d12";
 
-  modal.style.display = "flex";
-  document.body.style.overflow = "hidden";
+
+  modal.style.display =
+    "flex";
+
+
+  document.body.style.overflow =
+    "hidden";
 
 }
 
 
 function closeHistory(){
 
-  document.getElementById("historyModal").style.display =
-    "none";
+  document
+    .getElementById("historyModal")
+    .style.display =
+      "none";
 
-  document.getElementById("historyFrame").src =
-    "about:blank";
 
-  document.body.style.overflow = "";
+  document
+    .getElementById("historyFrame")
+    .src =
+      "about:blank";
+
+
+  document.body.style.overflow =
+    "";
 
 }
 
 
 function closeHistoryOutside(event){
 
-  if(event.target.id === "historyModal"){
+  if(
+    event.target.id ===
+    "historyModal"
+  ){
+
     closeHistory();
+
   }
 
 }
 
 
-/* PARTAGE */
+/* =========================
+   PARTAGE
+========================= */
 
 async function shareApp(){
 
   const shareData = {
 
-    title:"Cacao Radio",
+    title:
+      "Cacao Radio",
 
     text:
       "🎧 Écoutez Cacao Radio – Easy Listening Radio",
@@ -1549,7 +2463,11 @@ async function shareApp(){
   if(navigator.share){
 
     try{
-      await navigator.share(shareData);
+
+      await navigator.share(
+        shareData
+      );
+
     }
     catch(e){}
 
@@ -1557,9 +2475,11 @@ async function shareApp(){
 
     try{
 
-      await navigator.clipboard.writeText(
-        shareData.url
-      );
+      await navigator.clipboard
+        .writeText(
+          shareData.url
+        );
+
 
       alert(
         "Le lien de Cacao Radio a été copié !"
@@ -1579,25 +2499,37 @@ async function shareApp(){
 }
 
 
-/* MEDIA SESSION */
+/* =========================
+   MEDIA SESSION
+========================= */
 
-if("mediaSession" in navigator){
+if(
+  "mediaSession"
+  in navigator
+){
 
   try{
 
-    navigator.mediaSession.setActionHandler(
-      "play",
-      function(){
-        audio.play();
-      }
-    );
+    navigator.mediaSession
+      .setActionHandler(
+        "play",
+        function(){
 
-    navigator.mediaSession.setActionHandler(
-      "pause",
-      function(){
-        audio.pause();
-      }
-    );
+          audio.play();
+
+        }
+      );
+
+
+    navigator.mediaSession
+      .setActionHandler(
+        "pause",
+        function(){
+
+          audio.pause();
+
+        }
+      );
 
   }
   catch(e){}
@@ -1605,21 +2537,34 @@ if("mediaSession" in navigator){
 }
 
 
-/* SERVICE WORKER */
+/* =========================
+   SERVICE WORKER
+========================= */
 
-if("serviceWorker" in navigator){
+if(
+  "serviceWorker"
+  in navigator
+){
 
-  window.addEventListener("load",function(){
+  window.addEventListener(
+    "load",
+    function(){
 
-    navigator.serviceWorker
-      .register("./sw.js")
-      .catch(function(){});
+      navigator
+        .serviceWorker
+        .register("./sw.js")
+        .catch(
+          function(){}
+        );
 
-  });
+    }
+  );
 
 }
 
 </script>
 
+
 </body>
+
 </html>
