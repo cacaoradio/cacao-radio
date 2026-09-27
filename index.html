@@ -384,18 +384,15 @@ main{
 .now-label{
   position:relative;
   z-index:2;
-
   font-size:14px;
   font-weight:900;
   letter-spacing:.5px;
-
   margin-bottom:15px;
 }
 
 .now-wrap{
   position:relative;
   z-index:2;
-
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -403,7 +400,6 @@ main{
 
 .now-cover{
   display:block;
-
   width:220px;
   height:220px;
   max-width:82vw;
@@ -453,9 +449,11 @@ main{
   position:absolute;
   left:50%;
   bottom:56px;
+
   transform:translateX(-50%);
 
   width:115px;
+
   z-index:4;
 
   display:flex;
@@ -471,7 +469,8 @@ main{
   height:auto;
   object-fit:contain;
 
-  filter:drop-shadow(0 4px 4px rgba(59,29,18,.25));
+  filter:
+    drop-shadow(0 4px 4px rgba(59,29,18,.25));
 }
 
 /* =========================
@@ -491,19 +490,23 @@ main{
 
   padding:7px 15px;
 
+  /* écriture chocolat */
   color:#54230f;
 
   font-weight:900;
 
-  /* TEXTE LÉGÈREMENT PLUS GROS */
+  /* légèrement plus gros */
   font-size:17px;
 
   text-decoration:none;
 
   display:grid;
+
+  /* colonne icône / texte / équilibre */
   grid-template-columns:38px 1fr 38px;
 
   align-items:center;
+
   text-align:center;
 
   gap:10px;
@@ -521,15 +524,20 @@ main{
 
   object-fit:contain;
 
-  justify-self:center;
   grid-column:1;
+  grid-row:1;
 
-  filter:drop-shadow(0 2px 2px rgba(60,22,7,.28));
+  justify-self:center;
+  align-self:center;
+
+  filter:
+    drop-shadow(0 2px 2px rgba(60,22,7,.28));
 }
 
 .history-btn span,
 .btn span{
   grid-column:2;
+  grid-row:1;
   text-align:center;
 }
 
@@ -539,15 +547,20 @@ main{
 
 /* =========================
    CONTACT
-   ALIGNÉ À GAUCHE COMME LES AUTRES
+   ENVELOPPE À GAUCHE
 ========================= */
 
 .contact-envelope{
+  display:block;
+
   width:32px;
   height:24px;
 
   grid-column:1;
+  grid-row:1;
+
   justify-self:center;
+  align-self:center;
 
   position:relative;
 
@@ -570,14 +583,25 @@ main{
 
 .contact-envelope::before{
   left:0;
+
   transform:rotate(35deg);
   transform-origin:left center;
 }
 
 .contact-envelope::after{
   right:0;
+
   transform:rotate(-35deg);
   transform-origin:right center;
+}
+
+/* texte Contact au centre,
+   enveloppe conservée à gauche */
+
+.btn .contact-envelope + span{
+  grid-column:2;
+  grid-row:1;
+  text-align:center;
 }
 
 /* =========================
@@ -586,11 +610,16 @@ main{
 
 .history-modal{
   display:none;
+
   position:fixed;
   inset:0;
+
   z-index:9999;
+
   background:rgba(35,16,9,.72);
+
   padding:18px;
+
   align-items:center;
   justify-content:center;
 }
@@ -599,7 +628,9 @@ main{
   width:min(390px,100%);
   max-height:92vh;
   overflow:auto;
+
   background:#fff8ef;
+
   border-radius:18px;
   padding:12px;
 }
@@ -608,27 +639,36 @@ main{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   margin:2px 2px 10px;
+
   font-weight:800;
   font-size:17px;
 }
 
 .history-close{
   border:0;
+
   width:38px;
   height:38px;
+
   border-radius:50%;
+
   background:var(--brown);
   color:#fff;
+
   font-size:22px;
 }
 
 .history-frame{
   display:block;
+
   width:100%;
   height:556px;
+
   border:0;
   border-radius:12px;
+
   background:#371506;
 }
 
@@ -639,18 +679,24 @@ main{
 .mode-emploi-bear{
   display:flex;
   justify-content:center;
+
   width:100%;
+
   margin:16px 0 8px;
 }
 
 .mode-emploi-bear img{
   display:block;
+
   width:145px;
   max-width:42%;
+
   height:auto;
+
   object-fit:contain;
 
-  filter:drop-shadow(0 5px 5px rgba(59,29,18,.28));
+  filter:
+    drop-shadow(0 5px 5px rgba(59,29,18,.28));
 }
 
 /* =========================
@@ -659,19 +705,25 @@ main{
 
 .fiches-mode-emploi{
   width:100%;
+
   display:flex;
   justify-content:center;
   align-items:flex-start;
+
   margin:0 auto 12px;
 }
 
 .fiches-mode-emploi img{
   display:block;
+
   width:100%;
   max-width:480px;
   height:auto;
+
   object-fit:contain;
+
   margin:0 auto;
+
   border:0;
   background:transparent;
 }
@@ -682,9 +734,13 @@ main{
 
 footer{
   text-align:center;
+
   color:#fff5e9;
+
   font-size:12px;
+
   margin-top:10px;
+
   text-shadow:0 1px 3px #3b1d12;
 }
 
@@ -868,19 +924,31 @@ Météo
 class="card panel choco-white"
 id="alarmPanel">
 
-<strong>Programmer le réveil</strong><br>
+<strong>Programmer le réveil</strong>
 
-<input type="time" id="alarmTime"><br>
+<br>
 
-<button class="action" onclick="setAlarm()">
+<input
+type="time"
+id="alarmTime">
+
+<br>
+
+<button
+class="action"
+onclick="setAlarm()">
 Activer
 </button>
 
-<button class="cancel" onclick="cancelAlarm()">
+<button
+class="cancel"
+onclick="cancelAlarm()">
 Annuler
 </button>
 
-<div class="info" id="alarmInfo">
+<div
+class="info"
+id="alarmInfo">
 Aucun réveil programmé
 </div>
 
@@ -893,28 +961,38 @@ Aucun réveil programmé
 class="card panel choco-white"
 id="sleepPanel">
 
-<strong>Mise en veille</strong><br>
+<strong>Mise en veille</strong>
+
+<br>
 
 <select id="sleepTime">
+
 <option value="15">15 minutes</option>
 <option value="30">30 minutes</option>
 <option value="45">45 minutes</option>
 <option value="60">1 heure</option>
 <option value="90">1 h 30</option>
 <option value="120">2 heures</option>
+
 </select>
 
 <br>
 
-<button class="action" onclick="setSleep()">
+<button
+class="action"
+onclick="setSleep()">
 Démarrer
 </button>
 
-<button class="cancel" onclick="cancelSleep()">
+<button
+class="cancel"
+onclick="cancelSleep()">
 Annuler
 </button>
 
-<div class="info" id="sleepInfo">
+<div
+class="info"
+id="sleepInfo">
 Aucune minuterie active
 </div>
 
@@ -927,7 +1005,9 @@ Aucune minuterie active
 class="card panel choco-white"
 id="weatherPanel">
 
-<strong>La météo chez vous</strong><br>
+<strong>La météo chez vous</strong>
+
+<br>
 
 <input
 id="city"
@@ -936,11 +1016,15 @@ placeholder="Votre ville">
 
 <br>
 
-<button class="action" onclick="getWeather()">
+<button
+class="action"
+onclick="getWeather()">
 Afficher la météo
 </button>
 
-<div class="info" id="weatherResult">
+<div
+class="info"
+id="weatherResult">
 Entrez une ville pour afficher la météo.
 </div>
 
@@ -949,11 +1033,14 @@ Entrez une ville pour afficher la météo.
 
 <!-- EN CE MOMENT -->
 
-<section class="card now-card choco-white">
+<section
+class="card now-card choco-white">
 
 <div class="now-label">
+
 <span class="dot"></span>
 EN CE MOMENT
+
 </div>
 
 <div class="now-wrap">
@@ -966,11 +1053,15 @@ alt="Pochette">
 
 <div class="now-text">
 
-<div class="now-title" id="nowTitle">
+<div
+class="now-title"
+id="nowTitle">
 Cacao Radio
 </div>
 
-<div class="now-artist" id="nowArtist">
+<div
+class="now-artist"
+id="nowArtist">
 Chargement du titre…
 </div>
 
@@ -1001,16 +1092,14 @@ class="icon-inline"
 src="icon-historique.png"
 alt="">
 
-<span>
-Voir les 20 derniers titres
-</span>
+<span>Voir les 20 derniers titres</span>
 
 </button>
 
 </div>
 
 
-<!-- MODALE -->
+<!-- MODALE HISTORIQUE -->
 
 <div
 class="history-modal"
@@ -1111,7 +1200,8 @@ alt="">
 
 <a
 class="btn choco-white"
-href="mailto:cacaoradiostation@gmail.com">
+href="mailto:cacaoradiostation@gmail.com"
+aria-label="Contacter Cacao Radio">
 
 <span
 class="contact-envelope"
@@ -1183,7 +1273,6 @@ document.getElementById("logoAnime");
 
 let sleepTimer=null;
 let alarmTimer=null;
-
 let firstPlay=true;
 
 
