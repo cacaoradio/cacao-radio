@@ -304,34 +304,35 @@ main{
 }
 
 
-/* =========================
+/* ==========================================
    CHOCOLAT BLANC
-========================= */
+   NOUVEAU DEGRADE PLUS DOUX ET HOMOGENE
+========================================== */
 
 .choco-white{
   position:relative;
   overflow:hidden;
 
-  background-color:#f6e2a4;
+  background-color:#f5dda0;
 
   background-image:
     linear-gradient(
-      145deg,
-      rgba(255,255,255,.90),
-      rgba(255,250,224,.60) 25%,
-      rgba(244,218,148,.35) 58%,
-      rgba(214,171,81,.18)
+      180deg,
+      rgba(255,248,218,.42) 0%,
+      rgba(250,232,184,.24) 35%,
+      rgba(245,220,158,.18) 70%,
+      rgba(232,196,120,.16) 100%
     ),
     url("chocolat-blanc.jpg");
 
   background-size:cover;
   background-position:center;
 
-  border:2px solid rgba(255,250,224,.95);
+  border:2px solid rgba(255,248,220,.92);
 
   box-shadow:
-    inset 0 3px 3px rgba(255,255,255,.90),
-    inset 0 -4px 6px rgba(156,105,37,.22),
+    inset 0 2px 3px rgba(255,255,255,.55),
+    inset 0 -3px 5px rgba(156,105,37,.16),
     0 6px 10px rgba(54,22,8,.25);
 }
 
@@ -343,7 +344,7 @@ main{
 
   border-radius:inherit;
 
-  border-top:1px solid rgba(255,255,255,.85);
+  border-top:1px solid rgba(255,255,255,.45);
 
   pointer-events:none;
 }
@@ -490,9 +491,9 @@ main{
 }
 
 
-/* =================================
-   EN CE MOMENT - NOUVELLE VERSION
-================================= */
+/* =========================
+   EN CE MOMENT
+========================= */
 
 .now-card{
   padding:20px 18px 22px;
@@ -520,9 +521,6 @@ main{
   color:#4a210f;
 }
 
-
-/* présentation verticale */
-
 .now-wrap{
   position:relative;
   z-index:2;
@@ -535,9 +533,6 @@ main{
 
   width:100%;
 }
-
-
-/* GRANDE POCHETTE CENTRÉE */
 
 .now-cover{
   display:block;
@@ -561,9 +556,6 @@ main{
   margin:0 auto 16px;
 }
 
-
-/* TEXTE SOUS LA POCHETTE */
-
 .now-text{
   width:100%;
 
@@ -573,9 +565,6 @@ main{
 
   padding:0 8px;
 }
-
-
-/* TITRE */
 
 .now-title{
   font-family:Georgia,serif;
@@ -598,9 +587,6 @@ main{
   word-break:normal;
   hyphens:none;
 }
-
-
-/* ARTISTE */
 
 .now-artist{
   font-family:Arial,sans-serif;
@@ -961,7 +947,6 @@ Prêt à écouter
 
 <div class="cacao-marquee-track">
 
-
 <span class="marquee-text">
 CACAO RADIO
 </span>
@@ -970,7 +955,6 @@ CACAO RADIO
   class="marquee-bear-img bear-standing"
   src="ourson-lait-debout.png"
   alt="">
-
 
 <span class="marquee-text">
 CACAO RADIO
@@ -981,7 +965,6 @@ CACAO RADIO
   src="ourson-blanc-tablette.png"
   alt="">
 
-
 <span class="marquee-text">
 CACAO RADIO
 </span>
@@ -990,7 +973,6 @@ CACAO RADIO
   class="marquee-bear-img bear-dark"
   src="ourson-noir-tablette.png"
   alt="">
-
 
 <span class="marquee-text">
 CACAO RADIO
@@ -1001,7 +983,6 @@ CACAO RADIO
   src="ourson-lait-allonge.png"
   alt="">
 
-
 <span class="marquee-text">
 CACAO RADIO
 </span>
@@ -1010,7 +991,6 @@ CACAO RADIO
   class="marquee-bear-img bear-standing"
   src="ourson-lait-debout.png"
   alt="">
-
 
 <span class="marquee-text">
 CACAO RADIO
@@ -1021,7 +1001,6 @@ CACAO RADIO
   src="ourson-blanc-tablette.png"
   alt="">
 
-
 <span class="marquee-text">
 CACAO RADIO
 </span>
@@ -1030,7 +1009,6 @@ CACAO RADIO
   class="marquee-bear-img bear-dark"
   src="ourson-noir-tablette.png"
   alt="">
-
 
 <span class="marquee-text">
 CACAO RADIO
@@ -1062,7 +1040,6 @@ Réveil
 
 </button>
 
-
 <button
   class="tool choco-white"
   onclick="openPanel('sleepPanel')">
@@ -1075,7 +1052,6 @@ Réveil
 Minuterie
 
 </button>
-
 
 <button
   class="tool choco-white"
@@ -1099,9 +1075,7 @@ Météo
   class="card panel choco-white"
   id="alarmPanel">
 
-<strong>
-Programmer le réveil
-</strong>
+<strong>Programmer le réveil</strong>
 
 <br>
 
@@ -1144,9 +1118,7 @@ Aucun réveil programmé
   class="card panel choco-white"
   id="sleepPanel">
 
-<strong>
-Mise en veille
-</strong>
+<strong>Mise en veille</strong>
 
 <br>
 
@@ -1196,9 +1168,7 @@ Aucune minuterie active
   class="card panel choco-white"
   id="weatherPanel">
 
-<strong>
-La météo chez vous
-</strong>
+<strong>La météo chez vous</strong>
 
 <br>
 
@@ -1240,7 +1210,6 @@ EN CE MOMENT
 
 </div>
 
-
 <div class="now-wrap">
 
 <img
@@ -1248,7 +1217,6 @@ EN CE MOMENT
   id="nowCover"
   src="icon-192.png"
   alt="Pochette">
-
 
 <div class="now-text">
 
@@ -1330,7 +1298,6 @@ Voir les 20 derniers titres
 
 <div class="links">
 
-
 <a
   class="btn choco-white"
   href="https://cacaoradio.com"
@@ -1389,9 +1356,7 @@ Voir les 20 derniers titres
   src="icon-partage.png"
   alt="">
 
-<span>
-Partager l'application
-</span>
+<span>Partager l'application</span>
 
 </button>
 
@@ -1429,9 +1394,7 @@ Installer Cacao Radio
 
 </h3>
 
-<strong>
-Sur iPhone :
-</strong>
+<strong>Sur iPhone :</strong>
 
 <br>
 
@@ -1442,9 +1405,7 @@ Ouvrez cette page dans
 
 <br><br>
 
-<strong>
-Sur Android :
-</strong>
+<strong>Sur Android :</strong>
 
 <br>
 
@@ -1458,7 +1419,7 @@ Ouvrez cette page dans
 </section>
 
 
-<!-- REVEIL INFO -->
+<!-- INFORMATION REVEIL -->
 
 <section
   class="install alarm-warning choco-white">
