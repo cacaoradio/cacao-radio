@@ -30,10 +30,7 @@ body{
   background-color:#6b321d;
 
   background-image:
-    linear-gradient(
-      rgba(75,31,13,.10),
-      rgba(75,31,13,.10)
-    ),
+    linear-gradient(rgba(75,31,13,.10),rgba(75,31,13,.10)),
     url("chocolat-lait.jpg");
 
   background-size:520px auto;
@@ -150,7 +147,6 @@ main{
     opacity:1;
     transform:scale(1);
   }
-
   50%{
     opacity:.35;
     transform:scale(.65);
@@ -161,7 +157,6 @@ main{
   0%,100%{
     box-shadow:0 0 0 0 rgba(255,255,255,.15);
   }
-
   50%{
     box-shadow:0 0 0 5px rgba(255,255,255,.30);
   }
@@ -264,7 +259,6 @@ main{
   from{
     transform:translateX(0);
   }
-
   to{
     transform:translateX(-50%);
   }
@@ -278,6 +272,7 @@ main{
 .choco-white{
   position:relative;
   overflow:hidden;
+
   background-color:#f3dda5;
 
   background-image:
@@ -658,11 +653,30 @@ button.btn{
   position:relative;
   overflow:hidden;
   margin:0 35px 14px;
-  padding:18px;
+
+  /* plus d'espace en haut pour la tranche chocolat */
+  padding:25px 18px 18px;
+
   border-radius:22px;
   font-size:13px;
   line-height:1.55;
   color:#54230f;
+}
+
+
+/* TRANCHE CHOCOLAT
+   À LA PLACE DE LA BARRE SOMBRE */
+
+.install::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:8px;
+  background:#6b321d;
+  border-radius:22px 22px 0 0;
+  z-index:1;
 }
 
 .install h3{
@@ -920,7 +934,6 @@ Chargement du titre…
 <button class="history-btn choco-white" onclick="openHistory()">
 
 <img class="icon-inline" src="icon-historique.png" alt="">
-
 <span>Voir les 20 derniers titres</span>
 
 </button>
@@ -1018,9 +1031,7 @@ Chargement du titre…
 </div>
 
 
-<!-- =======================
-     NOUNOURS MODE D'EMPLOI
-======================= -->
+<!-- NOUNOURS MODE D'EMPLOI -->
 
 <div class="mode-emploi-bear">
 
