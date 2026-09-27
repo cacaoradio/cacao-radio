@@ -183,7 +183,6 @@ main{
 
   border-top:1px solid rgba(255,255,255,.75);
   border-bottom:1px solid #9b592c;
-  box-shadow:0 2px 4px rgba(45,18,7,.20);
 }
 
 .cacao-marquee-track{
@@ -264,7 +263,7 @@ main{
 
 /* =========================
    CHOCOLAT BLANC
-   SANS BORDURE SOMBRE
+   AUCUNE BORDURE SOMBRE
 ========================= */
 
 .choco-white{
@@ -287,14 +286,7 @@ main{
 
   border:none;
   outline:none;
-
-  /*
-     L'ombre est uniquement dirigée vers le bas.
-     Plus de bande noire au-dessus.
-  */
-  box-shadow:
-    0 6px 8px rgba(55,22,8,.18),
-    inset 0 -2px 3px rgba(132,82,28,.08);
+  box-shadow:none;
 }
 
 
@@ -414,6 +406,12 @@ main{
   margin:18px 20px 20px;
   border-radius:28px;
   text-align:center;
+
+  /* sécurité supplémentaire :
+     aucune ombre ou bordure en haut */
+  border:none;
+  outline:none;
+  box-shadow:none;
 }
 
 .now-label{
@@ -682,9 +680,7 @@ footer{
 
 <section class="hero">
 
-<img
-  src="radio-cacao-player-vide.png"
-  alt="Cacao Radio">
+<img src="radio-cacao-player-vide.png" alt="Cacao Radio">
 
 <div class="player-overlay" id="playerOverlay">
 
@@ -883,7 +879,6 @@ Chargement du titre…
 <button class="history-btn choco-white" onclick="openHistory()">
 
 <img class="icon-inline" src="icon-historique.png" alt="">
-
 <span>Voir les 20 derniers titres</span>
 
 </button>
@@ -993,20 +988,14 @@ Installer Cacao Radio
 </h3>
 
 <strong>Sur iPhone :</strong><br>
-
-Ouvrez cette page dans
-<strong>Safari</strong>
-→ Partager →
-<strong>Ajouter à l’écran d’accueil</strong>.
+Ouvrez cette page dans <strong>Safari</strong> →
+Partager → <strong>Ajouter à l’écran d’accueil</strong>.
 
 <br><br>
 
 <strong>Sur Android :</strong><br>
-
-Ouvrez cette page dans
-<strong>Chrome</strong>
-→ menu ⋮ →
-<strong>Installer l’application</strong>.
+Ouvrez cette page dans <strong>Chrome</strong> →
+menu ⋮ → <strong>Installer l’application</strong>.
 
 </div>
 
@@ -1019,9 +1008,7 @@ Ouvrez cette page dans
 
 <div class="install-content">
 
-<h3>
-⏰ Important pour le réveil
-</h3>
+<h3>⏰ Important pour le réveil</h3>
 
 Pour que le réveil Cacao Radio fonctionne,
 <strong>laissez l’application ouverte en arrière-plan.</strong>
