@@ -134,7 +134,35 @@ main{
   background:#f23b35;
   margin-right:5px;
 }
+/* ANIMATION QUAND LA RADIO EST EN DIRECT */
 
+.player-overlay.live-playing .live .dot{
+  animation:livePulse 1.2s infinite;
+}
+
+.player-overlay.live-playing .play{
+  animation:playPulse 1.8s infinite;
+}
+
+@keyframes livePulse{
+  0%,100%{
+    opacity:1;
+    transform:scale(1);
+  }
+  50%{
+    opacity:.35;
+    transform:scale(.65);
+  }
+}
+
+@keyframes playPulse{
+  0%,100%{
+    box-shadow:0 0 0 0 rgba(255,255,255,.15);
+  }
+  50%{
+    box-shadow:0 0 0 5px rgba(255,255,255,.30);
+  }
+}
 .player-overlay .dot{
   background:#fff;
 }
@@ -755,7 +783,10 @@ play.addEventListener("click", async function(){
 audio.addEventListener("playing", function(){
 
   play.textContent = "❚❚";
-  status.textContent = "Cacao Radio à l'écoute";
+  status.textContent = "Cacao Radio en direct";
+
+  document.querySelector(".player-overlay")
+    .classList.add("live-playing");
 
 });
 
@@ -763,6 +794,9 @@ audio.addEventListener("pause", function(){
 
   play.textContent = "▶";
   status.textContent = "Prêt à écouter";
+
+  document.querySelector(".player-overlay")
+    .classList.remove("live-playing");
 
 });
 
