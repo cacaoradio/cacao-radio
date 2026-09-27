@@ -119,7 +119,9 @@ main{
   margin-right:5px;
 }
 
-.player-overlay .dot{background:#fff}
+.player-overlay .dot{
+  background:#fff;
+}
 
 /* =========================
    PETIT LOGO SUR LA RADIO
@@ -129,13 +131,14 @@ main{
 .radio-logo{
   position:absolute;
 
-  /* position du petit médaillon */
   left:50%;
-  top:42.2%;
+
+  /* SEULE MODIFICATION :
+     logo + GIF descendus ensemble */
+  top:47%;
 
   transform:translate(-50%,-50%);
 
-  /* PETITE taille */
   width:48px;
   height:48px;
 
@@ -160,12 +163,10 @@ main{
   background:transparent;
 }
 
-/* logo immobile */
 #logoFixe{
   display:block;
 }
 
-/* GIF caché au départ */
 #logoAnime{
   display:none;
 }
@@ -458,19 +459,10 @@ main{
 
 .history-area{
   position:relative;
-
-  /* espace réservé au nounours */
   padding-top:125px;
-
   margin-top:0;
 }
 
-/*
-   Le nounours est placé par rapport
-   au bouton et non avec translateY.
-   Le bas de l'image arrive exactement
-   sur le bord supérieur du bouton.
-*/
 .history-bear{
   position:absolute;
 
@@ -528,7 +520,6 @@ main{
 
   display:grid;
 
-  /* toutes les icônes à gauche */
   grid-template-columns:38px 1fr 38px;
 
   align-items:center;
@@ -542,7 +533,6 @@ main{
   margin-bottom:11px;
 }
 
-/* TOUTES LES ICONES = 32px */
 .icon-inline{
   display:block;
 
@@ -571,6 +561,7 @@ main{
 }
 
 /* enveloppe contact */
+
 .contact-envelope{
   width:32px;
   height:24px;
@@ -1011,29 +1002,12 @@ id="sleepPanel">
 
 <select id="sleepTime">
 
-<option value="15">
-15 minutes
-</option>
-
-<option value="30">
-30 minutes
-</option>
-
-<option value="45">
-45 minutes
-</option>
-
-<option value="60">
-1 heure
-</option>
-
-<option value="90">
-1 h 30
-</option>
-
-<option value="120">
-2 heures
-</option>
+<option value="15">15 minutes</option>
+<option value="30">30 minutes</option>
+<option value="45">45 minutes</option>
+<option value="60">1 heure</option>
+<option value="90">1 h 30</option>
+<option value="120">2 heures</option>
 
 </select>
 
@@ -1106,7 +1080,6 @@ class="card now-card choco-white">
 <div class="now-label">
 
 <span class="dot"></span>
-
 EN CE MOMENT
 
 </div>
@@ -1124,17 +1097,13 @@ alt="Pochette">
 <div
 class="now-title"
 id="nowTitle">
-
 Cacao Radio
-
 </div>
 
 <div
 class="now-artist"
 id="nowArtist">
-
 Chargement du titre…
-
 </div>
 
 </div>
@@ -1189,9 +1158,7 @@ onclick="closeHistoryOutside(event)">
 <button
 class="history-close"
 onclick="closeHistory()">
-
 ×
-
 </button>
 
 </div>
@@ -1201,7 +1168,6 @@ class="history-frame"
 id="historyFrame"
 src="about:blank"
 allow="autoplay">
-
 </iframe>
 
 </div>
@@ -1223,9 +1189,7 @@ class="icon-inline"
 src="icon-site.png"
 alt="">
 
-<span>
-cacaoradio.com
-</span>
+<span>cacaoradio.com</span>
 
 </a>
 
@@ -1241,9 +1205,7 @@ class="icon-inline"
 src="icon-instagram.png"
 alt="">
 
-<span>
-Instagram
-</span>
+<span>Instagram</span>
 
 </a>
 
@@ -1259,9 +1221,7 @@ class="icon-inline"
 src="icon-facebook.png"
 alt="">
 
-<span>
-Facebook
-</span>
+<span>Facebook</span>
 
 </a>
 
@@ -1276,9 +1236,7 @@ class="icon-inline"
 src="icon-partage.png"
 alt="">
 
-<span>
-Partager l'application
-</span>
+<span>Partager l'application</span>
 
 </button>
 
@@ -1291,9 +1249,7 @@ href="mailto:cacaoradiostation@gmail.com">
 class="contact-envelope">
 </span>
 
-<span>
-Contact
-</span>
+<span>Contact</span>
 
 </a>
 
@@ -1431,10 +1387,6 @@ function showAnimatedLogo(){
 
 logoFixe.style.display="none";
 
-/*
-Ajout d'un petit paramètre pour
-relancer le GIF depuis le début.
-*/
 logoAnime.src=
 "logo-anime.gif?v="+Date.now();
 
@@ -1452,11 +1404,6 @@ play.addEventListener(
 async function(){
 
 if(audio.paused){
-
-/*
-Bienvenue uniquement au premier
-démarrage manuel.
-*/
 
 if(firstPlay){
 
@@ -1649,7 +1596,6 @@ return;
 const parts=value.split(":");
 
 const now=new Date();
-
 const alarm=new Date();
 
 alarm.setHours(
@@ -1763,11 +1709,9 @@ try{
 
 const geoResponse=
 await fetch(
-
 "https://geocoding-api.open-meteo.com/v1/search?name="+
 encodeURIComponent(city)+
 "&count=1&language=fr&format=json"
-
 );
 
 const geo=
@@ -1795,7 +1739,6 @@ city
 
 const weatherResponse=
 await fetch(
-
 "https://api.open-meteo.com/v1/forecast?latitude="+
 place.latitude+
 "&longitude="+
@@ -1803,7 +1746,6 @@ place.longitude+
 "&current=temperature_2m,weather_code"+
 "&daily=temperature_2m_max,temperature_2m_min"+
 "&timezone=auto&forecast_days=1"
-
 );
 
 const weather=
@@ -1870,7 +1812,6 @@ savedCity;
 ========================= */
 
 const STATUS_API=
-
 "https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=status";
 
 
@@ -1917,9 +1858,6 @@ cover.onerror=null;
 cover.src="icon-192.png";
 
 };
-
-
-/* écran verrouillé */
 
 if(
 "mediaSession"
@@ -2008,7 +1946,6 @@ const frame=
 document.getElementById("historyFrame");
 
 frame.src=
-
 "https://studio10.vestaradio.com/embed/player.php?radio=Cacao-Radio&style=vertical&color=%23713c23&color2=%233b1d12&bg=%23fff8ef&text=%233b1d12";
 
 modal.style.display="flex";
