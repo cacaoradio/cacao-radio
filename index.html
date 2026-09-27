@@ -15,9 +15,7 @@
   --line:#ead8c7;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
   margin:0;
@@ -47,29 +45,6 @@ main{
 }
 
 /* PLAYER */
-
-.player-overlay{
-  position:absolute;
-  left:25%;
-  top:57%;
-  width:50%;
-  height:22%;
-  display:block;
-  overflow:hidden;
-  pointer-events:none;
-}
-
-.player-overlay .live{
-  position:absolute;
-  left:0;
-  top:3%;
-  width:100%;
-  text-align:center;
-  font-size:10px;
-  line-height:1;
-  font-weight:800;
-  color:#fff;
-}
 
 .player-overlay{
   position:absolute;
@@ -126,6 +101,7 @@ main{
   accent-color:#fff;
   pointer-events:auto;
 }
+
 .dot{
   display:inline-block;
   width:8px;
@@ -134,7 +110,8 @@ main{
   background:#f23b35;
   margin-right:5px;
 }
-/* ANIMATION QUAND LA RADIO EST EN DIRECT */
+
+/* ANIMATION LIVE */
 
 .player-overlay.live-playing .live .dot{
   animation:livePulse 1.2s infinite;
@@ -163,6 +140,7 @@ main{
     box-shadow:0 0 0 5px rgba(255,255,255,.30);
   }
 }
+
 .player-overlay .dot{
   background:#fff;
 }
@@ -456,9 +434,7 @@ footer{
 
   <div class="controls">
 
-    <button class="play" id="play" aria-label="Lecture">
-      ▶
-    </button>
+    <button class="play" id="play" aria-label="Lecture">▶</button>
 
     <input
       class="vol"
@@ -478,6 +454,12 @@ footer{
 
 <span id="status" style="display:none"></span>
 
+<!-- MESSAGE D'ACCUEIL -->
+<audio id="welcomeAudio" preload="auto" playsinline>
+  <source src="welcome.m4a.m4a" type="audio/mp4">
+</audio>
+
+<!-- DIRECT CACAO RADIO -->
 <audio id="audio" preload="none" playsinline>
   <source src="https://stream10.vestaradio.com/Cacao-Radio">
 </audio>
@@ -509,21 +491,13 @@ footer{
 
 <section class="card panel" id="alarmPanel">
 
-<strong>⏰ Programmer le réveil</strong>
+<strong>⏰ Programmer le réveil</strong><br>
 
-<br>
+<input type="time" id="alarmTime"><br>
 
-<input type="time" id="alarmTime">
+<button class="action" onclick="setAlarm()">Activer</button>
 
-<br>
-
-<button class="action" onclick="setAlarm()">
-  Activer
-</button>
-
-<button class="cancel" onclick="cancelAlarm()">
-  Annuler
-</button>
+<button class="cancel" onclick="cancelAlarm()">Annuler</button>
 
 <div class="info" id="alarmInfo">
   Aucun réveil programmé
@@ -535,9 +509,7 @@ footer{
 
 <section class="card panel" id="sleepPanel">
 
-<strong>🌙 Mise en veille</strong>
-
-<br>
+<strong>🌙 Mise en veille</strong><br>
 
 <select id="sleepTime">
   <option value="15">15 minutes</option>
@@ -550,13 +522,9 @@ footer{
 
 <br>
 
-<button class="action" onclick="setSleep()">
-  Démarrer
-</button>
+<button class="action" onclick="setSleep()">Démarrer</button>
 
-<button class="cancel" onclick="cancelSleep()">
-  Annuler
-</button>
+<button class="cancel" onclick="cancelSleep()">Annuler</button>
 
 <div class="info" id="sleepInfo">
   Aucune minuterie active
@@ -568,13 +536,9 @@ footer{
 
 <section class="card panel" id="weatherPanel">
 
-<strong>☀️ La météo chez vous</strong>
+<strong>☀️ La météo chez vous</strong><br>
 
-<br>
-
-<input id="city" type="text" placeholder="Votre ville">
-
-<br>
+<input id="city" type="text" placeholder="Votre ville"><br>
 
 <button class="action" onclick="getWeather()">
   Afficher la météo
@@ -614,9 +578,7 @@ footer{
 </div>
 
 </div>
-
 </div>
-
 </section>
 
 <!-- HISTORIQUE -->
@@ -636,11 +598,7 @@ footer{
 
 <span>🕘 Historique</span>
 
-<button
-  class="history-close"
-  onclick="closeHistory()">
-  ×
-</button>
+<button class="history-close" onclick="closeHistory()">×</button>
 
 </div>
 
@@ -652,7 +610,6 @@ footer{
 </iframe>
 
 </div>
-
 </div>
 
 <!-- LIENS -->
@@ -664,9 +621,7 @@ footer{
   href="https://cacaoradio.com"
   target="_blank"
   rel="noopener">
-
   🌐 cacaoradio.com
-
 </a>
 
 <a
@@ -681,7 +636,6 @@ footer{
     alt="Instagram">
 
   <span>Instagram</span>
-
 </a>
 
 <a
@@ -696,7 +650,6 @@ footer{
     alt="Facebook">
 
   <span>Facebook</span>
-
 </a>
 
 </div>
@@ -707,9 +660,7 @@ footer{
 
 <h3>📲 Installer Cacao Radio</h3>
 
-<strong>🍎 Sur iPhone :</strong>
-
-<br>
+<strong>🍎 Sur iPhone :</strong><br>
 
 Ouvrez cette page dans <strong>Safari</strong> →
 Partager →
@@ -717,9 +668,7 @@ Partager →
 
 <br><br>
 
-<strong>🤖 Sur Android :</strong>
-
-<br>
+<strong>🤖 Sur Android :</strong><br>
 
 Ouvrez cette page dans <strong>Chrome</strong> →
 menu ⋮ →
@@ -729,9 +678,7 @@ menu ⋮ →
 
 <div class="warning">
 
-<strong>⏰ Important pour le réveil</strong>
-
-<br>
+<strong>⏰ Important pour le réveil</strong><br>
 
 Pour que le réveil Cacao Radio fonctionne,
 <strong>laissez l’application ouverte en arrière-plan.</strong>
@@ -755,50 +702,165 @@ ne peut pas être garanti.
 /* AUDIO */
 
 const audio = document.getElementById("audio");
+const welcomeAudio = document.getElementById("welcomeAudio");
 const play = document.getElementById("play");
 const status = document.getElementById("status");
 const volume = document.getElementById("volume");
+const playerOverlay = document.querySelector(".player-overlay");
 
 let sleepTimer = null;
 let alarmTimer = null;
 
+/*
+Le message d'accueil est joué une seule fois
+par ouverture de l'application.
+*/
+let welcomePlayed = false;
+let welcomePlaying = false;
+
+/* BOUTON PLAY */
+
 play.addEventListener("click", async function(){
 
-  if(audio.paused){
+  /*
+  Si le message d'accueil est actuellement en lecture,
+  le bouton permet de l'arrêter.
+  */
+  if(welcomePlaying){
 
-    status.textContent = "Connexion…";
+    welcomeAudio.pause();
+    welcomeAudio.currentTime = 0;
+
+    welcomePlaying = false;
+
+    play.textContent = "▶";
+    status.textContent = "Prêt à écouter";
+
+    return;
+  }
+
+  /*
+  Si le direct est déjà en lecture :
+  on le met en pause.
+  */
+  if(!audio.paused){
+
+    audio.pause();
+    return;
+  }
+
+  /*
+  PREMIER APPUI SUR PLAY :
+  on joue d'abord le message d'accueil.
+  */
+  if(!welcomePlayed){
+
+    welcomePlayed = true;
+    welcomePlaying = true;
+
+    status.textContent = "Bienvenue sur Cacao Radio";
+    play.textContent = "❚❚";
 
     try{
-      await audio.play();
+
+      welcomeAudio.currentTime = 0;
+      welcomeAudio.volume = Number(volume.value);
+
+      await welcomeAudio.play();
+
     }catch(e){
-      status.textContent = "Touchez ▶ pour écouter";
+
+      /*
+      Si le fichier d'accueil ne peut pas être lu,
+      on lance directement la radio.
+      */
+      welcomePlaying = false;
+
+      status.textContent = "Connexion…";
+
+      try{
+        await audio.play();
+      }catch(err){
+        play.textContent = "▶";
+        status.textContent = "Touchez ▶ pour écouter";
+      }
+
     }
 
-  }else{
-    audio.pause();
+    return;
+  }
+
+  /*
+  Les fois suivantes :
+  on lance directement le live.
+  */
+
+  status.textContent = "Connexion…";
+
+  try{
+
+    await audio.play();
+
+  }catch(e){
+
+    status.textContent = "Touchez ▶ pour écouter";
+
   }
 
 });
+
+/* FIN DU MESSAGE D'ACCUEIL */
+
+welcomeAudio.addEventListener("ended", async function(){
+
+  welcomePlaying = false;
+
+  status.textContent = "Connexion…";
+
+  try{
+
+    await audio.play();
+
+  }catch(e){
+
+    play.textContent = "▶";
+    status.textContent = "Touchez ▶ pour écouter";
+
+  }
+
+});
+
+/* DIRECT EN LECTURE */
 
 audio.addEventListener("playing", function(){
 
   play.textContent = "❚❚";
   status.textContent = "Cacao Radio en direct";
 
-  document.querySelector(".player-overlay")
-    .classList.add("live-playing");
+  playerOverlay.classList.add("live-playing");
 
 });
+
+/* DIRECT EN PAUSE */
 
 audio.addEventListener("pause", function(){
 
-  play.textContent = "▶";
+  /*
+  On ne remet le bouton ▶ que si
+  le message d'accueil n'est pas en lecture.
+  */
+
+  if(!welcomePlaying){
+    play.textContent = "▶";
+  }
+
   status.textContent = "Prêt à écouter";
 
-  document.querySelector(".player-overlay")
-    .classList.remove("live-playing");
+  playerOverlay.classList.remove("live-playing");
 
 });
+
+/* CONNEXION AU FLUX */
 
 audio.addEventListener("waiting", function(){
 
@@ -806,9 +868,14 @@ audio.addEventListener("waiting", function(){
 
 });
 
+/* VOLUME */
+
 volume.addEventListener("input", function(){
 
-  audio.volume = Number(volume.value);
+  const level = Number(volume.value);
+
+  audio.volume = level;
+  welcomeAudio.volume = level;
 
 });
 
@@ -920,6 +987,11 @@ function setAlarm(){
     "Réveil programmé à " + value;
 
   alarmTimer = setTimeout(async function(){
+
+    /*
+    Le réveil lance directement la radio :
+    pas de message d'accueil.
+    */
 
     try{
       await audio.play();
@@ -1261,5 +1333,6 @@ if("serviceWorker" in navigator){
 }
 
 </script>
+
 </body>
 </html>
