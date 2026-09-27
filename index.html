@@ -152,26 +152,59 @@ main{
   box-shadow:none;
 
   pointer-events:auto;
+.player-overlay{
+  position:absolute;
+  left:27%;
+  top:55%;
+  width:46%;
+  height:18%;
+  display:block;
+  overflow:hidden;
+  pointer-events:none;
+  color:#fff;
 }
 
-.play.playing{
-  animation:pulse 1.5s infinite;
+.player-overlay .live{
+  position:absolute;
+  left:0;
+  top:4%;
+  width:100%;
+  text-align:center;
+  font-size:10px;
+  line-height:1;
+  font-weight:800;
+  color:#fff;
 }
 
-@keyframes pulse{
-  50%{
-    box-shadow:0 0 0 6px rgba(255,255,255,.20);
-  }
+.player-overlay .controls{
+  position:absolute;
+  left:4%;
+  top:25%;
+  width:92%;
+  height:70%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
 }
 
-/* VOLUME */
+.play{
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  border:2px solid #fff;
+  border-radius:50%;
+  background:transparent;
+  color:#fff;
+  font-size:15px;
+  font-weight:bold;
+  pointer-events:auto;
+}
 
 .vol{
-  width:54%;
+  width:52%;
   min-width:0;
-
   accent-color:#fff;
-
   pointer-events:auto;
 }
 
