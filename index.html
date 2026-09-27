@@ -9,9 +9,7 @@
   name="viewport"
   content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-<meta
-  name="theme-color"
-  content="#3b1d12">
+<meta name="theme-color" content="#3b1d12">
 
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -221,7 +219,6 @@ main{
   flex-wrap:nowrap;
 
   width:max-content;
-
   white-space:nowrap;
 
   animation:cacaoScroll 24s linear infinite;
@@ -527,19 +524,21 @@ main{
   z-index:2;
 
   display:flex;
-
   align-items:center;
 
-  gap:14px;
+  gap:10px;
 
-  padding-right:6px;
+  padding-right:4px;
 }
 
-.now-cover{
-  width:155px;
-  height:155px;
 
-  flex:0 0 155px;
+/* POCHETTE AGRANDIE */
+
+.now-cover{
+  width:175px;
+  height:175px;
+
+  flex:0 0 175px;
 
   border-radius:18px;
 
@@ -553,38 +552,44 @@ main{
     0 5px 10px rgba(72,31,10,.25);
 }
 
+
 .now-text{
   min-width:0;
 
   flex:1;
 
-  padding-right:2px;
+  padding-right:0;
 }
+
+
+/* TITRE PLUS PETIT */
 
 .now-title{
   font-family:Georgia,serif;
 
-  font-size:19px;
+  font-size:16px;
 
   font-weight:900;
 
-  line-height:1.12;
+  line-height:1.08;
 
   margin-bottom:7px;
 
   color:#592915;
 
-  overflow-wrap:anywhere;
+  overflow-wrap:normal;
+  word-break:normal;
+  hyphens:none;
 }
 
 .now-artist{
-  font-size:15px;
+  font-size:14px;
 
   font-weight:bold;
 
   color:#75412b;
 
-  line-height:1.25;
+  line-height:1.2;
 }
 
 
@@ -707,7 +712,6 @@ button.btn{
   padding:18px;
 
   align-items:center;
-
   justify-content:center;
 }
 
@@ -731,7 +735,6 @@ button.btn{
   display:flex;
 
   align-items:center;
-
   justify-content:space-between;
 
   margin:2px 2px 10px;
@@ -799,7 +802,6 @@ button.btn{
   display:flex;
 
   justify-content:center;
-
   align-items:center;
 
   gap:10px;
@@ -820,9 +822,6 @@ button.btn{
   position:relative;
   z-index:2;
 }
-
-
-/* CASE REVEIL SEPAREE */
 
 .alarm-warning{
   margin-top:0;
@@ -863,9 +862,7 @@ footer{
 <main>
 
 
-<!-- =====================================
-     RADIO
-===================================== -->
+<!-- RADIO -->
 
 <section class="hero">
 
@@ -880,7 +877,6 @@ footer{
 <div class="live">
 
 <span class="dot"></span>
-
 EN DIRECT
 
 </div>
@@ -933,9 +929,7 @@ Prêt à écouter
 </section>
 
 
-<!-- =====================================
-     BANDEAU DEFILANT
-===================================== -->
+<!-- BANDEAU -->
 
 <div
   class="cacao-marquee"
@@ -984,8 +978,6 @@ CACAO RADIO
   alt="">
 
 
-<!-- DEUXIEME SERIE -->
-
 <span class="marquee-text">
 CACAO RADIO
 </span>
@@ -1030,9 +1022,7 @@ CACAO RADIO
 </div>
 
 
-<!-- =====================================
-     REVEIL / MINUTERIE / METEO
-===================================== -->
+<!-- OUTILS -->
 
 <div class="tools">
 
@@ -1080,9 +1070,7 @@ Météo
 </div>
 
 
-<!-- =====================================
-     PANNEAU REVEIL
-===================================== -->
+<!-- REVEIL -->
 
 <section
   class="card panel choco-white"
@@ -1127,9 +1115,7 @@ Aucun réveil programmé
 </section>
 
 
-<!-- =====================================
-     PANNEAU MINUTERIE
-===================================== -->
+<!-- MINUTERIE -->
 
 <section
   class="card panel choco-white"
@@ -1143,29 +1129,12 @@ Mise en veille
 
 <select id="sleepTime">
 
-<option value="15">
-15 minutes
-</option>
-
-<option value="30">
-30 minutes
-</option>
-
-<option value="45">
-45 minutes
-</option>
-
-<option value="60">
-1 heure
-</option>
-
-<option value="90">
-1 h 30
-</option>
-
-<option value="120">
-2 heures
-</option>
+<option value="15">15 minutes</option>
+<option value="30">30 minutes</option>
+<option value="45">45 minutes</option>
+<option value="60">1 heure</option>
+<option value="90">1 h 30</option>
+<option value="120">2 heures</option>
 
 </select>
 
@@ -1198,9 +1167,7 @@ Aucune minuterie active
 </section>
 
 
-<!-- =====================================
-     PANNEAU METEO
-===================================== -->
+<!-- METEO -->
 
 <section
   class="card panel choco-white"
@@ -1238,9 +1205,7 @@ Entrez une ville pour afficher la météo.
 </section>
 
 
-<!-- =====================================
-     EN CE MOMENT
-===================================== -->
+<!-- EN CE MOMENT -->
 
 <section
   class="card now-card choco-white">
@@ -1248,7 +1213,6 @@ Entrez une ville pour afficher la météo.
 <div class="now-label">
 
 <span class="dot"></span>
-
 EN CE MOMENT
 
 </div>
@@ -1286,9 +1250,7 @@ Chargement du titre…
 </section>
 
 
-<!-- =====================================
-     HISTORIQUE
-===================================== -->
+<!-- HISTORIQUE -->
 
 <button
   class="history-btn choco-white"
@@ -1315,9 +1277,7 @@ Voir les 20 derniers titres
 
 <div class="history-head">
 
-<span>
-Historique
-</span>
+<span>Historique</span>
 
 <button
   class="history-close"
@@ -1342,9 +1302,7 @@ Historique
 </div>
 
 
-<!-- =====================================
-     LIENS
-===================================== -->
+<!-- LIENS -->
 
 <div class="links">
 
@@ -1360,9 +1318,7 @@ Historique
   src="icon-site.png"
   alt="">
 
-<span>
-cacaoradio.com
-</span>
+<span>cacaoradio.com</span>
 
 </a>
 
@@ -1378,9 +1334,7 @@ cacaoradio.com
   src="icon-instagram.png"
   alt="">
 
-<span>
-Instagram
-</span>
+<span>Instagram</span>
 
 </a>
 
@@ -1396,9 +1350,7 @@ Instagram
   src="icon-facebook.png"
   alt="">
 
-<span>
-Facebook
-</span>
+<span>Facebook</span>
 
 </a>
 
@@ -1431,21 +1383,16 @@ Partager l'application
 
 </span>
 
-<span>
-Contact
-</span>
+<span>Contact</span>
 
 </a>
 
 </div>
 
 
-<!-- =====================================
-     CASE 1 : INSTALLATION
-===================================== -->
+<!-- INSTALLATION -->
 
-<section
-  class="install choco-white">
+<section class="install choco-white">
 
 <div class="install-content">
 
@@ -1459,7 +1406,6 @@ Installer Cacao Radio
 
 </h3>
 
-
 <strong>
 Sur iPhone :
 </strong>
@@ -1472,7 +1418,6 @@ Ouvrez cette page dans
 <strong>Ajouter à l’écran d’accueil</strong>.
 
 <br><br>
-
 
 <strong>
 Sur Android :
@@ -1490,9 +1435,7 @@ Ouvrez cette page dans
 </section>
 
 
-<!-- =====================================
-     CASE 2 : INFORMATION REVEIL
-===================================== -->
+<!-- INFORMATION REVEIL -->
 
 <section
   class="install alarm-warning choco-white">
@@ -1523,16 +1466,11 @@ Cacao Radio • Easy Listening Radio
 
 </footer>
 
-
 </main>
 
 
 <script>
 
-
-/* =====================================
-   AUDIO
-===================================== */
 
 const audio =
 document.getElementById("audio");
@@ -1555,6 +1493,8 @@ document.getElementById("playerOverlay");
 let sleepTimer = null;
 let alarmTimer = null;
 
+
+/* AUDIO */
 
 play.addEventListener(
   "click",
@@ -1652,9 +1592,7 @@ volume.addEventListener(
 );
 
 
-/* =====================================
-   PANNEAUX
-===================================== */
+/* PANNEAUX */
 
 function openPanel(id){
 
@@ -1689,9 +1627,7 @@ function openPanel(id){
 }
 
 
-/* =====================================
-   MINUTERIE
-===================================== */
+/* MINUTERIE */
 
 function setSleep(){
 
@@ -1766,9 +1702,7 @@ function cancelSleep(){
 }
 
 
-/* =====================================
-   REVEIL
-===================================== */
+/* REVEIL */
 
 function setAlarm(){
 
@@ -1789,7 +1723,6 @@ function setAlarm(){
     return;
 
   }
-
 
   const parts =
   value.split(":");
@@ -1889,9 +1822,7 @@ function cancelAlarm(){
 }
 
 
-/* =====================================
-   METEO
-===================================== */
+/* METEO */
 
 const weatherCodes = {
 
@@ -2094,9 +2025,7 @@ if(savedCity){
 }
 
 
-/* =====================================
-   EN CE MOMENT
-===================================== */
+/* EN CE MOMENT */
 
 const STATUS_API =
 
@@ -2204,11 +2133,9 @@ async function updateNowPlaying(){
       if(artwork){
 
         metadata.artwork = [
-
           {
             src:artwork
           }
-
         ];
 
       }else{
@@ -2263,16 +2190,13 @@ async function updateNowPlaying(){
 
 updateNowPlaying();
 
-
 setInterval(
   updateNowPlaying,
   15000
 );
 
 
-/* =====================================
-   HISTORIQUE
-===================================== */
+/* HISTORIQUE */
 
 function openHistory(){
 
@@ -2350,9 +2274,7 @@ function closeHistoryOutside(event){
 }
 
 
-/* =====================================
-   PARTAGER
-===================================== */
+/* PARTAGER */
 
 async function shareApp(){
 
@@ -2408,9 +2330,7 @@ async function shareApp(){
 }
 
 
-/* =====================================
-   MEDIA SESSION
-===================================== */
+/* MEDIA SESSION */
 
 if(
   "mediaSession"
@@ -2422,30 +2342,20 @@ if(
     navigator
     .mediaSession
     .setActionHandler(
-
       "play",
-
       function(){
-
         audio.play();
-
       }
-
     );
 
 
     navigator
     .mediaSession
     .setActionHandler(
-
       "pause",
-
       function(){
-
         audio.pause();
-
       }
-
     );
 
   }catch(e){}
@@ -2453,9 +2363,7 @@ if(
 }
 
 
-/* =====================================
-   SERVICE WORKER
-===================================== */
+/* SERVICE WORKER */
 
 if(
   "serviceWorker"
@@ -2463,22 +2371,15 @@ if(
 ){
 
   window.addEventListener(
-
     "load",
-
     function(){
 
       navigator
       .serviceWorker
-      .register(
-        "./sw.js"
-      )
-      .catch(
-        function(){}
-      );
+      .register("./sw.js")
+      .catch(function(){});
 
     }
-
   );
 
 }
