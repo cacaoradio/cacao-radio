@@ -166,12 +166,14 @@ main{
   overflow:hidden;
   display:flex;
   align-items:center;
+
   background:linear-gradient(
     180deg,
     #fff0c9 0%,
     #f1d390 48%,
     #dfb867 100%
   );
+
   border-top:1px solid rgba(255,255,255,.75);
   border-bottom:1px solid #9b592c;
 }
@@ -198,6 +200,7 @@ main{
   font-weight:900;
   letter-spacing:-.6px;
   color:#783619;
+
   text-shadow:
     0 1px 0 #bd7040,
     0 2px 0 #4d1d0d,
@@ -238,6 +241,7 @@ main{
   position:relative;
   overflow:hidden;
   background-color:#f3dda5;
+
   background-image:
     linear-gradient(
       135deg,
@@ -246,6 +250,7 @@ main{
       rgba(206,166,91,.08) 100%
     ),
     url("chocolat-blanc.jpg");
+
   background-size:cover;
   background-position:center;
   border:none;
@@ -500,7 +505,9 @@ main{
   display:grid;
 }
 
-/* CONTACT */
+/* =========================
+   CONTACT
+========================= */
 
 .contact-envelope{
   display:block;
@@ -607,6 +614,32 @@ main{
   height:auto;
   object-fit:contain;
   filter:drop-shadow(0 5px 5px rgba(59,29,18,.28));
+}
+
+/* =========================
+   FICHE INSTALLATION
+========================= */
+
+.installation-app{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:8px auto 18px;
+}
+
+.installation-app img{
+  display:block;
+
+  /* TAILLE REDUITE */
+  width:65%;
+  max-width:310px;
+
+  height:auto;
+  object-fit:contain;
+  margin:0 auto;
+  border:0;
+  background:transparent;
 }
 
 /* =========================
@@ -822,21 +855,15 @@ id="sleepPanel">
 
 <br>
 
-<button
-class="action"
-onclick="setSleep()">
+<button class="action" onclick="setSleep()">
 Démarrer
 </button>
 
-<button
-class="cancel"
-onclick="cancelSleep()">
+<button class="cancel" onclick="cancelSleep()">
 Annuler
 </button>
 
-<div
-class="info"
-id="sleepInfo">
+<div class="info" id="sleepInfo">
 Aucune minuterie active
 </div>
 
@@ -939,10 +966,7 @@ href="https://cacaoradio.com"
 target="_blank"
 rel="noopener">
 
-<img
-class="icon-inline"
-src="icon-site.png"
-alt="">
+<img class="icon-inline" src="icon-site.png" alt="">
 
 <span>cacaoradio.com</span>
 
@@ -955,10 +979,7 @@ href="https://www.instagram.com/cacao_radio"
 target="_blank"
 rel="noopener">
 
-<img
-class="icon-inline"
-src="icon-instagram.png"
-alt="">
+<img class="icon-inline" src="icon-instagram.png" alt="">
 
 <span>Instagram</span>
 
@@ -971,10 +992,7 @@ href="https://www.facebook.com/share/1RcFB1YhKJ/"
 target="_blank"
 rel="noopener">
 
-<img
-class="icon-inline"
-src="icon-facebook.png"
-alt="">
+<img class="icon-inline" src="icon-facebook.png" alt="">
 
 <span>Facebook</span>
 
@@ -986,10 +1004,7 @@ class="btn choco-white"
 type="button"
 onclick="shareApp()">
 
-<img
-class="icon-inline"
-src="icon-partage.png"
-alt="">
+<img class="icon-inline" src="icon-partage.png" alt="">
 
 <span>Partager l'application</span>
 
@@ -1024,7 +1039,7 @@ alt="Nounours lisant le mode d'emploi">
 </div>
 
 
-<!-- INSTALLER CACAO RADIO -->
+<!-- FICHE INSTALLATION -->
 
 <div class="installation-app">
 
@@ -1162,9 +1177,7 @@ function(){
 
 play.textContent="❚❚";
 
-cacaoMarquee
-.classList
-.add("playing");
+cacaoMarquee.classList.add("playing");
 
 showAnimatedLogo();
 
@@ -1177,9 +1190,7 @@ function(){
 
 play.textContent="▶";
 
-cacaoMarquee
-.classList
-.remove("playing");
+cacaoMarquee.classList.remove("playing");
 
 showFixedLogo();
 
@@ -1266,11 +1277,7 @@ document.getElementById("sleepInfo")
 function cancelSleep(){
 
 if(sleepTimer){
-
-clearTimeout(
-sleepTimer
-);
-
+clearTimeout(sleepTimer);
 }
 
 sleepTimer=null;
@@ -1366,12 +1373,6 @@ localStorage.setItem(
 "weatherCity",
 city
 );
-
-
-/*
-2 jours de prévisions :
-aujourd'hui + demain
-*/
 
 const weatherResponse=
 await fetch(
@@ -1533,7 +1534,6 @@ if(!data.success){
 throw new Error();
 }
 
-
 const currentTitle=
 data.title ||
 data.now_playing ||
@@ -1569,9 +1569,7 @@ cover.onerror=
 function(){
 
 cover.onerror=null;
-
-cover.src=
-"icon-192.png";
+cover.src="icon-192.png";
 
 };
 
@@ -1616,11 +1614,8 @@ navigator.mediaSession.metadata=
 new MediaMetadata({
 
 title:currentTitle,
-
 artist:currentArtist,
-
 album:"Cacao Radio",
-
 artwork:artwork
 
 });
