@@ -330,6 +330,29 @@ main{
   color:#75412b;
 }
 
+/* NOUVEAUX BOUTONS DU TITRE */
+
+.track-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  width:100%;
+  margin-top:16px;
+}
+
+.track-action{
+  min-height:46px;
+  border:0;
+  border-radius:15px;
+  padding:7px 8px;
+  background:rgba(255,250,240,.72);
+  color:#592915;
+  font-size:13px;
+  font-weight:900;
+  line-height:1.2;
+  box-shadow:0 2px 5px rgba(72,31,10,.14);
+}
+
 /* =========================
    MINUTERIE + OURSON + METEO
 ========================= */
@@ -540,10 +563,11 @@ main{
 }
 
 /* =========================
-   MODALE HISTORIQUE
+   MODALES
 ========================= */
 
-.history-modal{
+.history-modal,
+.favorites-modal{
   display:none;
   position:fixed;
   inset:0;
@@ -554,7 +578,8 @@ main{
   justify-content:center;
 }
 
-.history-box{
+.history-box,
+.favorites-box{
   width:min(390px,100%);
   max-height:92vh;
   overflow:auto;
@@ -563,7 +588,8 @@ main{
   padding:12px;
 }
 
-.history-head{
+.history-head,
+.favorites-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -572,7 +598,8 @@ main{
   font-size:17px;
 }
 
-.history-close{
+.history-close,
+.favorites-close{
   border:0;
   width:38px;
   height:38px;
@@ -589,6 +616,46 @@ main{
   border:0;
   border-radius:12px;
   background:#371506;
+}
+
+/* FAVORIS */
+
+.favorites-empty{
+  padding:25px 12px;
+  text-align:center;
+  color:#75412b;
+  line-height:1.5;
+}
+
+.favorite-item{
+  display:grid;
+  grid-template-columns:1fr 42px;
+  gap:8px;
+  align-items:center;
+  padding:12px 6px;
+  border-bottom:1px solid rgba(113,60,35,.20);
+}
+
+.favorite-title{
+  font-weight:900;
+  color:#54230f;
+  margin-bottom:3px;
+}
+
+.favorite-artist{
+  font-size:13px;
+  color:#75412b;
+}
+
+.favorite-delete{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#eee1cb;
+  color:#713015;
+  font-size:18px;
+  font-weight:bold;
 }
 
 /* =========================
@@ -613,7 +680,7 @@ main{
 
 /* =========================
    FICHE INSTALLATION
-   AGRANDIE
+   INCHANGÉE : 492 PX
 ========================= */
 
 .installation-app{
@@ -776,6 +843,25 @@ Cacao Radio
 Chargement du titre…
 </div>
 
+<div class="track-actions">
+
+<button
+class="track-action"
+id="favoriteCurrentButton"
+type="button"
+onclick="addCurrentFavorite()">
+❤️ Ajouter aux favoris
+</button>
+
+<button
+class="track-action"
+type="button"
+onclick="shareCurrentTrack()">
+🔗 Partager ce titre
+</button>
+
+</div>
+
 </div>
 </div>
 
@@ -844,15 +930,11 @@ id="sleepPanel">
 
 <br>
 
-<button
-class="action"
-onclick="setSleep()">
+<button class="action" onclick="setSleep()">
 Démarrer
 </button>
 
-<button
-class="cancel"
-onclick="cancelSleep()">
+<button class="cancel" onclick="cancelSleep()">
 Annuler
 </button>
 
@@ -880,19 +962,34 @@ placeholder="Votre ville">
 
 <br>
 
-<button
-class="action"
-onclick="getWeather()">
+<button class="action" onclick="getWeather()">
 Afficher la météo
 </button>
 
-<div
-class="info"
-id="weatherResult">
+<div class="info" id="weatherResult">
 Entrez une ville pour afficher la météo.
 </div>
 
 </section>
+
+
+<!-- MES FAVORIS -->
+
+<div class="history-area">
+
+<button
+class="history-btn choco-white"
+onclick="openFavorites()">
+
+<span style="font-size:28px;grid-column:1;grid-row:1;">
+❤️
+</span>
+
+<span>Mes favoris</span>
+
+</button>
+
+</div>
 
 
 <!-- HISTORIQUE -->
@@ -912,6 +1009,33 @@ alt="">
 
 </button>
 
+</div>
+
+
+<!-- MODALE FAVORIS -->
+
+<div
+class="favorites-modal"
+id="favoritesModal"
+onclick="closeFavoritesOutside(event)">
+
+<div class="favorites-box">
+
+<div class="favorites-head">
+
+<span>❤️ Mes favoris</span>
+
+<button
+class="favorites-close"
+onclick="closeFavorites()">
+×
+</button>
+
+</div>
+
+<div id="favoritesList"></div>
+
+</div>
 </div>
 
 
@@ -966,7 +1090,6 @@ alt="">
 
 </a>
 
-
 <a
 class="btn choco-white"
 href="https://www.instagram.com/cacao_radio"
@@ -981,7 +1104,6 @@ alt="">
 <span>Instagram</span>
 
 </a>
-
 
 <a
 class="btn choco-white"
@@ -998,7 +1120,6 @@ alt="">
 
 </a>
 
-
 <button
 class="btn choco-white"
 type="button"
@@ -1012,7 +1133,6 @@ alt="">
 <span>Partager l'application</span>
 
 </button>
-
 
 <a
 class="btn choco-white"
@@ -1065,29 +1185,20 @@ Cacao Radio • Easy Listening Radio (2026)
    ELEMENTS
 ========================= */
 
-const audio=
-document.getElementById("audio");
-
-const welcomeAudio=
-document.getElementById("welcomeAudio");
-
-const play=
-document.getElementById("play");
-
-const volume=
-document.getElementById("volume");
-
-const cacaoMarquee=
-document.getElementById("cacaoMarquee");
-
-const logoFixe=
-document.getElementById("logoFixe");
-
-const logoAnime=
-document.getElementById("logoAnime");
+const audio=document.getElementById("audio");
+const welcomeAudio=document.getElementById("welcomeAudio");
+const play=document.getElementById("play");
+const volume=document.getElementById("volume");
+const cacaoMarquee=document.getElementById("cacaoMarquee");
+const logoFixe=document.getElementById("logoFixe");
+const logoAnime=document.getElementById("logoAnime");
 
 let sleepTimer=null;
 let firstPlay=true;
+
+let currentTrackTitle="Cacao Radio";
+let currentTrackArtist="Easy Listening Radio";
+let currentTrackCover="icon-192.png";
 
 
 /* =========================
@@ -1095,22 +1206,14 @@ let firstPlay=true;
 ========================= */
 
 function showFixedLogo(){
-
   logoFixe.style.display="block";
   logoAnime.style.display="none";
-
 }
 
-
 function showAnimatedLogo(){
-
   logoFixe.style.display="none";
-
-  logoAnime.src=
-  "logo-anime.gif?v="+Date.now();
-
+  logoAnime.src="logo-anime.gif?v="+Date.now();
   logoAnime.style.display="block";
-
 }
 
 
@@ -1131,7 +1234,6 @@ async function(){
       try{
 
         welcomeAudio.currentTime=0;
-
         await welcomeAudio.play();
 
         welcomeAudio.onended=
@@ -1178,30 +1280,20 @@ audio.addEventListener(
 function(){
 
   play.textContent="❚❚";
-
-  cacaoMarquee
-  .classList
-  .add("playing");
-
+  cacaoMarquee.classList.add("playing");
   showAnimatedLogo();
 
 });
-
 
 audio.addEventListener(
 "pause",
 function(){
 
   play.textContent="▶";
-
-  cacaoMarquee
-  .classList
-  .remove("playing");
-
+  cacaoMarquee.classList.remove("playing");
   showFixedLogo();
 
 });
-
 
 volume.addEventListener(
 "input",
@@ -1256,8 +1348,7 @@ function setSleep(){
 
   const minutes=
   Number(
-    document.getElementById("sleepTime")
-    .value
+    document.getElementById("sleepTime").value
   );
 
   document.getElementById("sleepInfo")
@@ -1278,7 +1369,6 @@ function setSleep(){
   },minutes*60000);
 
 }
-
 
 function cancelSleep(){
 
@@ -1325,7 +1415,6 @@ const weatherCodes={
 
 };
 
-
 async function getWeather(){
 
   const city=
@@ -1345,8 +1434,7 @@ async function getWeather(){
 
   }
 
-  result.textContent=
-  "Recherche…";
+  result.textContent="Recherche…";
 
   try{
 
@@ -1394,9 +1482,6 @@ async function getWeather(){
     const weather=
     await weatherResponse.json();
 
-
-    /* AUJOURD'HUI */
-
     const temperature=
     Math.round(
       weather.current.temperature_2m
@@ -1412,15 +1497,10 @@ async function getWeather(){
       weather.daily.temperature_2m_max[0]
     );
 
-    const todayCode=
-    weather.current.weather_code;
-
     const todayDescription=
-    weatherCodes[todayCode] ||
-    "Météo";
-
-
-    /* DEMAIN */
+    weatherCodes[
+      weather.current.weather_code
+    ] || "Météo";
 
     const tomorrowMin=
     Math.round(
@@ -1432,15 +1512,10 @@ async function getWeather(){
       weather.daily.temperature_2m_max[1]
     );
 
-    const tomorrowCode=
-    weather.daily.weather_code[1];
-
     const tomorrowDescription=
-    weatherCodes[tomorrowCode] ||
-    "Météo";
-
-
-    /* AFFICHAGE */
+    weatherCodes[
+      weather.daily.weather_code[1]
+    ] || "Météo";
 
     result.innerHTML=
 
@@ -1498,17 +1573,473 @@ async function getWeather(){
 
 }
 
-
 const savedCity=
-localStorage.getItem(
-  "weatherCity"
-);
+localStorage.getItem("weatherCity");
 
 if(savedCity){
 
-  document.getElementById("city")
-  .value=
+  document.getElementById("city").value=
   savedCity;
+
+}
+
+
+/* =========================
+   FAVORIS
+========================= */
+
+function getFavorites(){
+
+  try{
+
+    const saved=
+    localStorage.getItem(
+      "cacaoRadioFavorites"
+    );
+
+    return saved ?
+    JSON.parse(saved) :
+    [];
+
+  }catch(e){
+
+    return [];
+
+  }
+
+}
+
+
+function saveFavorites(favorites){
+
+  localStorage.setItem(
+    "cacaoRadioFavorites",
+    JSON.stringify(favorites)
+  );
+
+}
+
+
+function trackKey(title,artist){
+
+  return(
+    title.trim().toLowerCase()+
+    "||"+
+    artist.trim().toLowerCase()
+  );
+
+}
+
+
+function isCurrentFavorite(){
+
+  const favorites=
+  getFavorites();
+
+  const key=
+  trackKey(
+    currentTrackTitle,
+    currentTrackArtist
+  );
+
+  return favorites.some(
+    function(item){
+
+      return trackKey(
+        item.title,
+        item.artist
+      )===key;
+
+    }
+  );
+
+}
+
+
+function updateFavoriteButton(){
+
+  const button=
+  document.getElementById(
+    "favoriteCurrentButton"
+  );
+
+  if(!button){
+    return;
+  }
+
+  if(isCurrentFavorite()){
+
+    button.textContent=
+    "❤️ Dans mes favoris";
+
+  }else{
+
+    button.textContent=
+    "🤍 Ajouter aux favoris";
+
+  }
+
+}
+
+
+function addCurrentFavorite(){
+
+  if(
+    !currentTrackTitle ||
+    currentTrackTitle==="Cacao Radio"
+  ){
+
+    alert(
+      "Le titre en cours n'est pas encore disponible."
+    );
+
+    return;
+
+  }
+
+  let favorites=
+  getFavorites();
+
+  const key=
+  trackKey(
+    currentTrackTitle,
+    currentTrackArtist
+  );
+
+  const existingIndex=
+  favorites.findIndex(
+    function(item){
+
+      return trackKey(
+        item.title,
+        item.artist
+      )===key;
+
+    }
+  );
+
+
+  /* SI DEJA FAVORI : ON LE RETIRE */
+
+  if(existingIndex!==-1){
+
+    favorites.splice(
+      existingIndex,
+      1
+    );
+
+    saveFavorites(
+      favorites
+    );
+
+    updateFavoriteButton();
+
+    return;
+
+  }
+
+
+  /* AJOUT */
+
+  favorites.unshift({
+
+    title:
+    currentTrackTitle,
+
+    artist:
+    currentTrackArtist,
+
+    cover:
+    currentTrackCover,
+
+    date:
+    Date.now()
+
+  });
+
+
+  /* LIMITE A 100 FAVORIS */
+
+  if(favorites.length>100){
+
+    favorites=
+    favorites.slice(
+      0,
+      100
+    );
+
+  }
+
+
+  saveFavorites(
+    favorites
+  );
+
+  updateFavoriteButton();
+
+}
+
+
+function openFavorites(){
+
+  renderFavorites();
+
+  document.getElementById(
+    "favoritesModal"
+  )
+  .style.display=
+  "flex";
+
+  document.body.style.overflow=
+  "hidden";
+
+}
+
+
+function closeFavorites(){
+
+  document.getElementById(
+    "favoritesModal"
+  )
+  .style.display=
+  "none";
+
+  document.body.style.overflow=
+  "";
+
+}
+
+
+function closeFavoritesOutside(event){
+
+  if(
+    event.target.id===
+    "favoritesModal"
+  ){
+
+    closeFavorites();
+
+  }
+
+}
+
+
+function renderFavorites(){
+
+  const container=
+  document.getElementById(
+    "favoritesList"
+  );
+
+  const favorites=
+  getFavorites();
+
+  container.innerHTML="";
+
+
+  if(!favorites.length){
+
+    const empty=
+    document.createElement("div");
+
+    empty.className=
+    "favorites-empty";
+
+    empty.textContent=
+    "Vous n'avez encore aucun titre dans vos favoris.";
+
+    container.appendChild(
+      empty
+    );
+
+    return;
+
+  }
+
+
+  favorites.forEach(
+    function(item,index){
+
+      const row=
+      document.createElement("div");
+
+      row.className=
+      "favorite-item";
+
+
+      const text=
+      document.createElement("div");
+
+
+      const title=
+      document.createElement("div");
+
+      title.className=
+      "favorite-title";
+
+      title.textContent=
+      item.title;
+
+
+      const artist=
+      document.createElement("div");
+
+      artist.className=
+      "favorite-artist";
+
+      artist.textContent=
+      item.artist;
+
+
+      text.appendChild(
+        title
+      );
+
+      text.appendChild(
+        artist
+      );
+
+
+      const remove=
+      document.createElement("button");
+
+      remove.className=
+      "favorite-delete";
+
+      remove.type=
+      "button";
+
+      remove.textContent=
+      "×";
+
+      remove.setAttribute(
+        "aria-label",
+        "Supprimer ce favori"
+      );
+
+      remove.onclick=
+      function(){
+
+        deleteFavorite(
+          index
+        );
+
+      };
+
+
+      row.appendChild(
+        text
+      );
+
+      row.appendChild(
+        remove
+      );
+
+      container.appendChild(
+        row
+      );
+
+    }
+  );
+
+}
+
+
+function deleteFavorite(index){
+
+  const favorites=
+  getFavorites();
+
+  favorites.splice(
+    index,
+    1
+  );
+
+  saveFavorites(
+    favorites
+  );
+
+  renderFavorites();
+
+  updateFavoriteButton();
+
+}
+
+
+/* =========================
+   PARTAGER LE TITRE
+========================= */
+
+async function shareCurrentTrack(){
+
+  if(
+    !currentTrackTitle ||
+    currentTrackTitle==="Cacao Radio"
+  ){
+
+    alert(
+      "Le titre en cours n'est pas encore disponible."
+    );
+
+    return;
+
+  }
+
+
+  const message=
+  '🎵 J’écoute "'+
+  currentTrackTitle+
+  '" de '+
+  currentTrackArtist+
+  ' sur Cacao Radio – Easy Listening Radio';
+
+
+  const shareData={
+
+    title:
+    "Cacao Radio",
+
+    text:
+    message,
+
+    url:
+    "https://cacaoradio.com"
+
+  };
+
+
+  if(navigator.share){
+
+    try{
+
+      await navigator.share(
+        shareData
+      );
+
+    }catch(e){}
+
+  }else{
+
+    try{
+
+      await navigator.clipboard.writeText(
+        message+
+        "\nhttps://cacaoradio.com"
+      );
+
+      alert(
+        "Le titre a été copié."
+      );
+
+    }catch(e){
+
+      alert(
+        message
+      );
+
+    }
+
+  }
 
 }
 
@@ -1550,6 +2081,18 @@ async function updateNowPlaying(){
     "Easy Listening Radio";
 
 
+    currentTrackTitle=
+    currentTitle;
+
+    currentTrackArtist=
+    currentArtist;
+
+    currentTrackCover=
+    data.cover ||
+    data.logo ||
+    "icon-192.png";
+
+
     /* AFFICHAGE APPLICATION */
 
     document.getElementById("nowTitle")
@@ -1567,9 +2110,7 @@ async function updateNowPlaying(){
     document.getElementById("nowCover");
 
     cover.src=
-    data.cover ||
-    data.logo ||
-    "icon-192.png";
+    currentTrackCover;
 
     cover.onerror=
     function(){
@@ -1580,6 +2121,11 @@ async function updateNowPlaying(){
       "icon-192.png";
 
     };
+
+
+    /* ACTUALISE LE BOUTON FAVORI */
+
+    updateFavoriteButton();
 
 
     /* ANDROID / BLUETOOTH / VOITURE */
@@ -1621,13 +2167,17 @@ async function updateNowPlaying(){
         navigator.mediaSession.metadata=
         new MediaMetadata({
 
-          title:currentTitle,
+          title:
+          currentTitle,
 
-          artist:currentArtist,
+          artist:
+          currentArtist,
 
-          album:"Cacao Radio",
+          album:
+          "Cacao Radio",
 
-          artwork:artwork
+          artwork:
+          artwork
 
         });
 
@@ -1720,7 +2270,7 @@ function closeHistoryOutside(event){
 
 
 /* =========================
-   PARTAGE
+   PARTAGE APPLICATION
 ========================= */
 
 async function shareApp(){
@@ -1737,6 +2287,7 @@ async function shareApp(){
     "https://cacaoradio.github.io/cacao-radio/"
 
   };
+
 
   if(navigator.share){
 
