@@ -1389,27 +1389,84 @@ document.getElementById("sleepInfo")
    REVEIL
 ========================= */
 
+let alarmCheckInterval = null;
+
+function saveAlarm(alarmDate, displayTime){
+
+localStorage.setItem(
+"cacaoAlarmTime",
+alarmDate.getTime().toString()
+);
+
+localStorage.setItem(
+"cacaoAlarmDisplay",
+displayTime
+);
+
+}
+
+function restoreAlarm(){
+
+const savedAlarm =
+localStorage.getItem("cacaoAlarmTime");
+
+const savedDisplay =
+localStorage.getItem("cacaoAlarmDisplay");
+
+if(!savedAlarm){
+return;
+}
+
+const alarmTimestamp =
+Number(savedAlarm);
+
+const now =
+Date.now();
+
+if(alarmTimestamp > now){
+
+document.getElementById("alarmInfo")
+.textContent =
+"Réveil programmé à " +
+(savedDisplay || "");
+
+startAlarmWatcher();
+
+}else{
+
+localStorage.removeItem("cacaoAlarmTime");
+localStorage.removeItem("cacaoAlarmDisplay");
+
+}
+
+}
+
+
 function setAlarm(){
 
-cancelAlarm();
+cancelAlarm(false);
 
-const value=
+const value =
 document.getElementById("alarmTime").value;
 
 if(!value){
 
 document.getElementById("alarmInfo")
-.textContent=
+.textContent =
 "Choisissez une heure";
 
 return;
 
 }
 
-const parts=value.split(":");
+const parts =
+value.split(":");
 
-const now=new Date();
-const alarm=new Date();
+const now =
+new Date();
+
+const alarm =
+new Date();
 
 alarm.setHours(
 Number(parts[0]),
@@ -1418,52 +1475,182 @@ Number(parts[1]),
 0
 );
 
-if(alarm<=now){
+if(alarm <= now){
 
 alarm.setDate(
-alarm.getDate()+1
+alarm.getDate() + 1
 );
 
 }
 
-const delay=
-alarm.getTime()-
-now.getTime();
+saveAlarm(
+alarm,
+value
+);
 
 document.getElementById("alarmInfo")
-.textContent=
-"Réveil programmé à "+
+.textContent =
+"Réveil programmé à " +
 value;
 
-alarmTimer=
-setTimeout(
-async function(){
+startAlarmWatcher();
 
-try{
-await audio.play();
-}catch(e){}
+}
 
-},
-delay
+
+function startAlarmWatcher(){
+
+if(alarmCheckInterval){
+
+clearInterval(
+alarmCheckInterval
+);
+
+}
+
+checkAlarm();
+
+alarmCheckInterval =
+setInterval(
+checkAlarm,
+5000
 );
 
 }
 
 
-function cancelAlarm(){
+async function checkAlarm(){
 
-if(alarmTimer){
-clearTimeout(alarmTimer);
+const savedAlarm =
+localStorage.getItem("cacaoAlarmTime");
+
+if(!savedAlarm){
+return;
 }
 
-alarmTimer=null;
+const alarmTimestamp =
+Number(savedAlarm);
+
+const now =
+Date.now();
+
+if(now >= alarmTimestamp){
+
+if(alarmCheckInterval){
+
+clearInterval(
+alarmCheckInterval
+);
+
+alarmCheckInterval = null;
+
+}
+
+localStorage.removeItem(
+"cacaoAlarmTime"
+);
+
+localStorage.removeItem(
+"cacaoAlarmDisplay"
+);
 
 document.getElementById("alarmInfo")
-.textContent=
+.textContent =
+"⏰ Réveil déclenché";
+
+try{
+
+audio.volume =
+Number(volume.value);
+
+await audio.play();
+
+}catch(e){
+
+document.getElementById("alarmInfo")
+.textContent =
+"⏰ Réveil déclenché — appuyez sur ▶ pour lancer la radio";
+
+}
+
+}
+
+}
+
+
+function cancelAlarm(clearSaved = true){
+
+if(alarmTimer){
+
+clearTimeout(
+alarmTimer
+);
+
+}
+
+alarmTimer = null;
+
+if(alarmCheckInterval){
+
+clearInterval(
+alarmCheckInterval
+);
+
+alarmCheckInterval = null;
+
+}
+
+if(clearSaved){
+
+localStorage.removeItem(
+"cacaoAlarmTime"
+);
+
+localStorage.removeItem(
+"cacaoAlarmDisplay"
+);
+
+document.getElementById("alarmInfo")
+.textContent =
 "Aucun réveil programmé";
 
 }
 
+}
+
+
+/* Restaurer automatiquement le réveil
+   après rechargement de l'application */
+
+restoreAlarm();
+
+
+/* Vérifier immédiatement lorsque
+   l'utilisateur revient dans l'application */
+
+document.addEventListener(
+"visibilitychange",
+function(){
+
+if(
+document.visibilityState === "visible"
+){
+
+checkAlarm();
+
+}
+
+}
+);
+
+window.addEventListener(
+"focus",
+function(){
+
+checkAlarm();
+
+}
+);
 
 /* =========================
    METEO
