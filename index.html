@@ -625,8 +625,8 @@ main{
 
 .installation-app img{
   display:block;
-  width:80%;
-  max-width:390px;
+  width:95%;
+  max-width:470px;
   height:auto;
   object-fit:contain;
   margin:0 auto;
@@ -657,17 +657,20 @@ footer{
 
 <section class="hero">
 
-<img class="radio-background"
+<img
+class="radio-background"
 src="radio-cacao-player-vide.png"
 alt="Cacao Radio">
 
 <div class="radio-logo">
 
-<img id="logoFixe"
+<img
+id="logoFixe"
 src="logo-fixe.png"
 alt="Cacao Radio">
 
-<img id="logoAnime"
+<img
+id="logoAnime"
 src="logo-anime.gif"
 alt="Cacao Radio">
 
@@ -756,7 +759,8 @@ EN CE MOMENT
 
 <div class="now-wrap">
 
-<img class="now-cover"
+<img
+class="now-cover"
 id="nowCover"
 src="icon-192.png"
 alt="Pochette">
@@ -785,7 +789,8 @@ Chargement du titre…
 class="tool choco-white"
 onclick="openPanel('sleepPanel')">
 
-<img class="icon-choco"
+<img
+class="icon-choco"
 src="icon-minuterie.png"
 alt="">
 
@@ -805,7 +810,8 @@ alt="Nounours Cacao Radio">
 class="tool choco-white"
 onclick="openPanel('weatherPanel')">
 
-<img class="icon-choco"
+<img
+class="icon-choco"
 src="icon-meteo.png"
 alt="">
 
@@ -818,7 +824,9 @@ Météo
 
 <!-- MINUTERIE -->
 
-<section class="card panel choco-white" id="sleepPanel">
+<section
+class="card panel choco-white"
+id="sleepPanel">
 
 <strong>Mise en veille</strong>
 
@@ -835,11 +843,15 @@ Météo
 
 <br>
 
-<button class="action" onclick="setSleep()">
+<button
+class="action"
+onclick="setSleep()">
 Démarrer
 </button>
 
-<button class="cancel" onclick="cancelSleep()">
+<button
+class="cancel"
+onclick="cancelSleep()">
 Annuler
 </button>
 
@@ -852,7 +864,9 @@ Aucune minuterie active
 
 <!-- METEO -->
 
-<section class="card panel choco-white" id="weatherPanel">
+<section
+class="card panel choco-white"
+id="weatherPanel">
 
 <strong>La météo chez vous</strong>
 
@@ -865,11 +879,15 @@ placeholder="Votre ville">
 
 <br>
 
-<button class="action" onclick="getWeather()">
+<button
+class="action"
+onclick="getWeather()">
 Afficher la météo
 </button>
 
-<div class="info" id="weatherResult">
+<div
+class="info"
+id="weatherResult">
 Entrez une ville pour afficher la météo.
 </div>
 
@@ -884,7 +902,8 @@ Entrez une ville pour afficher la météo.
 class="history-btn choco-white"
 onclick="openHistory()">
 
-<img class="icon-inline"
+<img
+class="icon-inline"
 src="icon-historique.png"
 alt="">
 
@@ -937,10 +956,15 @@ href="https://cacaoradio.com"
 target="_blank"
 rel="noopener">
 
-<img class="icon-inline" src="icon-site.png" alt="">
+<img
+class="icon-inline"
+src="icon-site.png"
+alt="">
+
 <span>cacaoradio.com</span>
 
 </a>
+
 
 <a
 class="btn choco-white"
@@ -948,10 +972,15 @@ href="https://www.instagram.com/cacao_radio"
 target="_blank"
 rel="noopener">
 
-<img class="icon-inline" src="icon-instagram.png" alt="">
+<img
+class="icon-inline"
+src="icon-instagram.png"
+alt="">
+
 <span>Instagram</span>
 
 </a>
+
 
 <a
 class="btn choco-white"
@@ -959,27 +988,41 @@ href="https://www.facebook.com/share/1RcFB1YhKJ/"
 target="_blank"
 rel="noopener">
 
-<img class="icon-inline" src="icon-facebook.png" alt="">
+<img
+class="icon-inline"
+src="icon-facebook.png"
+alt="">
+
 <span>Facebook</span>
 
 </a>
+
 
 <button
 class="btn choco-white"
 type="button"
 onclick="shareApp()">
 
-<img class="icon-inline" src="icon-partage.png" alt="">
+<img
+class="icon-inline"
+src="icon-partage.png"
+alt="">
+
 <span>Partager l'application</span>
 
 </button>
+
 
 <a
 class="btn choco-white"
 href="mailto:cacaoradiostation@gmail.com"
 aria-label="Contacter Cacao Radio">
 
-<i class="contact-envelope" aria-hidden="true"></i>
+<i
+class="contact-envelope"
+aria-hidden="true">
+</i>
+
 <span>Contact</span>
 
 </a>
@@ -1030,23 +1073,36 @@ let sleepTimer=null;
 let firstPlay=true;
 
 
-/* LOGO FIXE / GIF */
+/* =========================
+   LOGO FIXE / GIF
+========================= */
 
 function showFixedLogo(){
+
   logoFixe.style.display="block";
   logoAnime.style.display="none";
+
 }
 
 function showAnimatedLogo(){
+
   logoFixe.style.display="none";
-  logoAnime.src="logo-anime.gif?v="+Date.now();
+
+  logoAnime.src=
+  "logo-anime.gif?v="+Date.now();
+
   logoAnime.style.display="block";
+
 }
 
 
-/* PLAY */
+/* =========================
+   PLAY
+========================= */
 
-play.addEventListener("click",async function(){
+play.addEventListener(
+"click",
+async function(){
 
   if(audio.paused){
 
@@ -1057,12 +1113,16 @@ play.addEventListener("click",async function(){
       try{
 
         welcomeAudio.currentTime=0;
+
         await welcomeAudio.play();
 
-        welcomeAudio.onended=async function(){
+        welcomeAudio.onended=
+        async function(){
+
           try{
             await audio.play();
           }catch(e){}
+
         };
 
       }catch(e){
@@ -1091,49 +1151,76 @@ play.addEventListener("click",async function(){
 });
 
 
-/* ETAT RADIO */
+/* =========================
+   ETAT RADIO
+========================= */
 
-audio.addEventListener("playing",function(){
+audio.addEventListener(
+"playing",
+function(){
 
   play.textContent="❚❚";
-  cacaoMarquee.classList.add("playing");
+
+  cacaoMarquee
+  .classList
+  .add("playing");
+
   showAnimatedLogo();
 
 });
 
-audio.addEventListener("pause",function(){
+
+audio.addEventListener(
+"pause",
+function(){
 
   play.textContent="▶";
-  cacaoMarquee.classList.remove("playing");
+
+  cacaoMarquee
+  .classList
+  .remove("playing");
+
   showFixedLogo();
 
 });
 
-volume.addEventListener("input",function(){
 
-  audio.volume=Number(volume.value);
+volume.addEventListener(
+"input",
+function(){
+
+  audio.volume=
+  Number(volume.value);
 
 });
 
 
-/* PANNEAUX */
+/* =========================
+   PANNEAUX
+========================= */
 
 function openPanel(id){
 
   [
     "sleepPanel",
     "weatherPanel"
-  ].forEach(function(x){
+  ]
+  .forEach(function(x){
 
-    const e=document.getElementById(x);
+    const e=
+    document.getElementById(x);
 
     if(
       x===id &&
       e.style.display!=="block"
     ){
+
       e.style.display="block";
+
     }else{
+
       e.style.display="none";
+
     }
 
   });
@@ -1141,7 +1228,9 @@ function openPanel(id){
 }
 
 
-/* MINUTERIE */
+/* =========================
+   MINUTERIE
+========================= */
 
 function setSleep(){
 
@@ -1149,23 +1238,29 @@ function setSleep(){
 
   const minutes=
   Number(
-    document.getElementById("sleepTime").value
+    document.getElementById("sleepTime")
+    .value
   );
 
-  document.getElementById("sleepInfo").textContent=
-  "La radio s'arrêtera dans "+minutes+" minutes";
+  document.getElementById("sleepInfo")
+  .textContent=
+  "La radio s'arrêtera dans "+
+  minutes+
+  " minutes";
 
   sleepTimer=
   setTimeout(function(){
 
     audio.pause();
 
-    document.getElementById("sleepInfo").textContent=
+    document.getElementById("sleepInfo")
+    .textContent=
     "La radio est arrêtée";
 
   },minutes*60000);
 
 }
+
 
 function cancelSleep(){
 
@@ -1175,15 +1270,19 @@ function cancelSleep(){
 
   sleepTimer=null;
 
-  document.getElementById("sleepInfo").textContent=
+  document.getElementById("sleepInfo")
+  .textContent=
   "Aucune minuterie active";
 
 }
 
 
-/* METEO */
+/* =========================
+   METEO
+========================= */
 
 const weatherCodes={
+
   0:"☀️ Ciel dégagé",
   1:"🌤️ Plutôt dégagé",
   2:"⛅ Partiellement nuageux",
@@ -1205,6 +1304,7 @@ const weatherCodes={
   95:"⛈️ Orage",
   96:"⛈️ Orage avec grêle",
   99:"⛈️ Orage avec grêle"
+
 };
 
 
@@ -1227,7 +1327,8 @@ async function getWeather(){
 
   }
 
-  result.textContent="Recherche…";
+  result.textContent=
+  "Recherche…";
 
   try{
 
@@ -1241,7 +1342,10 @@ async function getWeather(){
     const geo=
     await geoResponse.json();
 
-    if(!geo.results || !geo.results.length){
+    if(
+      !geo.results ||
+      !geo.results.length
+    ){
 
       result.textContent=
       "Ville introuvable.";
@@ -1257,6 +1361,7 @@ async function getWeather(){
       "weatherCity",
       city
     );
+
 
     const weatherResponse=
     await fetch(
@@ -1294,7 +1399,8 @@ async function getWeather(){
     weather.current.weather_code;
 
     const todayDescription=
-    weatherCodes[todayCode] || "Météo";
+    weatherCodes[todayCode] ||
+    "Météo";
 
 
     /* DEMAIN */
@@ -1313,7 +1419,8 @@ async function getWeather(){
     weather.daily.weather_code[1];
 
     const tomorrowDescription=
-    weatherCodes[tomorrowCode] || "Météo";
+    weatherCodes[tomorrowCode] ||
+    "Météo";
 
 
     /* AFFICHAGE */
@@ -1376,11 +1483,14 @@ async function getWeather(){
 
 
 const savedCity=
-localStorage.getItem("weatherCity");
+localStorage.getItem(
+  "weatherCity"
+);
 
 if(savedCity){
 
-  document.getElementById("city").value=
+  document.getElementById("city")
+  .value=
   savedCity;
 
 }
@@ -1412,6 +1522,7 @@ async function updateNowPlaying(){
       throw new Error();
     }
 
+
     const currentTitle=
     data.title ||
     data.now_playing ||
@@ -1424,10 +1535,12 @@ async function updateNowPlaying(){
 
     /* AFFICHAGE APPLICATION */
 
-    document.getElementById("nowTitle").textContent=
+    document.getElementById("nowTitle")
+    .textContent=
     currentTitle;
 
-    document.getElementById("nowArtist").textContent=
+    document.getElementById("nowArtist")
+    .textContent=
     currentArtist;
 
 
@@ -1441,7 +1554,8 @@ async function updateNowPlaying(){
     data.logo ||
     "icon-192.png";
 
-    cover.onerror=function(){
+    cover.onerror=
+    function(){
 
       cover.onerror=null;
       cover.src="icon-192.png";
@@ -1469,24 +1583,31 @@ async function updateNowPlaying(){
         }
 
         artwork.push(
+
           {
             src:"icon-192.png",
             sizes:"192x192",
             type:"image/png"
           },
+
           {
             src:"icon-512.png",
             sizes:"512x512",
             type:"image/png"
           }
+
         );
+
 
         navigator.mediaSession.metadata=
         new MediaMetadata({
 
           title:currentTitle,
+
           artist:currentArtist,
+
           album:"Cacao Radio",
+
           artwork:artwork
 
         });
@@ -1504,10 +1625,12 @@ async function updateNowPlaying(){
 
   }catch(e){
 
-    document.getElementById("nowTitle").textContent=
+    document.getElementById("nowTitle")
+    .textContent=
     "Cacao Radio";
 
-    document.getElementById("nowArtist").textContent=
+    document.getElementById("nowArtist")
+    .textContent=
     "Titre momentanément indisponible";
 
   }
@@ -1523,7 +1646,9 @@ setInterval(
 );
 
 
-/* HISTORIQUE */
+/* =========================
+   HISTORIQUE
+========================= */
 
 function openHistory(){
 
@@ -1536,42 +1661,55 @@ function openHistory(){
   frame.src=
   "https://studio10.vestaradio.com/embed/player.php?radio=Cacao-Radio&style=vertical&color=%23713c23&color2=%233b1d12&bg=%23fff8ef&text=%233b1d12";
 
-  modal.style.display="flex";
+  modal.style.display=
+  "flex";
 
-  document.body.style.overflow="hidden";
+  document.body.style.overflow=
+  "hidden";
 
 }
 
 
 function closeHistory(){
 
-  document.getElementById("historyModal").style.display=
+  document.getElementById("historyModal")
+  .style.display=
   "none";
 
-  document.getElementById("historyFrame").src=
+  document.getElementById("historyFrame")
+  .src=
   "about:blank";
 
-  document.body.style.overflow="";
+  document.body.style.overflow=
+  "";
 
 }
 
 
 function closeHistoryOutside(event){
 
-  if(event.target.id==="historyModal"){
+  if(
+    event.target.id===
+    "historyModal"
+  ){
+
     closeHistory();
+
   }
 
 }
 
 
-/* PARTAGE */
+/* =========================
+   PARTAGE
+========================= */
 
 async function shareApp(){
 
   const shareData={
 
-    title:"Cacao Radio",
+    title:
+    "Cacao Radio",
 
     text:
     "🎧 Écoutez Cacao Radio – Easy Listening Radio",
@@ -1616,20 +1754,27 @@ async function shareApp(){
 }
 
 
-/* MEDIA SESSION */
+/* =========================
+   MEDIA SESSION
+========================= */
 
-if("mediaSession" in navigator){
+if(
+  "mediaSession"
+  in navigator
+){
 
   try{
 
-    navigator.mediaSession.setActionHandler(
+    navigator.mediaSession
+    .setActionHandler(
       "play",
       function(){
         audio.play();
       }
     );
 
-    navigator.mediaSession.setActionHandler(
+    navigator.mediaSession
+    .setActionHandler(
       "pause",
       function(){
         audio.pause();
@@ -1641,9 +1786,14 @@ if("mediaSession" in navigator){
 }
 
 
-/* SERVICE WORKER */
+/* =========================
+   SERVICE WORKER
+========================= */
 
-if("serviceWorker" in navigator){
+if(
+  "serviceWorker"
+  in navigator
+){
 
   window.addEventListener(
     "load",
