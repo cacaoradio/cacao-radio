@@ -636,7 +636,7 @@ main{
 }
 
 /* =========================
-   HISTORIQUE NATIF
+   HISTORIQUE NATIF COMPACT
 ========================= */
 
 .history-list{
@@ -653,10 +653,10 @@ main{
 
 .history-item{
   display:grid;
-  grid-template-columns:62px minmax(0,1fr) 45px;
+  grid-template-columns:58px minmax(0,1fr) 45px;
   gap:10px;
   align-items:center;
-  padding:9px 0;
+  padding:7px 0;
   border-bottom:1px solid rgba(113,60,35,.20);
 }
 
@@ -665,22 +665,22 @@ main{
 }
 
 .history-cover{
-  width:62px;
-  height:62px;
+  width:58px;
+  height:58px;
   border-radius:13px;
   object-fit:cover;
   background:#eee1cb;
 }
 
 .history-cover-placeholder{
-  width:62px;
-  height:62px;
+  width:58px;
+  height:58px;
   border-radius:13px;
   background:#eee1cb;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:24px;
+  font-size:23px;
   color:#713c23;
 }
 
@@ -774,14 +774,15 @@ main{
   }
 
   .history-item{
-    grid-template-columns:56px minmax(0,1fr) 42px;
+    grid-template-columns:54px minmax(0,1fr) 42px;
     gap:8px;
+    padding:6px 0;
   }
 
   .history-cover,
   .history-cover-placeholder{
-    width:56px;
-    height:56px;
+    width:54px;
+    height:54px;
   }
 
   .history-title{
@@ -1039,7 +1040,6 @@ onclick="openFavorites()">
 onclick="openHistory()">
 
 <img class="icon-inline" src="icon-historique.png">
-
 <span>Voir les 20 derniers titres</span>
 
 </button>
