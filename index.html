@@ -563,18 +563,19 @@ main{
   justify-content:center;
 }
 
-/* Historique plus compact */
+/* HISTORIQUE */
 
 .history-box{
   width:min(390px,100%);
-  max-height:84vh;
-  overflow:auto;
+  max-height:80vh;
+  overflow-y:auto;
+  overflow-x:hidden;
   background:#fff8ef;
   border-radius:24px;
-  padding:14px 16px;
+  padding:14px 16px 22px;
 }
 
-/* Favoris inchangés */
+/* FAVORIS */
 
 .favorites-box{
   width:min(410px,100%);
@@ -600,7 +601,8 @@ main{
 }
 
 .history-head > span{
-  font-size:18px;
+  font-size:17px;
+  font-weight:900;
   white-space:nowrap;
   line-height:1;
 }
@@ -634,7 +636,7 @@ main{
 }
 
 /* =========================
-   HISTORIQUE NATIF COMPACT
+   HISTORIQUE NATIF
 ========================= */
 
 .history-list{
@@ -719,43 +721,6 @@ main{
   color:#e42b32;
 }
 
-/* Petits téléphones */
-
-@media(max-width:370px){
-
-  .history-box{
-    width:96vw;
-    padding:13px 12px;
-  }
-
-  .history-head > span{
-    font-size:16px;
-  }
-
-  .history-item{
-    grid-template-columns:56px minmax(0,1fr) 42px;
-    gap:8px;
-  }
-
-  .history-cover,
-  .history-cover-placeholder{
-    width:56px;
-    height:56px;
-  }
-
-  .history-title{
-    font-size:15px;
-  }
-
-  .history-artist{
-    font-size:13px;
-  }
-
-  .history-time{
-    font-size:12px;
-  }
-}
-
 /* =========================
    FAVORIS
 ========================= */
@@ -791,6 +756,45 @@ main{
   background:#eee1cb;
   color:#713015;
   font-size:18px;
+}
+
+/* =========================
+   PETITS ÉCRANS
+========================= */
+
+@media(max-width:370px){
+
+  .history-box{
+    width:96vw;
+    padding:13px 12px 20px;
+  }
+
+  .history-head > span{
+    font-size:15px;
+  }
+
+  .history-item{
+    grid-template-columns:56px minmax(0,1fr) 42px;
+    gap:8px;
+  }
+
+  .history-cover,
+  .history-cover-placeholder{
+    width:56px;
+    height:56px;
+  }
+
+  .history-title{
+    font-size:15px;
+  }
+
+  .history-artist{
+    font-size:13px;
+  }
+
+  .history-time{
+    font-size:12px;
+  }
 }
 
 /* =========================
@@ -957,7 +961,6 @@ onclick="shareCurrentTrack()">
 onclick="openPanel('sleepPanel')">
 
 <img class="icon-choco" src="icon-minuterie.png">
-
 Minuterie
 </button>
 
@@ -969,7 +972,6 @@ Minuterie
 onclick="openPanel('weatherPanel')">
 
 <img class="icon-choco" src="icon-meteo.png">
-
 Météo
 </button>
 
@@ -1028,6 +1030,7 @@ onclick="openFavorites()">
 <span>Mes favoris</span>
 
 </button>
+
 </div>
 
 <div class="history-area">
@@ -1040,6 +1043,7 @@ onclick="openHistory()">
 <span>Voir les 20 derniers titres</span>
 
 </button>
+
 </div>
 
 <!-- FAVORIS -->
@@ -1173,7 +1177,9 @@ const STATUS_API=
 const HISTORY_API=
 "https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=history";
 
-/* PLAYER */
+/* =========================
+   PLAYER
+========================= */
 
 function showFixedLogo(){
   logoFixe.style.display="block";
@@ -1242,7 +1248,9 @@ volume.addEventListener("input",function(){
   audio.volume=Number(volume.value);
 });
 
-/* PANNEAUX */
+/* =========================
+   PANNEAUX
+========================= */
 
 function openPanel(id){
 
@@ -1260,7 +1268,9 @@ function openPanel(id){
 
 }
 
-/* MINUTERIE */
+/* =========================
+   MINUTERIE
+========================= */
 
 function setSleep(){
 
@@ -1296,7 +1306,9 @@ function cancelSleep(){
 
 }
 
-/* METEO */
+/* =========================
+   METEO
+========================= */
 
 const weatherCodes={
   0:"☀️ Ciel dégagé",
@@ -1405,7 +1417,9 @@ if(savedCity){
   document.getElementById("city").value=savedCity;
 }
 
-/* TITRE EN COURS */
+/* =========================
+   TITRE EN COURS
+========================= */
 
 async function updateNowPlaying(){
 
@@ -1550,8 +1564,6 @@ async function openHistory(){
       const item=document.createElement("div");
       item.className="history-item";
 
-      /* POCHETTE */
-
       if(track.cover){
 
         const img=document.createElement("img");
@@ -1590,8 +1602,6 @@ async function openHistory(){
 
       }
 
-      /* TITRE + ARTISTE */
-
       const trackInfo=
         document.createElement("div");
 
@@ -1620,8 +1630,6 @@ async function openHistory(){
       trackInfo.appendChild(artist);
 
       item.appendChild(trackInfo);
-
-      /* HEURE */
 
       const time=
         document.createElement("div");
@@ -1666,7 +1674,9 @@ function closeHistoryOutside(event){
 
 }
 
-/* FAVORIS */
+/* =========================
+   FAVORIS
+========================= */
 
 function getFavorites(){
 
@@ -1862,7 +1872,9 @@ function renderFavorites(){
 
 }
 
-/* PARTAGER TITRE */
+/* =========================
+   PARTAGER TITRE
+========================= */
 
 async function shareCurrentTrack(){
 
@@ -1906,7 +1918,9 @@ async function shareCurrentTrack(){
 
 }
 
-/* PARTAGER APPLICATION */
+/* =========================
+   PARTAGER APPLICATION
+========================= */
 
 async function shareApp(){
 
@@ -1938,7 +1952,9 @@ async function shareApp(){
 
 }
 
-/* MEDIA SESSION */
+/* =========================
+   MEDIA SESSION
+========================= */
 
 if("mediaSession" in navigator){
 
@@ -1962,7 +1978,9 @@ if("mediaSession" in navigator){
 
 }
 
-/* SERVICE WORKER */
+/* =========================
+   SERVICE WORKER
+========================= */
 
 if("serviceWorker" in navigator){
 
