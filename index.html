@@ -563,7 +563,19 @@ main{
   justify-content:center;
 }
 
-.history-box,
+/* Historique plus compact */
+
+.history-box{
+  width:min(390px,100%);
+  max-height:84vh;
+  overflow:auto;
+  background:#fff8ef;
+  border-radius:24px;
+  padding:14px 16px;
+}
+
+/* Favoris inchangés */
+
 .favorites-box{
   width:min(410px,100%);
   max-height:88vh;
@@ -580,11 +592,36 @@ main{
   justify-content:space-between;
   margin-bottom:10px;
   font-weight:900;
-  font-size:21px;
   color:#54230f;
 }
 
-.history-close,
+.history-head{
+  gap:8px;
+}
+
+.history-head > span{
+  font-size:18px;
+  white-space:nowrap;
+  line-height:1;
+}
+
+.favorites-head{
+  font-size:21px;
+}
+
+.history-close{
+  border:0;
+  width:40px;
+  height:40px;
+  flex:0 0 40px;
+  border-radius:50%;
+  background:var(--brown);
+  color:#fff;
+  font-size:24px;
+  line-height:40px;
+  padding:0;
+}
+
 .favorites-close{
   border:0;
   width:46px;
@@ -597,7 +634,7 @@ main{
 }
 
 /* =========================
-   HISTORIQUE NATIF
+   HISTORIQUE NATIF COMPACT
 ========================= */
 
 .history-list{
@@ -606,7 +643,7 @@ main{
 }
 
 .history-loading{
-  padding:30px 10px;
+  padding:25px 10px;
   text-align:center;
   font-weight:800;
   color:#75412b;
@@ -614,30 +651,34 @@ main{
 
 .history-item{
   display:grid;
-  grid-template-columns:76px minmax(0,1fr) 50px;
-  gap:12px;
+  grid-template-columns:62px minmax(0,1fr) 45px;
+  gap:10px;
   align-items:center;
-  padding:11px 0;
+  padding:9px 0;
   border-bottom:1px solid rgba(113,60,35,.20);
 }
 
+.history-item:last-child{
+  border-bottom:0;
+}
+
 .history-cover{
-  width:76px;
-  height:76px;
-  border-radius:15px;
+  width:62px;
+  height:62px;
+  border-radius:13px;
   object-fit:cover;
   background:#eee1cb;
 }
 
 .history-cover-placeholder{
-  width:76px;
-  height:76px;
-  border-radius:15px;
+  width:62px;
+  height:62px;
+  border-radius:13px;
   background:#eee1cb;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:27px;
+  font-size:24px;
   color:#713c23;
 }
 
@@ -648,20 +689,18 @@ main{
 
 .history-title{
   color:#54230f;
-  font-size:17px;
+  font-size:16px;
   font-weight:900;
-  line-height:1.18;
-  display:-webkit-box;
-  -webkit-box-orient:vertical;
-  -webkit-line-clamp:2;
+  line-height:1.2;
+  white-space:nowrap;
   overflow:hidden;
-  white-space:normal;
+  text-overflow:ellipsis;
 }
 
 .history-artist{
-  margin-top:5px;
+  margin-top:4px;
   color:#8a5944;
-  font-size:15px;
+  font-size:14px;
   font-weight:700;
   white-space:nowrap;
   overflow:hidden;
@@ -670,16 +709,56 @@ main{
 
 .history-time{
   color:#80513e;
-  font-size:14px;
+  font-size:13px;
   font-weight:900;
   text-align:right;
+  white-space:nowrap;
 }
 
 .history-item:first-child .history-time{
   color:#e42b32;
 }
 
-/* FAVORIS */
+/* Petits téléphones */
+
+@media(max-width:370px){
+
+  .history-box{
+    width:96vw;
+    padding:13px 12px;
+  }
+
+  .history-head > span{
+    font-size:16px;
+  }
+
+  .history-item{
+    grid-template-columns:56px minmax(0,1fr) 42px;
+    gap:8px;
+  }
+
+  .history-cover,
+  .history-cover-placeholder{
+    width:56px;
+    height:56px;
+  }
+
+  .history-title{
+    font-size:15px;
+  }
+
+  .history-artist{
+    font-size:13px;
+  }
+
+  .history-time{
+    font-size:12px;
+  }
+}
+
+/* =========================
+   FAVORIS
+========================= */
 
 .favorites-empty{
   padding:25px 12px;
@@ -1094,9 +1173,7 @@ const STATUS_API=
 const HISTORY_API=
 "https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=history";
 
-/* =========================
-   PLAYER
-========================= */
+/* PLAYER */
 
 function showFixedLogo(){
   logoFixe.style.display="block";
@@ -1165,9 +1242,7 @@ volume.addEventListener("input",function(){
   audio.volume=Number(volume.value);
 });
 
-/* =========================
-   PANNEAUX
-========================= */
+/* PANNEAUX */
 
 function openPanel(id){
 
@@ -1185,9 +1260,7 @@ function openPanel(id){
 
 }
 
-/* =========================
-   MINUTERIE
-========================= */
+/* MINUTERIE */
 
 function setSleep(){
 
@@ -1223,9 +1296,7 @@ function cancelSleep(){
 
 }
 
-/* =========================
-   METEO
-========================= */
+/* METEO */
 
 const weatherCodes={
   0:"☀️ Ciel dégagé",
@@ -1334,9 +1405,7 @@ if(savedCity){
   document.getElementById("city").value=savedCity;
 }
 
-/* =========================
-   TITRE EN COURS
-========================= */
+/* TITRE EN COURS */
 
 async function updateNowPlaying(){
 
@@ -1452,11 +1521,6 @@ async function openHistory(){
     if(!data.success){
       throw new Error("Historique indisponible");
     }
-
-    /*
-      VestaRadio peut renvoyer le tableau sous
-      différentes propriétés suivant la version.
-    */
 
     let tracks=[];
 
@@ -1602,9 +1666,7 @@ function closeHistoryOutside(event){
 
 }
 
-/* =========================
-   FAVORIS
-========================= */
+/* FAVORIS */
 
 function getFavorites(){
 
@@ -1800,9 +1862,7 @@ function renderFavorites(){
 
 }
 
-/* =========================
-   PARTAGER TITRE
-========================= */
+/* PARTAGER TITRE */
 
 async function shareCurrentTrack(){
 
@@ -1846,9 +1906,7 @@ async function shareCurrentTrack(){
 
 }
 
-/* =========================
-   PARTAGER APPLICATION
-========================= */
+/* PARTAGER APPLICATION */
 
 async function shareApp(){
 
@@ -1880,9 +1938,7 @@ async function shareApp(){
 
 }
 
-/* =========================
-   MEDIA SESSION
-========================= */
+/* MEDIA SESSION */
 
 if("mediaSession" in navigator){
 
@@ -1906,9 +1962,7 @@ if("mediaSession" in navigator){
 
 }
 
-/* =========================
-   SERVICE WORKER
-========================= */
+/* SERVICE WORKER */
 
 if("serviceWorker" in navigator){
 
@@ -1925,4 +1979,4 @@ if("serviceWorker" in navigator){
 </script>
 
 </body>
-  </html>
+</html>
