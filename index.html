@@ -12,6 +12,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Cacao Radio">
 <meta property="og:description" content="Easy Listening Radio • Écoutez Cacao Radio gratuitement.">
+
+<!--
+IMPORTANT :
+Ces métadonnées concernent la page de l'application GitHub.
+Facebook utilisera celles de cacaoradio.com lorsque cette adresse sera partagée.
+-->
 <meta property="og:url" content="https://cacaoradio.github.io/cacao-radio/">
 <meta property="og:image" content="https://cacaoradio.github.io/cacao-radio/partage-cacao-radio.jpg">
 <meta property="og:image:secure_url" content="https://cacaoradio.github.io/cacao-radio/partage-cacao-radio.jpg">
@@ -20,7 +26,6 @@
 <meta property="og:site_name" content="Cacao Radio">
 <meta property="og:locale" content="fr_FR">
 
-<!-- APERÇU X / TWITTER -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cacao Radio">
 <meta name="twitter:description" content="Easy Listening Radio • Écoutez Cacao Radio gratuitement.">
@@ -224,7 +229,7 @@ main{
   to{transform:translateX(-50%)}
 }
 
-/* CHOCOLAT BLANC */
+/* CARTES */
 
 .choco-white{
   position:relative;
@@ -380,7 +385,7 @@ main{
   display:grid;
 }
 
-/* MINUTERIE + METEO */
+/* OUTILS */
 
 .tools-row{
   display:grid;
@@ -547,8 +552,6 @@ main{
   color:#fff;
   font-size:22px;
 }
-
-/* HISTORIQUE DIRECT */
 
 .history-loading{
   padding:30px 10px;
@@ -1058,7 +1061,7 @@ aria-hidden="true"></i>
 Cacao Radio • Easy Listening Radio (2026)
 </footer>
 
-<!-- MODALE FAVORIS -->
+<!-- FAVORIS -->
 
 <div class="favorites-modal"
 id="favoritesModal"
@@ -1080,7 +1083,7 @@ onclick="closeFavorites()">×</button>
 </div>
 </div>
 
-<!-- MODALE HISTORIQUE -->
+<!-- HISTORIQUE -->
 
 <div class="history-modal"
 id="historyModal"
@@ -1193,9 +1196,7 @@ audio.addEventListener("pause",function(){
 });
 
 volume.addEventListener("input",function(){
-
   audio.volume=Number(volume.value);
-
 });
 
 /* PANNEAUX */
@@ -1207,13 +1208,9 @@ function openPanel(id){
     const e=document.getElementById(x);
 
     if(x===id && e.style.display!=="block"){
-
       e.style.display="block";
-
     }else{
-
       e.style.display="none";
-
     }
 
   });
@@ -1386,9 +1383,7 @@ const savedCity=
   localStorage.getItem("weatherCity");
 
 if(savedCity){
-
   document.getElementById("city").value=savedCity;
-
 }
 
 /* FAVORIS */
@@ -1453,15 +1448,9 @@ function updateFavoriteButton(){
   if(!button)return;
 
   if(isCurrentFavorite()){
-
-    button.textContent=
-      "❤️ Dans mes favoris";
-
+    button.textContent="❤️ Dans mes favoris";
   }else{
-
-    button.textContent=
-      "🤍 Ajouter aux favoris";
-
+    button.textContent="🤍 Ajouter aux favoris";
   }
 
 }
@@ -1521,9 +1510,7 @@ function addCurrentFavorite(){
   });
 
   if(favorites.length>100){
-
     favorites=favorites.slice(0,100);
-
   }
 
   saveFavorites(favorites);
@@ -1555,9 +1542,7 @@ function closeFavorites(){
 function closeFavoritesOutside(event){
 
   if(event.target.id==="favoritesModal"){
-
     closeFavorites();
-
   }
 
 }
@@ -1619,9 +1604,7 @@ function renderFavorites(){
     remove.textContent="×";
 
     remove.onclick=function(){
-
       deleteFavorite(index);
-
     };
 
     row.appendChild(text);
@@ -1675,16 +1658,14 @@ async function shareCurrentTrack(){
 
     title:"Cacao Radio",
     text:message,
-    url:"https://cacaoradio.com"
+    url:"https://cacaoradio.com/"
 
   };
 
   if(navigator.share){
 
     try{
-
       await navigator.share(shareData);
-
     }catch(e){}
 
   }else{
@@ -1692,7 +1673,7 @@ async function shareCurrentTrack(){
     try{
 
       await navigator.clipboard.writeText(
-        message+"\nhttps://cacaoradio.com"
+        message+"\nhttps://cacaoradio.com/"
       );
 
       alert("Le titre a été copié.");
@@ -1831,7 +1812,7 @@ setInterval(
   15000
 );
 
-/* HISTORIQUE DIRECT */
+/* HISTORIQUE */
 
 const HISTORY_API=
 "https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=history";
@@ -1861,9 +1842,7 @@ async function openHistory(){
     );
 
     if(!response.ok){
-
       throw new Error("Erreur API");
-
     }
 
     const data=await response.json();
@@ -1871,32 +1850,20 @@ async function openHistory(){
     let tracks=[];
 
     if(Array.isArray(data)){
-
       tracks=data;
-
     }else if(Array.isArray(data.history)){
-
       tracks=data.history;
-
     }else if(Array.isArray(data.tracks)){
-
       tracks=data.tracks;
-
     }else if(Array.isArray(data.items)){
-
       tracks=data.items;
-
     }else if(Array.isArray(data.data)){
-
       tracks=data.data;
-
     }else if(
       data.data &&
       Array.isArray(data.data.history)
     ){
-
       tracks=data.data.history;
-
     }
 
     tracks=tracks.slice(0,20);
@@ -1969,9 +1936,7 @@ async function openHistory(){
       info.appendChild(title);
 
       if(artist.textContent){
-
         info.appendChild(artist);
-
       }
 
       const timeValue=
@@ -2028,14 +1993,15 @@ function closeHistory(){
 function closeHistoryOutside(event){
 
   if(event.target.id==="historyModal"){
-
     closeHistory();
-
   }
 
 }
 
-/* PARTAGER APPLICATION */
+/* ======================================
+   PARTAGER L'APPLICATION
+   PARTAGE MAINTENANT CACAO RADIO .COM
+   ====================================== */
 
 async function shareApp(){
 
@@ -2043,11 +2009,9 @@ async function shareApp(){
 
     title:"Cacao Radio",
 
-    text:
-      "🎧 Cacao Radio – Easy Listening Radio",
+    text:"🎧 Cacao Radio – Easy Listening Radio",
 
-    url:
-      "https://cacaoradio.github.io/cacao-radio/"
+    url:"https://cacaoradio.com/"
 
   };
 
@@ -2074,7 +2038,7 @@ async function shareApp(){
     }catch(e){
 
       alert(
-        "https://cacaoradio.github.io/cacao-radio/"
+        "https://cacaoradio.com/"
       );
 
     }
@@ -2092,18 +2056,14 @@ if("mediaSession" in navigator){
     navigator.mediaSession.setActionHandler(
       "play",
       function(){
-
         audio.play();
-
       }
     );
 
     navigator.mediaSession.setActionHandler(
       "pause",
       function(){
-
         audio.pause();
-
       }
     );
 
