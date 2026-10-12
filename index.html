@@ -134,9 +134,9 @@ main{max-width:520px;margin:auto;padding:0 14px 35px}
 }
 .card{border-radius:25px}
 
-/* EN CE MOMENT - COMPACT */
+/* EN CE MOMENT */
 .now-card{
- position:relative;padding:22px 15px 18px;
+ position:relative;padding:22px 15px 17px;
  margin:18px 20px 20px;border-radius:28px;text-align:center;
 }
 .now-card:before{
@@ -147,8 +147,8 @@ main{max-width:520px;margin:auto;padding:0 14px 35px}
 .now-label{font-size:14px;font-weight:900;margin-bottom:12px}
 .now-wrap{display:flex;flex-direction:column;align-items:center}
 .now-cover{
- display:block;width:185px;height:185px;max-width:82%;
- border-radius:19px;object-fit:cover;background:white;
+ display:block;width:190px;height:190px;max-width:82%;
+ border-radius:20px;object-fit:cover;background:white;
  border:5px solid #fffaf0;
  box-shadow:0 6px 12px #481f0a47;
  margin:0 auto 12px;
@@ -175,69 +175,33 @@ main{max-width:520px;margin:auto;padding:0 14px 35px}
  cursor:pointer;
 }
 
-/* ENCart ALEXA */
-.alexa-card{
- display:grid;
- grid-template-columns:minmax(0,1fr) 65px;
- gap:10px;align-items:center;
- margin-top:15px;padding:12px 11px;
- background:linear-gradient(145deg,#fff9ed,#f0d4a5);
- border:1px solid #cda978;
- border-radius:17px;
- box-shadow:0 3px 9px #54230f1c;
- text-align:left;
+/* VISUEL ALEXA ORIGINAL PNG */
+.alexa-image-area{
+ width:100%;
+ margin-top:15px;
+ padding-top:12px;
+ border-top:1px solid #713c2330;
 }
-.alexa-content{min-width:0}
-.alexa-heading{
- font-size:13px;font-weight:900;
- line-height:1.25;color:#54230f;
+.alexa-image{
+ display:block;
+ width:100%;
+ height:auto;
+ border-radius:15px;
+ object-fit:contain;
+ box-shadow:0 3px 9px #54230f22;
 }
-.alexa-description{
- font-size:11px;line-height:1.4;
- color:#75412b;font-weight:600;
- margin-top:5px;
-}
-.alexa-command{
- display:block;width:fit-content;
- max-width:100%;margin-top:9px;
- padding:8px 9px;border-radius:11px;
- background:#54230f;color:#fff8ec;
- font-size:12px;line-height:1.3;
- font-weight:900;text-align:center;
-}
-.alexa-speaker{
- position:relative;width:65px;height:65px;
- border-radius:50%;
- background:radial-gradient(circle at 35% 28%,#666368,#29272a 65%,#141315);
- border:2px solid #403c40;
- box-shadow:inset -6px -7px 12px #0007,0 5px 8px #3b1d1240;
-}
-.alexa-speaker:before{
- content:"";position:absolute;
- bottom:3px;left:9px;right:9px;height:5px;
- border-radius:50%;background:#16baff;
- box-shadow:0 0 7px #16baff;
-}
-.alexa-speaker:after{
- content:"";position:absolute;
- width:25px;height:25px;
- top:15px;left:18px;border-radius:50%;
- border:1px solid #ffffff18;
- background:radial-gradient(circle,#ffffff16,transparent);
-}
+
+/* ADAPTATION SMARTPHONE */
 @media(max-width:360px){
  .now-card{
-  margin-left:12px;margin-right:12px;
-  padding-left:12px;padding-right:12px;
+  margin-left:12px;
+  margin-right:12px;
+  padding-left:12px;
+  padding-right:12px;
  }
  .now-cover{width:175px;height:175px}
- .alexa-card{
-  grid-template-columns:minmax(0,1fr) 55px;
-  gap:7px;padding:10px 9px;
- }
- .alexa-speaker{width:55px;height:55px}
- .alexa-heading{font-size:12px}
- .alexa-command{font-size:11px;padding:7px}
+ .now-title{font-size:17px}
+ .track-action{font-size:11px}
 }
 
 /* BOUTONS */
@@ -521,6 +485,7 @@ body.modal-open{overflow:hidden}
 <div class="now-text">
 <div class="now-title" id="nowTitle">Cacao Radio</div>
 <div class="now-artist" id="nowArtist">Chargement du titre…</div>
+
 <div class="track-actions">
 <button class="track-action" id="favoriteCurrentButton"
  onclick="addCurrentFavorite()">🤍 Ajouter aux favoris</button>
@@ -530,18 +495,13 @@ body.modal-open{overflow:hidden}
 </div>
 </div>
 
-<!-- NOUVEL ENCART ALEXA -->
-<div class="alexa-card" aria-label="Cacao Radio sur Alexa">
-<div class="alexa-content">
-<div class="alexa-heading">CACAO RADIO SUR ALEXA</div>
-<div class="alexa-description">
-Écoutez-nous aussi sur votre enceinte connectée.
-</div>
-<div class="alexa-command">
-« Alexa, joue Cacao Radio »
-</div>
-</div>
-<div class="alexa-speaker" aria-hidden="true"></div>
+<!-- VISUEL ALEXA PNG -->
+<div class="alexa-image-area">
+<img
+ class="alexa-image"
+ src="cacao-radio-alexa.png"
+ alt="Cacao Radio sur Alexa. Dites : Alexa, joue Cacao Radio."
+ loading="lazy">
 </div>
 
 </section>
@@ -1251,7 +1211,6 @@ if("serviceWorker" in navigator){
   navigator.serviceWorker.register("./sw.js").catch(function(){});
  });
 }
-
 </script>
 </body>
 </html>
