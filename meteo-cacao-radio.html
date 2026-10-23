@@ -7,400 +7,295 @@
 <title>Météo en France — Cacao Radio</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:transparent;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  font-family: Arial, Helvetica, sans-serif;
+.weather{
+  position:relative;
+  width:100%;
+  max-width:940px;
+  margin:0 auto;
+  overflow:hidden;
 }
 
-.weather {
-  position: relative;
-  width: 100%;
-  max-width: 940px;
-  margin: 0 auto;
-  overflow: hidden;
+.background{
+  display:block;
+  width:100%;
+  height:auto;
 }
 
-.background {
-  display: block;
-  width: 100%;
-  height: auto;
+.overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
 }
 
-.overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+/* Les cinq boutons vides du visuel */
+.days{
+  position:absolute;
+  left:14.7%;
+  top:18.65%;
+  width:75.3%;
+  height:5.1%;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:0.75%;
+  pointer-events:auto;
 }
 
-/* Zones cliquables invisibles sur les boutons de l'image */
-.days {
-  position: absolute;
-  left: 14.8%;
-  top: 25.2%;
-  width: 75%;
-  height: 4.3%;
-  display: flex;
-  gap: 0.8%;
-  pointer-events: auto;
+.days button{
+  min-width:0;
+  padding:0 1px;
+  margin:0;
+  border:0;
+  background:transparent;
+  color:#563428;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:clamp(7px,1.25vw,13px);
+  font-weight:800;
+  white-space:nowrap;
+  cursor:pointer;
+  text-align:center;
 }
 
-.days button {
-  flex: 1 1 0;
-  min-width: 0;
-  padding: 0;
-  margin: 0;
-  border: 0;
-  background: transparent;
-  color: transparent;
-  cursor: pointer;
-  font-size: 0;
-  border-radius: 5px;
+.days button[aria-pressed="true"]{
+  color:white;
 }
 
-.days button:focus-visible {
-  outline: 2px solid #563428;
-  outline-offset: 1px;
+.days button:focus-visible{
+  outline:2px solid #563428;
+  outline-offset:-2px;
 }
 
-/* Villes */
-.pin {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  line-height: 1.05;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 2;
+/* Villes et températures */
+.pin{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  line-height:1.05;
+  white-space:nowrap;
+  pointer-events:none;
+  z-index:2;
 }
 
-.pin .name {
-  color: #482c20;
-  background: #fffaf2f2;
-  border: 1px solid #d5baa5;
-  border-radius: 5px;
-  font-size: clamp(7px, 1.15vw, 12px);
-  font-weight: 800;
-  padding: 1px 3px;
+.pin .name{
+  color:#482c20;
+  background:#fffaf2ed;
+  border:1px solid #d5baa5;
+  border-radius:5px;
+  font-size:clamp(7px,1.15vw,12px);
+  font-weight:800;
+  padding:1px 3px;
 }
 
-.pin .symbol {
-  display: block;
-  width: clamp(14px, 2.4vw, 25px);
-  height: clamp(14px, 2.4vw, 25px);
+.pin .symbol{
+  display:block;
+  width:clamp(15px,2.5vw,27px);
+  height:clamp(15px,2.5vw,27px);
 }
 
-.pin svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+.pin svg{
+  display:block;
+  width:100%;
+  height:100%;
 }
 
-.pin .temp {
-  background: #fff4e5f5;
-  color: #4a291b;
-  border: 1px solid #d4b29a;
-  border-radius: 6px;
-  padding: 1px 3px;
-  font-size: clamp(8px, 1.3vw, 14px);
-  font-weight: 800;
+.pin .temp{
+  background:#fff4e5f5;
+  color:#4a291b;
+  border:1px solid #d4b29a;
+  border-radius:6px;
+  padding:1px 3px;
+  font-size:clamp(8px,1.3vw,14px);
+  font-weight:800;
 }
 
-.status {
-  position: absolute;
-  left: 30%;
-  right: 8%;
-  bottom: 15%;
-  background: #fffaf3ee;
-  color: #563428;
-  border-radius: 5px;
-  padding: 5px;
-  text-align: center;
-  font-size: 11px;
+.status{
+  position:absolute;
+  left:28%;
+  right:5%;
+  bottom:12%;
+  background:#fffaf3ee;
+  color:#563428;
+  border-radius:5px;
+  padding:5px;
+  text-align:center;
+  font-size:11px;
 }
 
-/* Petit indicateur du jour sélectionné */
-.day-indicator {
-  position: absolute;
-  top: 29.65%;
-  left: 14.8%;
-  width: 14.4%;
-  height: 2px;
-  background: #563428;
-  border-radius: 2px;
-  pointer-events: none;
-  transition: left .2s ease;
-}
-
-@media(max-width:500px) {
-  .pin .name {
-    font-size: 7px;
-    padding: 1px 2px;
-  }
-
-  .pin .symbol {
-    width: 15px;
-    height: 15px;
-  }
-
-  .pin .temp {
-    font-size: 8px;
-    padding: 1px 2px;
-  }
+@media(max-width:500px){
+  .days button{font-size:7px}
+  .pin .name{font-size:7px;padding:1px 2px}
+  .pin .symbol{width:15px;height:15px}
+  .pin .temp{font-size:8px;padding:1px 2px}
 }
 </style>
 </head>
 
 <body>
+
 <main class="weather">
 
-  <img
-    class="background"
-    src="https://cacaoradio.github.io/cacao-radio/fond-meteo-cacao-radio.png"
-    alt="Météo Cacao Radio avec un présentateur chocolat guimauve"
-    width="1312"
-    height="1199"
-  >
+<img
+  class="background"
+  src="https://cacaoradio.github.io/cacao-radio/fond-meteo-cacao-radio.png"
+  alt="Météo Cacao Radio avec présentateur chocolat guimauve"
+  width="1279"
+  height="1169"
+>
 
-  <div class="overlay">
-    <nav class="days" id="days" aria-label="Choisir le jour"></nav>
-    <div class="day-indicator" id="indicator"></div>
-    <div id="pins"></div>
-    <div class="status" id="status" role="status">
-      Chargement des prévisions…
-    </div>
+<div class="overlay">
+  <nav id="days" class="days" aria-label="Choisir le jour"></nav>
+  <div id="pins"></div>
+  <div id="status" class="status" role="status">
+    Chargement des prévisions…
   </div>
+</div>
 
 </main>
 
 <script>
 'use strict';
 
-/*
-  Coordonnées exprimées en pourcentage
-  de l'image complète.
-
-  Les villes restent dans la zone de la carte.
-*/
-const cities = [
-  {name:'Lille',lat:50.6292,lon:3.0573,x:60.5,y:38.3},
-  {name:'Le Havre',lat:49.4944,lon:0.1079,x:48.0,y:43.0},
-  {name:'Paris',lat:48.8566,lon:2.3522,x:59.0,y:47.0},
-  {name:'Strasbourg',lat:48.5734,lon:7.7521,x:76.0,y:48.0},
-  {name:'Brest',lat:48.3904,lon:-4.4861,x:34.0,y:49.0},
-  {name:'Rennes',lat:48.1173,lon:-1.6778,x:45.0,y:52.0},
-  {name:'Nantes',lat:47.2184,lon:-1.5536,x:45.5,y:59.0},
-  {name:'Tours',lat:47.3941,lon:0.6848,x:55.0,y:56.0},
-  {name:'Dijon',lat:47.322,lon:5.0415,x:68.0,y:57.0},
-  {name:'Lyon',lat:45.764,lon:4.8357,x:69.0,y:66.0},
-  {name:'Bordeaux',lat:44.8378,lon:-0.5792,x:50.0,y:69.0},
-  {name:'Toulouse',lat:43.6047,lon:1.4442,x:57.0,y:77.0},
-  {name:'Marseille',lat:43.2965,lon:5.3698,x:72.0,y:77.0},
-  {name:'Ajaccio',lat:41.9192,lon:8.7386,x:79.5,y:82.0}
+/* Position des villes sur le nouveau visuel */
+const cities=[
+{name:'Lille',lat:50.6292,lon:3.0573,x:63.5,y:35.2},
+{name:'Le Havre',lat:49.4944,lon:0.1079,x:51.2,y:40.8},
+{name:'Paris',lat:48.8566,lon:2.3522,x:61.7,y:45.8},
+{name:'Strasbourg',lat:48.5734,lon:7.7521,x:79.5,y:46.8},
+{name:'Brest',lat:48.3904,lon:-4.4861,x:33.8,y:47.5},
+{name:'Rennes',lat:48.1173,lon:-1.6778,x:45.5,y:50.8},
+{name:'Nantes',lat:47.2184,lon:-1.5536,x:46.3,y:57.3},
+{name:'Tours',lat:47.3941,lon:0.6848,x:55.5,y:54.7},
+{name:'Dijon',lat:47.322,lon:5.0415,x:69.0,y:55.5},
+{name:'Lyon',lat:45.764,lon:4.8357,x:69.0,y:65.0},
+{name:'Bordeaux',lat:44.8378,lon:-0.5792,x:51.0,y:68.5},
+{name:'Toulouse',lat:43.6047,lon:1.4442,x:59.0,y:76.0},
+{name:'Marseille',lat:43.2965,lon:5.3698,x:75.0,y:76.5},
+{name:'Ajaccio',lat:41.9192,lon:8.7386,x:87.0,y:82.0}
 ];
 
-function icon(code) {
-  const sun = `
-    <circle cx="24" cy="24" r="9"
-      fill="#ffca36" stroke="#e8a720" stroke-width="2"/>
-    <path d="M24 3v9M24 36v9M3 24h9M36 24h9
-             M9 9l7 7M32 32l7 7M39 9l-7 7M16 32l-7 7"
-      stroke="#e8a720"
-      stroke-width="2.5"
-      stroke-linecap="round"/>
-  `;
+/* Pictogrammes SVG */
+function icon(code){
+const sun='<circle cx="24" cy="24" r="9" fill="#ffca36" stroke="#e8a720" stroke-width="2"/><path d="M24 3v9M24 36v9M3 24h9M36 24h9M9 9l7 7M32 32l7 7M39 9l-7 7M16 32l-7 7" stroke="#e8a720" stroke-width="2.5" stroke-linecap="round"/>';
+const cloud='<path d="M12 36h27c6 0 10-5 10-10s-4-9-10-9h-3C34 10 28 7 22 9c-7 1-11 6-12 13-5 0-8 3-8 7 0 5 4 7 10 7z" fill="#f2f6fb" stroke="#92a4b5" stroke-width="2"/>';
+const rain='<path d="M14 39l-3 7M27 39l-3 7M40 39l-3 7" stroke="#309ad6" stroke-width="3" stroke-linecap="round"/>';
+const snow='<g fill="#75bce7"><circle cx="13" cy="44" r="3"/><circle cx="27" cy="45" r="3"/><circle cx="40" cy="44" r="3"/></g>';
+const thunder='<path d="M27 34l-8 12h8l-3 8 15-17h-9l3-6" fill="#ffc52f" stroke="#b78a1b"/>';
+const fog='<path d="M7 40h37M12 47h29" stroke="#9cabb6" stroke-width="3" stroke-linecap="round"/>';
 
-  const cloud = `
-    <path d="M12 36h27c6 0 10-5 10-10s-4-9-10-9h-3
-             C34 10 28 7 22 9c-7 1-11 6-12 13
-             -5 0-8 3-8 7 0 5 4 7 10 7z"
-      fill="#f2f6fb"
-      stroke="#92a4b5"
-      stroke-width="2"/>
-  `;
+let parts;
+if(code===0)parts=sun;
+else if(code<=2)parts=sun+cloud;
+else if(code===3)parts=cloud;
+else if(code===45||code===48)parts=cloud+fog;
+else if(code>=51&&code<=67)parts=cloud+rain;
+else if(code>=71&&code<=77)parts=cloud+snow;
+else if(code>=80&&code<=82)parts=sun+cloud+rain;
+else if(code>=95)parts=cloud+thunder;
+else parts=sun+cloud;
 
-  const rain = `
-    <path d="M14 39l-3 7M27 39l-3 7M40 39l-3 7"
-      stroke="#309ad6"
-      stroke-width="3"
-      stroke-linecap="round"/>
-  `;
-
-  const snow = `
-    <g fill="#75bce7">
-      <circle cx="13" cy="44" r="3"/>
-      <circle cx="27" cy="45" r="3"/>
-      <circle cx="40" cy="44" r="3"/>
-    </g>
-  `;
-
-  const thunder = `
-    <path d="M27 34l-8 12h8l-3 8 15-17h-9l3-6"
-      fill="#ffc52f"
-      stroke="#b78a1b"/>
-  `;
-
-  const fog = `
-    <path d="M7 40h37M12 47h29"
-      stroke="#9cabb6"
-      stroke-width="3"
-      stroke-linecap="round"/>
-  `;
-
-  let parts;
-
-  if (code === 0) {
-    parts = sun;
-  } else if (code <= 2) {
-    parts = sun + cloud;
-  } else if (code === 3) {
-    parts = cloud;
-  } else if (code === 45 || code === 48) {
-    parts = cloud + fog;
-  } else if (code >= 51 && code <= 67) {
-    parts = cloud + rain;
-  } else if (code >= 71 && code <= 77) {
-    parts = cloud + snow;
-  } else if (code >= 80 && code <= 82) {
-    parts = sun + cloud + rain;
-  } else if (code >= 95) {
-    parts = cloud + thunder;
-  } else {
-    parts = sun + cloud;
-  }
-
-  return `
-    <svg viewBox="0 0 54 56"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true">
-      ${parts}
-    </svg>
-  `;
+return '<svg viewBox="0 0 54 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+parts+'</svg>';
 }
 
-let forecasts = [];
-let selected = 0;
+let forecasts=[];
+let selected=0;
 
-const days = document.getElementById('days');
-const pins = document.getElementById('pins');
-const status = document.getElementById('status');
-const indicator = document.getElementById('indicator');
+const days=document.getElementById('days');
+const pins=document.getElementById('pins');
+const status=document.getElementById('status');
 
-function render() {
-  const dates = forecasts[0].daily.time;
+function render(){
+const dates=forecasts[0].daily.time;
 
-  days.innerHTML = dates.map((date, i) => {
-    let label;
+days.innerHTML=dates.map((date,i)=>{
+let label;
+if(i===0)label="Aujourd'hui";
+else if(i===1)label='Demain';
+else label=new Intl.DateTimeFormat('fr-FR',{
+weekday:'short',
+day:'numeric',
+timeZone:'Europe/Paris'
+}).format(new Date(date+'T12:00:00'));
 
-    if (i === 0) label = "Aujourd'hui";
-    else if (i === 1) label = 'Demain';
-    else {
-      label = new Intl.DateTimeFormat('fr-FR', {
-        weekday: 'short',
-        day: 'numeric',
-        timeZone: 'Europe/Paris'
-      }).format(new Date(date + 'T12:00:00'));
-    }
+return '<button type="button" data-day="'+i+'" aria-pressed="'+(i===selected)+'">'+label+'</button>';
+}).join('');
 
-    return `
-      <button
-        type="button"
-        data-day="${i}"
-        aria-label="${label}"
-        aria-pressed="${i === selected}">
-      </button>
-    `;
-  }).join('');
+pins.innerHTML=cities.map((city,i)=>{
+const d=forecasts[i].daily;
+const temp=Math.round(d.temperature_2m_max[selected]);
+const code=d.weather_code[selected];
 
-  pins.innerHTML = cities.map((city, i) => {
-    const daily = forecasts[i].daily;
-    const code = daily.weather_code[selected];
-    const temp = Math.round(
-      daily.temperature_2m_max[selected]
-    );
+return '<div class="pin" style="left:'+city.x+'%;top:'+city.y+'%">'+
+'<span class="name">'+city.name+'</span>'+
+'<span class="symbol">'+icon(code)+'</span>'+
+'<span class="temp">'+temp+'°</span>'+
+'</div>';
+}).join('');
 
-    return `
-      <div class="pin"
-        style="left:${city.x}%;top:${city.y}%"
-        title="${city.name} : ${temp} degrés">
-        <span class="name">${city.name}</span>
-        <span class="symbol">${icon(code)}</span>
-        <span class="temp">${temp}°</span>
-      </div>
-    `;
-  }).join('');
+status.style.display='none';
 
-  indicator.style.left =
-    (14.8 + selected * 15.15) + '%';
+days.querySelectorAll('button').forEach(button=>{
+button.onclick=()=>{
+selected=Number(button.dataset.day);
+render();
+};
+});
 
-  status.style.display = 'none';
-
-  days.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', () => {
-      selected = Number(button.dataset.day);
-      render();
-    });
-  });
-
-  reportHeight();
+reportHeight();
 }
 
-function reportHeight() {
-  if (window.parent !== window) {
-    window.parent.postMessage({
-      type: 'cacao-meteo-height',
-      height: Math.ceil(
-        document.documentElement.scrollHeight
-      )
-    }, '*');
-  }
+function reportHeight(){
+if(window.parent!==window){
+window.parent.postMessage({
+type:'cacao-meteo-height',
+height:Math.ceil(document.documentElement.scrollHeight)
+},'*');
+}
 }
 
-(async function () {
-  try {
-    const params = new URLSearchParams({
-      latitude: cities.map(c => c.lat).join(','),
-      longitude: cities.map(c => c.lon).join(','),
-      daily: 'weather_code,temperature_2m_max',
-      timezone: 'Europe/Paris',
-      forecast_days: '5'
-    });
+(async()=>{
+try{
+const params=new URLSearchParams({
+latitude:cities.map(c=>c.lat).join(','),
+longitude:cities.map(c=>c.lon).join(','),
+daily:'weather_code,temperature_2m_max',
+timezone:'Europe/Paris',
+forecast_days:'5'
+});
 
-    const response = await fetch(
-      'https://api.open-meteo.com/v1/forecast?' + params
-    );
+const response=await fetch(
+'https://api.open-meteo.com/v1/forecast?'+params
+);
 
-    if (!response.ok) {
-      throw new Error('HTTP ' + response.status);
-    }
+if(!response.ok)throw new Error('HTTP '+response.status);
 
-    const data = await response.json();
+const data=await response.json();
+forecasts=Array.isArray(data)?data:[data];
 
-    forecasts = Array.isArray(data) ? data : [data];
+if(forecasts.length!==cities.length){
+throw new Error('Réponse météo incomplète');
+}
 
-    if (forecasts.length !== cities.length) {
-      throw new Error('Réponse météo incomplète');
-    }
+render();
 
-    render();
-
-  } catch (error) {
-    status.textContent =
-      'Prévisions momentanément indisponibles.';
-    console.error(error);
-  }
+}catch(error){
+status.textContent='Prévisions momentanément indisponibles.';
+console.error(error);
+}
 })();
 
-window.addEventListener('load', reportHeight);
-window.addEventListener('resize', reportHeight);
+window.addEventListener('load',reportHeight);
+window.addEventListener('resize',reportHeight);
 </script>
 
 </body>
