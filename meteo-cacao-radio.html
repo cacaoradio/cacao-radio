@@ -39,7 +39,7 @@ html, body {
   pointer-events: none;
 }
 
-/* Les cinq boutons déjà dessinés sur l'image */
+/* Boutons des cinq jours */
 .days {
   position: absolute;
   left: 14.8%;
@@ -86,7 +86,7 @@ html, body {
   outline-offset: -2px;
 }
 
-/* Une ligne par emplacement : symbole + température */
+/* Pictogramme collé à la température */
 .pin {
   position: absolute;
   transform: translate(-50%,-50%);
@@ -94,7 +94,7 @@ html, body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: clamp(2px,.35cqw,5px);
+  gap: 0;
   white-space: nowrap;
   z-index: 2;
 }
@@ -182,7 +182,7 @@ html, body {
 <script>
 'use strict';
 
-/* Les 14 villes restent utilisées pour les prévisions */
+/* Les 14 villes utilisées pour les prévisions */
 const cities = [
   {name:'Lille',lat:50.6292,lon:3.0573,x:63,y:35},
   {name:'Le Havre',lat:49.4944,lon:0.1079,x:49,y:43},
