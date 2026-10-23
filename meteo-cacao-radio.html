@@ -3,139 +3,183 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contrôle des positions - Cacao Radio</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Réglage des villes - Cacao Radio</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:transparent;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  font-family: Arial, Helvetica, sans-serif;
+.weather{
+  position:relative;
+  width:100%;
+  max-width:940px;
+  margin:auto;
+  overflow:hidden;
+  container-type:inline-size;
+  touch-action:pan-y;
 }
 
-.weather {
-  position: relative;
-  width: 100%;
-  max-width: 940px;
-  margin: 0 auto;
-  overflow: hidden;
-  container-type: inline-size;
+.background{
+  display:block;
+  width:100%;
+  height:auto;
+  pointer-events:none;
+  user-select:none;
 }
 
-.background {
-  display: block;
-  width: 100%;
-  height: auto;
+.overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
 }
 
-.overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+.days{
+  position:absolute;
+  left:14.8%;
+  top:18.9%;
+  width:75%;
+  height:5.1%;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:.8%;
+  pointer-events:auto;
 }
 
-/* Boutons des jours inchangés */
-.days {
-  position: absolute;
-  left: 14.8%;
-  top: 18.9%;
-  width: 75%;
-  height: 5.1%;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: .8%;
-  pointer-events: auto;
+.days button{
+  min-width:0;
+  margin:0;
+  padding:0 1px;
+  border:0;
+  background:transparent;
+  color:#563428;
+  font-family:inherit;
+  font-size:clamp(7px,1.65cqw,14px);
+  font-weight:800;
+  white-space:nowrap;
+  cursor:pointer;
 }
 
-.days button {
-  min-width: 0;
-  margin: 0;
-  padding: 0 1px;
-  border: 0;
-  background: transparent;
-  color: #563428;
-  font-family: inherit;
-  font-size: clamp(7px, 1.65cqw, 14px);
-  font-weight: 800;
-  white-space: nowrap;
-  cursor: pointer;
+.days button:first-child{
+  color:white;
 }
 
-.days button:first-child {
-  color: white;
+.days button[aria-pressed="true"]:not(:first-child){
+  background:#563428;
+  color:white;
+  border-radius:7px;
 }
 
-.days button[aria-pressed="true"]:not(:first-child) {
-  background: #563428;
-  color: white;
-  border-radius: 7px;
+.marker{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  display:flex;
+  align-items:center;
+  gap:3px;
+  pointer-events:auto;
+  cursor:grab;
+  touch-action:none;
+  user-select:none;
+  z-index:2;
 }
 
-.days button:focus-visible {
-  outline: 2px solid #563428;
-  outline-offset: -2px;
+.marker.dragging{
+  cursor:grabbing;
+  z-index:10;
 }
 
-/* Repères de contrôle */
-.marker {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  z-index: 2;
+.marker .dot{
+  display:grid;
+  place-items:center;
+  width:clamp(16px,2.7cqw,24px);
+  height:clamp(16px,2.7cqw,24px);
+  flex:0 0 auto;
+  background:#b71c1c;
+  color:white;
+  border:2px solid white;
+  border-radius:50%;
+  font-size:clamp(8px,1.35cqw,12px);
+  font-weight:800;
+  box-shadow:0 1px 4px #0008;
 }
 
-.marker .dot {
-  display: grid;
-  place-items: center;
-  width: clamp(15px, 2.7cqw, 24px);
-  height: clamp(15px, 2.7cqw, 24px);
-  flex: 0 0 auto;
-  background: #b71c1c;
-  color: white;
-  border: 2px solid white;
-  border-radius: 50%;
-  font-size: clamp(8px, 1.35cqw, 12px);
-  font-weight: 800;
-  box-shadow: 0 1px 4px #0008;
+.marker .name{
+  background:rgba(255,255,255,.96);
+  color:#42291f;
+  padding:2px 4px;
+  border-radius:4px;
+  font-size:clamp(8px,1.45cqw,13px);
+  font-weight:800;
+  white-space:nowrap;
+  box-shadow:0 1px 4px #0005;
 }
 
-.marker .name {
-  background: rgba(255, 255, 255, .95);
-  color: #42291f;
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-size: clamp(8px, 1.45cqw, 13px);
-  font-weight: 800;
-  white-space: nowrap;
-  box-shadow: 0 1px 4px #0005;
+.controls{
+  max-width:940px;
+  margin:12px auto 24px;
+  padding:12px;
+  text-align:center;
+  background:#fffaf3;
+  border:1px solid #d6bda8;
+  border-radius:10px;
+  color:#482b20;
 }
 
-@media (max-width: 500px) {
-  .days button {
-    font-size: clamp(7px, 2.1cqw, 10px);
+.controls p{
+  margin:0 0 10px;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.controls button{
+  border:0;
+  border-radius:7px;
+  padding:12px 18px;
+  background:#563428;
+  color:white;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.controls textarea{
+  display:block;
+  width:100%;
+  height:170px;
+  margin-top:12px;
+  padding:10px;
+  border:1px solid #d6bda8;
+  border-radius:6px;
+  font-family:monospace;
+  font-size:12px;
+  resize:vertical;
+}
+
+@media(max-width:500px){
+  .days button{
+    font-size:clamp(7px,2.1cqw,10px);
   }
 
-  .marker {
-    gap: 1px;
+  .marker{
+    gap:1px;
   }
 
-  .marker .dot {
-    width: 15px;
-    height: 15px;
-    border-width: 1px;
-    font-size: 8px;
+  .marker .dot{
+    width:16px;
+    height:16px;
+    border-width:1px;
+    font-size:8px;
   }
 
-  .marker .name {
-    font-size: 8px;
-    padding: 1px 2px;
+  .marker .name{
+    font-size:8px;
+    padding:1px 2px;
   }
 }
 </style>
@@ -160,103 +204,217 @@ html, body {
 
 </main>
 
+<section class="controls">
+  <p>
+    Déplace les repères rouges sur les villes à la souris.
+    Quand tout est bien placé, clique sur
+    « Copier les positions ».
+  </p>
+
+  <button id="copy" type="button">
+    Copier les positions
+  </button>
+
+  <textarea
+    id="result"
+    readonly
+    aria-label="Coordonnées des villes"
+    placeholder="Les coordonnées apparaîtront ici..."
+  ></textarea>
+</section>
+
 <script>
 'use strict';
 
 /*
-  Positions PROVISOIRES.
-  Les repères permettent de vérifier chaque ville.
+ Coordonnées de départ provisoires.
+ Chaque repère peut être déplacé à la souris.
 */
-
-const cities = [
-  {name:'Lille',       x:62.5, y:35.5},
-  {name:'Le Havre',    x:50.0, y:43.0},
-  {name:'Paris',       x:61.5, y:46.5},
-  {name:'Strasbourg',  x:80.5, y:48.0},
-  {name:'Brest',       x:34.0, y:43.5},
-  {name:'Rennes',      x:44.5, y:49.5},
-  {name:'Nantes',      x:45.5, y:56.5},
-  {name:'Tours',       x:54.5, y:54.5},
-  {name:'Dijon',       x:69.5, y:55.5},
-  {name:'Lyon',        x:69.5, y:64.5},
-  {name:'Bordeaux',    x:49.5, y:66.5},
-  {name:'Toulouse',    x:57.5, y:73.0},
-  {name:'Marseille',   x:74.5, y:73.0},
-  {name:'Ajaccio',     x:87.0, y:79.0}
+const cities=[
+  {name:'Lille',x:62.5,y:35.5},
+  {name:'Le Havre',x:50.0,y:43.0},
+  {name:'Paris',x:61.5,y:46.5},
+  {name:'Strasbourg',x:80.5,y:48.0},
+  {name:'Brest',x:34.0,y:43.5},
+  {name:'Rennes',x:44.5,y:49.5},
+  {name:'Nantes',x:45.5,y:56.5},
+  {name:'Tours',x:54.5,y:54.5},
+  {name:'Dijon',x:69.5,y:55.5},
+  {name:'Lyon',x:69.5,y:64.5},
+  {name:'Bordeaux',x:49.5,y:66.5},
+  {name:'Toulouse',x:57.5,y:73.0},
+  {name:'Marseille',x:74.5,y:73.0},
+  {name:'Ajaccio',x:87.0,y:79.0}
 ];
 
-const markers = document.getElementById('markers');
-const days = document.getElementById('days');
+const weather=document.getElementById('weather');
+const markers=document.getElementById('markers');
+const days=document.getElementById('days');
+const result=document.getElementById('result');
 
-markers.innerHTML = cities.map((city, index) => `
-  <div
-    class="marker"
-    style="left:${city.x}%;top:${city.y}%"
-    title="${city.name}">
-    <span class="dot">${index + 1}</span>
-    <span class="name">${city.name}</span>
-  </div>
-`).join('');
+function renderMarkers(){
+  markers.innerHTML=cities.map((city,index)=>`
+    <div
+      class="marker"
+      data-index="${index}"
+      style="left:${city.x}%;top:${city.y}%"
+      title="Déplacer ${city.name}">
+      <span class="dot">${index+1}</span>
+      <span class="name">${city.name}</span>
+    </div>
+  `).join('');
 
-/* Les cinq dates restent visibles */
-const today = new Date(
-  new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Europe/Paris',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).format(new Date()) + 'T12:00:00'
-);
+  markers.querySelectorAll('.marker').forEach(marker=>{
+    marker.addEventListener('pointerdown',startDrag);
+  });
+}
 
-const labels = Array.from({length: 5}, (_, index) => {
-  if (index === 0) return "Aujourd'hui";
-  if (index === 1) return 'Demain';
+let activeMarker=null;
+let activeIndex=-1;
+let activePointer=null;
+let offsetX=0;
+let offsetY=0;
 
-  const date = new Date(today);
-  date.setDate(date.getDate() + index);
+function startDrag(event){
+  if(event.button!==0)return;
 
-  return new Intl.DateTimeFormat('fr-FR', {
-    weekday: 'short',
-    day: 'numeric'
+  const marker=event.currentTarget;
+  const rect=weather.getBoundingClientRect();
+
+  activeMarker=marker;
+  activeIndex=Number(marker.dataset.index);
+  activePointer=event.pointerId;
+
+  const markerX=rect.left+rect.width*cities[activeIndex].x/100;
+  const markerY=rect.top+rect.height*cities[activeIndex].y/100;
+
+  offsetX=event.clientX-markerX;
+  offsetY=event.clientY-markerY;
+
+  marker.classList.add('dragging');
+  marker.setPointerCapture(event.pointerId);
+  event.preventDefault();
+}
+
+function moveDrag(event){
+  if(!activeMarker||event.pointerId!==activePointer)return;
+
+  const rect=weather.getBoundingClientRect();
+
+  const x=(event.clientX-offsetX-rect.left)/rect.width*100;
+  const y=(event.clientY-offsetY-rect.top)/rect.height*100;
+
+  cities[activeIndex].x=Math.max(0,Math.min(100,x));
+  cities[activeIndex].y=Math.max(0,Math.min(100,y));
+
+  activeMarker.style.left=cities[activeIndex].x+'%';
+  activeMarker.style.top=cities[activeIndex].y+'%';
+}
+
+function stopDrag(event){
+  if(!activeMarker||event.pointerId!==activePointer)return;
+
+  activeMarker.classList.remove('dragging');
+  activeMarker=null;
+  activeIndex=-1;
+  activePointer=null;
+}
+
+document.addEventListener('pointermove',moveDrag);
+document.addEventListener('pointerup',stopDrag);
+document.addEventListener('pointercancel',stopDrag);
+
+function exportPositions(){
+  const output=cities.map(city=>
+    `{name:'${city.name}',x:${city.x.toFixed(2)},y:${city.y.toFixed(2)}}`
+  ).join(',\n');
+
+  result.value='const cities = [\n'+output+'\n];';
+  result.select();
+
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(result.value).then(()=>{
+      document.getElementById('copy').textContent='Positions copiées !';
+    }).catch(()=>{
+      document.getElementById('copy').textContent='Sélectionne et copie le texte ci-dessous';
+    });
+  }else{
+    document.getElementById('copy').textContent='Sélectionne et copie le texte ci-dessous';
+  }
+}
+
+document.getElementById('copy')
+  .addEventListener('click',exportPositions);
+
+/* Affichage des cinq jours */
+const now=new Date();
+
+const dateParts=new Intl.DateTimeFormat('en-GB',{
+  timeZone:'Europe/Paris',
+  year:'numeric',
+  month:'2-digit',
+  day:'2-digit'
+}).formatToParts(now);
+
+const getPart=type=>dateParts.find(p=>p.type===type).value;
+
+const today=new Date(Date.UTC(
+  Number(getPart('year')),
+  Number(getPart('month'))-1,
+  Number(getPart('day')),
+  12
+));
+
+const labels=Array.from({length:5},(_,index)=>{
+  if(index===0)return "Aujourd'hui";
+  if(index===1)return 'Demain';
+
+  const date=new Date(today);
+  date.setUTCDate(date.getUTCDate()+index);
+
+  return new Intl.DateTimeFormat('fr-FR',{
+    weekday:'short',
+    day:'numeric',
+    timeZone:'UTC'
   }).format(date);
 });
 
-let selectedDay = 0;
+let selectedDay=0;
 
-function renderDays() {
-  days.innerHTML = labels.map((label, index) => `
+function renderDays(){
+  days.innerHTML=labels.map((label,index)=>`
     <button
       type="button"
       data-day="${index}"
-      aria-pressed="${index === selectedDay}">
+      aria-pressed="${index===selectedDay}">
       ${label}
     </button>
   `).join('');
 
-  days.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', () => {
-      selectedDay = Number(button.dataset.day);
+  days.querySelectorAll('button').forEach(button=>{
+    button.addEventListener('click',()=>{
+      selectedDay=Number(button.dataset.day);
       renderDays();
     });
   });
 }
 
-renderDays();
-
-function reportHeight() {
-  if (window.parent === window) return;
+function reportHeight(){
+  if(window.parent===window)return;
 
   window.parent.postMessage({
-    type: 'cacao-meteo-height',
-    height: Math.ceil(
-      document.getElementById('weather')
-        .getBoundingClientRect().height
+    type:'cacao-meteo-height',
+    height:Math.ceil(
+      document.documentElement.scrollHeight
     )
-  }, '*');
+  },'*');
 }
 
-window.addEventListener('load', reportHeight);
-window.addEventListener('resize', reportHeight);
+renderMarkers();
+renderDays();
+
+window.addEventListener('load',reportHeight);
+window.addEventListener('resize',reportHeight);
 </script>
 
 </body>
