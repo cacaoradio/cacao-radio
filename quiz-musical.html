@@ -1,354 +1,447 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Le Quiz Musical - Cacao Radio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quiz musical Cacao Radio</title>
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:transparent}
-body{font-family:Arial,sans-serif;color:#3c2419;padding:8px}
-.quiz{
-  max-width:600px;
-  margin:auto;
-  background:#fff8ef;
-  border:1px solid #e8d4bf;
-  border-radius:18px;
-  overflow:hidden;
-  text-align:center;
-}
-.hero{
-  width:100%;
-  aspect-ratio:1279/450;
-  background-image:url("https://cacaoradio.github.io/cacao-radio/quiz-musical-visuel.png");
-  background-repeat:no-repeat;
-  background-size:100% auto;
-  background-position:top center;
-}
-.content{padding:16px 22px 20px}
-.meta{
-  font-size:13px;
-  font-weight:bold;
-  letter-spacing:1px;
-  color:#75432b;
-}
-.progress{
-  height:7px;
-  background:#ead4c1;
-  border-radius:20px;
-  overflow:hidden;
-  margin:15px 0 22px;
-}
-.bar{
-  height:100%;
-  width:0;
-  background:#87472d;
-  transition:width .3s;
-}
-.question{
-  font-size:21px;
-  font-weight:bold;
-  line-height:1.4;
-  margin-bottom:20px;
-}
-.answers{display:grid;gap:10px}
-.answer{
-  width:100%;
-  padding:14px;
-  border:1px solid #dfbea5;
-  border-radius:12px;
-  background:#fff;
-  color:#3c2419;
-  text-align:left;
-  font-size:15px;
-  cursor:pointer;
-}
-.answer:disabled{cursor:default;opacity:1}
-.answer.correct{
-  background:#e4f3e7;
-  border-color:#448b58;
-}
-.answer.wrong{
-  background:#fae6e6;
-  border-color:#bd5555;
-}
-.primary{
-  margin-top:17px;
-  padding:14px 25px;
-  background:#75402a;
-  color:white;
-  border:0;
-  border-radius:30px;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-}
-.feedback{
-  margin-top:13px;
-  font-size:14px;
-  font-weight:bold;
-}
-.footer{
-  margin-top:25px;
-  padding:15px 8px 12px;
-  border-top:1px solid #ead8c7;
-  color:#75432b;
-  font-size:14px;
-  line-height:1.5;
-}
-.result{
-  font-family:Georgia,serif;
-  font-size:45px;
-  font-weight:bold;
-  color:#75402a;
-  margin:15px 0;
-}
-.muted{font-size:14px;line-height:1.5}
+html,body{margin:0;background:transparent;font-family:Arial,sans-serif;color:#3b251b}
+body{padding:5px}
+.quiz{max-width:600px;margin:auto;background:#fff9f1;border:1px solid #e6d2be;border-radius:18px;overflow:hidden;text-align:center}
+.hero{width:100%;height:auto;display:block}
+.content{padding:17px 20px 25px}
+.kicker{color:#80513a;font-size:12px;font-weight:bold;letter-spacing:1.5px}
+h1{font:700 29px Georgia,serif;margin:8px 0 5px}
+.sub{font-size:12px;color:#805e4c;letter-spacing:1px;margin-bottom:23px}
+.meta{font-size:13px;color:#70432e;font-weight:bold}
+.progress{height:7px;background:#ead7c6;border-radius:12px;overflow:hidden;margin:13px 0 20px}
+.bar{height:100%;background:#8d4c30;width:0;transition:width .2s}
+.question{font-size:20px;font-weight:bold;line-height:1.4;margin-bottom:18px}
+.answers{display:grid;gap:9px}
+.answer{width:100%;background:#fff;color:#3b251b;border:1px solid #dfc4ae;border-radius:11px;padding:14px;text-align:left;font-size:15px;cursor:pointer}
+.answer:disabled{opacity:1;cursor:default}
+.answer.correct{background:#e6f3e9;border-color:#438b5a}
+.answer.wrong{background:#fbe9e9;border-color:#bd5b5b}
+.primary{margin-top:17px;padding:13px 24px;border:0;border-radius:30px;background:#74412d;color:#fff;font-size:15px;font-weight:bold;cursor:pointer}
+.feedback{margin-top:13px;font-size:14px;font-weight:bold}
+.result{font:700 46px Georgia,serif;color:#74412d;margin:15px 0}
+.muted{font-size:14px;line-height:1.6}
+.footer{margin-top:25px;padding:18px 8px 12px;border-top:1px solid #ead8c7;color:#74412d;font-size:14px;line-height:1.6}
 .hidden{display:none!important}
 @media(max-width:480px){
-  body{padding:4px}
-  .content{padding:15px 14px 18px}
-  .question{font-size:18px}
-  .answer{padding:13px;font-size:14px}
-  .footer{font-size:12px}
+body{padding:3px}
+.content{padding:15px 13px 22px}
+h1{font-size:26px}
+.question{font-size:18px}
+.answer{padding:13px;font-size:14px}
+.footer{font-size:13px}
 }
 </style>
 </head>
 <body>
-
 <main class="quiz">
-  <div class="hero" role="img"
-    aria-label="Deux nounours chocolat guimauve pour le quiz musical Cacao Radio">
-  </div>
-
-  <div class="content">
-    <section id="game">
-      <div id="meta" class="meta"></div>
-      <div class="progress">
-        <div id="bar" class="bar"></div>
-      </div>
-      <div id="question" class="question"></div>
-      <div id="answers" class="answers"></div>
-      <div id="feedback" class="feedback"></div>
-      <button id="next" class="primary hidden">
-        Question suivante →
-      </button>
-    </section>
-
-    <section id="done" class="hidden">
-      <p>Bravo, vous avez terminé le quiz du jour !</p>
-      <div id="score" class="result"></div>
-      <p class="muted">
-        Rendez-vous demain pour un nouveau quiz musical !
-      </p>
-      <p id="countdown" class="muted"></p>
-    </section>
-
-    <div class="footer">
-      ♪ Un nouveau quiz chaque jour à minuit · Heure de Paris ♪
-    </div>
-  </div>
+<img class="hero" src="https://cacaoradio.github.io/cacao-radio/quiz-musical-visuel.png" alt="Nounours chocolat guimauve">
+<div class="content">
+<div class="kicker">LE DÉFI DU JOUR</div>
+<h1>Le Quiz Musical</h1>
+<div class="sub">CACAO RADIO · EASY LISTENING RADIO</div>
+<section id="game">
+<div class="meta" id="meta"></div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="question" id="question"></div>
+<div class="answers" id="answers"></div>
+<div class="feedback" id="feedback" aria-live="polite"></div>
+<button class="primary hidden" id="next">Question suivante →</button>
+</section>
+<section id="done" class="hidden">
+<p>Bravo, vous avez terminé le quiz du jour !</p>
+<div class="result" id="score"></div>
+<p class="muted">Rendez-vous demain pour un nouveau quiz musical !</p>
+<p class="muted" id="countdown"></p>
+</section>
+<div class="footer">♪ Un nouveau quiz chaque jour à minuit · Heure de Paris ♪</div>
+</div>
 </main>
-
 <script>
 "use strict";
 
-const bank=[
-["Qui interprète Billie Jean ?",["Prince","Michael Jackson","Stevie Wonder"],1],
-["Quel groupe chante Dancing Queen ?",["ABBA","Bee Gees","Fleetwood Mac"],0],
-["Qui chante Rolling in the Deep ?",["Dua Lipa","Amy Winehouse","Adele"],2],
-["Quel groupe a sorti Viva la Vida ?",["Coldplay","Keane","Muse"],0],
-["Qui chante Like a Prayer ?",["Cyndi Lauper","Madonna","Cher"],1],
-["Qui interprète Purple Rain ?",["Prince","David Bowie","George Michael"],0],
-["Qui chante Someone Like You ?",["Sia","Adele","Duffy"],1],
-["Quel groupe chante Dreams en 1977 ?",["Fleetwood Mac","The Police","Eagles"],0],
-["Qui chante Get Lucky avec Pharrell ?",["Justice","Daft Punk","Air"],1],
-["Qui chante Shape of You ?",["Sam Smith","Ed Sheeran","James Arthur"],1],
-["Qui interprète Bad Romance ?",["Katy Perry","Lady Gaga","Rihanna"],1],
-["Quel groupe chante Wonderwall ?",["Blur","Oasis","Radiohead"],1],
-["Qui chante Back to Black ?",["Amy Winehouse","Adele","Lana Del Rey"],0],
-["Qui chante Blinding Lights ?",["The Weeknd","Bruno Mars","Khalid"],0],
-["Quel groupe chante Take On Me ?",["Duran Duran","a-ha","Tears for Fears"],1],
-["Qui interprète Happy ?",["Pharrell Williams","Justin Timberlake","Ne-Yo"],0],
-["Quel groupe chante Hotel California ?",["Eagles","America","Chicago"],0],
-["Qui chante Rehab ?",["Duffy","Amy Winehouse","Adele"],1],
-["Qui chante Levitating ?",["Dua Lipa","Ariana Grande","Miley Cyrus"],0],
-["Quel groupe chante Every Breath You Take ?",["U2","The Police","Genesis"],1],
-["Qui chante Flowers en 2023 ?",["Miley Cyrus","Selena Gomez","Sia"],0],
-["Quel groupe chante Bohemian Rhapsody ?",["Queen","Led Zeppelin","The Beatles"],0],
-["Qui chante Hello en 2015 ?",["Adele","Beyoncé","Jessie J"],0],
-["Qui interprète Rocket Man ?",["Elton John","Billy Joel","David Bowie"],0],
-["Qui chante Crazy in Love avec Jay-Z ?",["Rihanna","Beyoncé","Alicia Keys"],1],
-["Quel groupe chante Yellow ?",["Travis","Coldplay","Keane"],1],
-["Qui chante Stay With Me ?",["Sam Smith","Lewis Capaldi","John Legend"],0],
-["Quel groupe chante September ?",["Earth, Wind & Fire","Kool & the Gang","Chic"],0],
-["Qui chante Toxic ?",["Britney Spears","Christina Aguilera","Kylie Minogue"],0],
-["Qui chante Thinking Out Loud ?",["Ed Sheeran","James Blunt","Shawn Mendes"],0],
-["Qui chante Smooth Operator ?",["Sade","Annie Lennox","Tina Turner"],0],
-["Quel groupe chante Africa ?",["Toto","Journey","Foreigner"],0],
-["Qui chante No Ordinary Love ?",["Sade","Whitney Houston","Tracy Chapman"],0],
-["Qui chante Fast Car à l'origine ?",["Tracy Chapman","Suzanne Vega","Joan Armatrading"],0],
-["Quel groupe chante Everybody Wants to Rule the World ?",["Tears for Fears","Simple Minds","Talk Talk"],0],
-["Qui chante Valerie avec Mark Ronson ?",["Amy Winehouse","Lily Allen","Duffy"],0],
-["Qui chante New Rules ?",["Dua Lipa","Rita Ora","Ellie Goulding"],0],
-["Quel groupe chante Don't Stop Me Now ?",["Queen","Supertramp","ELO"],0],
-["Qui chante Ordinary People ?",["John Legend","Alicia Keys","Ne-Yo"],0],
-["Qui chante As It Was ?",["Harry Styles","Niall Horan","Zayn"],0]
-];
+// 150 chansons x 2 questions = 300 questions.
+const data=`Michael Jackson|Billie Jean
+ABBA|Dancing Queen
+Adele|Rolling in the Deep
+Coldplay|Viva la Vida
+Madonna|Like a Prayer
+Prince|Purple Rain
+Adele|Someone Like You
+Fleetwood Mac|Dreams
+Daft Punk|Get Lucky
+Ed Sheeran|Shape of You
+Lady Gaga|Bad Romance
+Oasis|Wonderwall
+Amy Winehouse|Back to Black
+The Weeknd|Blinding Lights
+a-ha|Take On Me
+Pharrell Williams|Happy
+Eagles|Hotel California
+Amy Winehouse|Rehab
+Dua Lipa|Levitating
+The Police|Every Breath You Take
+Miley Cyrus|Flowers
+Queen|Bohemian Rhapsody
+Adele|Hello
+Elton John|Rocket Man
+Beyoncé|Crazy in Love
+Coldplay|Yellow
+Sam Smith|Stay With Me
+Earth, Wind & Fire|September
+Britney Spears|Toxic
+Ed Sheeran|Thinking Out Loud
+Sade|Smooth Operator
+Toto|Africa
+Sade|No Ordinary Love
+Tracy Chapman|Fast Car
+Tears for Fears|Everybody Wants to Rule the World
+Mark Ronson et Amy Winehouse|Valerie
+Dua Lipa|New Rules
+Queen|Don't Stop Me Now
+John Legend|Ordinary People
+Harry Styles|As It Was
+Stevie Wonder|Superstition
+Stevie Wonder|Isn't She Lovely
+Marvin Gaye|What's Going On
+Aretha Franklin|Respect
+The Beatles|Hey Jude
+The Beatles|Come Together
+The Rolling Stones|Angie
+David Bowie|Heroes
+David Bowie|Let's Dance
+Elton John|Your Song
+Billy Joel|Piano Man
+Billy Joel|Uptown Girl
+Bee Gees|Stayin' Alive
+Gloria Gaynor|I Will Survive
+Donna Summer|Hot Stuff
+Chic|Le Freak
+Blondie|Heart of Glass
+The Clash|London Calling
+Pink Floyd|Another Brick in the Wall, Part 2
+Supertramp|The Logical Song
+The Jackson 5|I Want You Back
+Diana Ross|Upside Down
+Lionel Richie|All Night Long
+Lionel Richie|Say You, Say Me
+Cyndi Lauper|Girls Just Want to Have Fun
+Whitney Houston|I Wanna Dance with Somebody
+Whitney Houston|I Will Always Love You
+George Michael|Careless Whisper
+George Michael|Faith
+Wham!|Wake Me Up Before You Go-Go
+U2|With or Without You
+U2|Beautiful Day
+Simple Minds|Don't You (Forget About Me)
+Duran Duran|Hungry Like the Wolf
+Eurythmics|Sweet Dreams (Are Made of This)
+Tina Turner|What's Love Got to Do with It
+Phil Collins|In the Air Tonight
+Genesis|Invisible Touch
+The Cure|Just Like Heaven
+Depeche Mode|Enjoy the Silence
+New Order|Blue Monday
+Pet Shop Boys|West End Girls
+Bryan Adams|Summer of '69
+Bon Jovi|Livin' on a Prayer
+Roxette|It Must Have Been Love
+Sinéad O'Connor|Nothing Compares 2 U
+R.E.M.|Losing My Religion
+Nirvana|Smells Like Teen Spirit
+Radiohead|Creep
+Blur|Song 2
+The Cranberries|Zombie
+No Doubt|Don't Speak
+Alanis Morissette|Ironic
+Natalie Imbruglia|Torn
+Spice Girls|Wannabe
+Backstreet Boys|I Want It That Way
+Britney Spears|...Baby One More Time
+Christina Aguilera|Genie in a Bottle
+Destiny's Child|Say My Name
+TLC|No Scrubs
+Lauryn Hill|Doo Wop (That Thing)
+Fugees|Killing Me Softly
+Coolio|Gangsta's Paradise
+MC Hammer|U Can't Touch This
+Dr. Dre|Still D.R.E.
+Eminem|Lose Yourself
+OutKast|Hey Ya!
+Gorillaz|Clint Eastwood
+The White Stripes|Seven Nation Army
+The Killers|Mr. Brightside
+Keane|Somewhere Only We Know
+Snow Patrol|Chasing Cars
+James Blunt|You're Beautiful
+Daniel Powter|Bad Day
+Norah Jones|Don't Know Why
+Alicia Keys|Fallin'
+Alicia Keys|No One
+Rihanna|Umbrella
+Rihanna|Diamonds
+Beyoncé|Single Ladies (Put a Ring on It)
+Justin Timberlake|Cry Me a River
+Nelly Furtado|Say It Right
+Shakira|Hips Don't Lie
+Kylie Minogue|Can't Get You Out of My Head
+Robbie Williams|Angels
+Bruno Mars|Just the Way You Are
+Bruno Mars|Locked Out of Heaven
+Maroon 5|This Love
+Maroon 5|Moves Like Jagger
+OneRepublic|Counting Stars
+Imagine Dragons|Radioactive
+Lana Del Rey|Video Games
+Lorde|Royals
+Sia|Chandelier
+Sia|Cheap Thrills
+Taylor Swift|Shake It Off
+Taylor Swift|Anti-Hero
+Ariana Grande|thank u, next
+Billie Eilish|bad guy
+Billie Eilish|BIRDS OF A FEATHER
+Olivia Rodrigo|drivers license
+Olivia Rodrigo|good 4 u
+Harry Styles|Watermelon Sugar
+The Weeknd|Save Your Tears
+Dua Lipa|Don't Start Now
+Miley Cyrus|Wrecking Ball
+Lewis Capaldi|Someone You Loved
+Hozier|Take Me to Church
+Vance Joy|Riptide
+Avicii|Wake Me Up`
+.trim().split("\n").map(s=>s.split("|"));
 
 const $=id=>document.getElementById(id);
 
-function parisDate(){
-  return new Intl.DateTimeFormat("en-CA",{
-    timeZone:"Europe/Paris",
-    year:"numeric",
-    month:"2-digit",
-    day:"2-digit"
-  }).format(new Date());
+function dateParis(){
+ const p=Object.fromEntries(
+  new Intl.DateTimeFormat("en-GB",{
+   timeZone:"Europe/Paris",
+   year:"numeric",
+   month:"2-digit",
+   day:"2-digit"
+  }).formatToParts(new Date()).map(x=>[x.type,x.value])
+ );
+ return `${p.year}-${p.month}-${p.day}`;
 }
-
-const today=parisDate();
-const key="cacao-quiz-v1-"+today;
 
 function hash(s){
-  let h=2166136261;
-  for(const c of s){
-    h^=c.charCodeAt(0);
-    h=Math.imul(h,16777619);
-  }
-  return h>>>0;
+ let h=2166136261;
+ for(const c of s){
+  h^=c.charCodeAt(0);
+  h=Math.imul(h,16777619);
+ }
+ return h>>>0;
 }
 
-const quiz=bank.map((q,i)=>({
-  q,sort:hash(today+"-"+i)
-}))
-.sort((a,b)=>a.sort-b.sort)
-.slice(0,10)
-.map(x=>x.q);
+const today=dateParis();
+
+const day=Math.floor(
+ Date.UTC(...today.split("-").map(
+  (x,i)=>i===1?Number(x)-1:Number(x)
+ ))/86400000
+);
+
+const cycle=Math.floor(day/30);
+const slot=((day%30)+30)%30;
+
+const order=Array.from(
+ {length:300},(_,i)=>i
+).sort(
+ (a,b)=>hash(cycle+"-"+a)-hash(cycle+"-"+b)||a-b
+);
+
+const ids=order.slice(slot*10,slot*10+10);
+
+function build(id){
+ const i=id%data.length;
+ const reverse=id>=data.length;
+ const [artist,title]=data[i];
+ const correct=reverse?title:artist;
+
+ const pool=[
+  ...new Set(
+   data.filter(row=>!reverse||row[0]!==artist)
+   .map(row=>reverse?row[1]:row[0])
+  )
+ ].filter(x=>x!==correct);
+
+ pool.sort(
+  (a,b)=>hash(today+id+a)-hash(today+id+b)
+ );
+
+ const opts=[correct,...pool.slice(0,2)]
+ .sort(
+  (a,b)=>hash(today+id+"option"+a)-
+  hash(today+id+"option"+b)
+ );
+
+ return {
+  q:reverse
+   ?`Parmi ces trois titres, lequel est interprété par ${artist} ?`
+   :`Qui interprète « ${title} » ?`,
+  opts,
+  answer:opts.indexOf(correct)
+ };
+}
+
+const quiz=ids.map(id=>build(id));
+const key="cacao-quiz-v2-"+today;
 
 let state;
-try{
-  state=JSON.parse(localStorage.getItem(key)||"null");
-}catch(e){
-  state=null;
-}
 
-if(!state ||
-   !Number.isInteger(state.i) ||
-   !Array.isArray(state.picks) ||
-   state.i<0 || state.i>10){
-  state={i:0,picks:[],completed:false};
+try{
+ state=JSON.parse(localStorage.getItem(key)||"null");
+}catch(e){}
+
+if(
+ !state||
+ !Array.isArray(state.picks)||
+ !Number.isInteger(state.i)||
+ state.i<0||
+ state.i>10||
+ state.picks.length>10
+){
+ state={i:0,picks:[],completed:false};
 }
 
 function save(){
-  try{
-    localStorage.setItem(key,JSON.stringify(state));
-  }catch(e){
-    $("feedback").textContent=
-      "Impossible de sauvegarder la progression.";
-  }
+ try{
+  localStorage.setItem(key,JSON.stringify(state));
+ }catch(e){
+  $("feedback").textContent=
+   "Votre navigateur ne peut pas enregistrer votre progression.";
+ }
 }
 
-function points(){
-  return state.picks.reduce(
-    (sum,v,i)=>sum+(v===quiz[i][2]?1:0),0
-  );
+function score(){
+ return state.picks.reduce(
+  (n,p,i)=>n+(quiz[i]&&p===quiz[i].answer?1:0),0
+ );
 }
 
 function render(){
-  if(state.completed || state.i>=10){
-    state.completed=true;
+ if(state.completed||state.i>=10){
+  state.completed=true;
+  save();
+  $("game").classList.add("hidden");
+  $("done").classList.remove("hidden");
+  $("score").textContent=score()+" / 10";
+  tick();
+  notify();
+  return;
+ }
+
+ const q=quiz[state.i];
+ const answered=state.picks.length>state.i;
+
+ $("meta").textContent=`QUESTION ${state.i+1} / 10`;
+ $("bar").style.width=state.i*10+"%";
+ $("question").textContent=q.q;
+ $("answers").replaceChildren();
+
+ q.opts.forEach((answer,i)=>{
+  const b=document.createElement("button");
+  b.className="answer";
+  b.textContent=String.fromCharCode(65+i)+". "+answer;
+  b.disabled=answered;
+
+  if(answered){
+   if(i===q.answer){
+    b.classList.add("correct");
+   }else if(i===state.picks[state.i]){
+    b.classList.add("wrong");
+   }
+  }else{
+   b.onclick=()=>{
+    state.picks[state.i]=i;
     save();
-    $("game").classList.add("hidden");
-    $("done").classList.remove("hidden");
-    $("score").textContent=points()+" / 10";
-    tick();
-    return;
+    render();
+   };
   }
 
-  $("meta").textContent="QUESTION "+(state.i+1)+" / 10";
-  $("bar").style.width=(state.i*10)+"%";
+  $("answers").append(b);
+ });
 
-  const q=quiz[state.i];
-  $("question").textContent=q[0];
-  $("answers").replaceChildren();
+ $("feedback").textContent=answered
+  ?(state.picks[state.i]===q.answer
+   ?"Bonne réponse !"
+   :"La bonne réponse est : "+q.opts[q.answer])
+  :"";
 
-  const answered=state.picks.length>state.i;
+ $("next").classList.toggle("hidden",!answered);
+ $("next").textContent=state.i===9
+  ?"Voir mon score →"
+  :"Question suivante →";
 
-  q[1].forEach((txt,n)=>{
-    const b=document.createElement("button");
-    b.className="answer";
-    b.textContent=String.fromCharCode(65+n)+". "+txt;
-    b.disabled=answered;
-
-    if(answered){
-      if(n===q[2]) b.classList.add("correct");
-      else if(n===state.picks[state.i])
-        b.classList.add("wrong");
-    }else{
-      b.onclick=()=>{
-        state.picks[state.i]=n;
-        save();
-        render();
-      };
-    }
-    $("answers").appendChild(b);
-  });
-
-  $("feedback").textContent=answered
-    ? state.picks[state.i]===q[2]
-      ? "Bonne réponse !"
-      : "La bonne réponse est : "+q[1][q[2]]
-    : "";
-
-  $("next").classList.toggle("hidden",!answered);
-  $("next").textContent=state.i===9
-    ? "Voir mon score →"
-    : "Question suivante →";
+ notify();
 }
 
 $("next").onclick=()=>{
-  if(state.picks.length<=state.i) return;
-  state.i++;
-  if(state.i===10) state.completed=true;
-  save();
-  render();
+ if(state.picks.length<=state.i)return;
+ state.i++;
+ if(state.i===10)state.completed=true;
+ save();
+ render();
 };
 
 function tick(){
-  if($("done").classList.contains("hidden")) return;
+ if($("done").classList.contains("hidden"))return;
 
-  const parts=new Intl.DateTimeFormat("en-GB",{
-    timeZone:"Europe/Paris",
-    hour:"2-digit",
-    minute:"2-digit",
-    second:"2-digit",
-    hourCycle:"h23"
-  }).formatToParts(new Date());
+ const p=Object.fromEntries(
+  new Intl.DateTimeFormat("en-GB",{
+   timeZone:"Europe/Paris",
+   hour:"2-digit",
+   minute:"2-digit",
+   second:"2-digit",
+   hourCycle:"h23"
+  }).formatToParts(new Date()).map(x=>[x.type,x.value])
+ );
 
-  const p={};
-  parts.forEach(x=>p[x.type]=x.value);
+ const seconds=(
+  86400-(
+   Number(p.hour)*3600+
+   Number(p.minute)*60+
+   Number(p.second)
+  )
+ )%86400;
 
-  let secs=86400-(
-    Number(p.hour)*3600+
-    Number(p.minute)*60+
-    Number(p.second)
-  );
-  if(secs===86400) secs=0;
-
-  $("countdown").textContent=
-    "Prochain quiz dans "+
-    String(Math.floor(secs/3600)).padStart(2,"0")+"h "+
-    String(Math.floor(secs%3600/60)).padStart(2,"0")+"min "+
-    String(secs%60).padStart(2,"0")+"s";
+ $("countdown").textContent=
+  "Prochain quiz dans "+
+  String(Math.floor(seconds/3600)).padStart(2,"0")+"h "+
+  String(Math.floor(seconds%3600/60)).padStart(2,"0")+"min "+
+  String(seconds%60).padStart(2,"0")+"s";
 }
+
+function notify(){
+ requestAnimationFrame(()=>{
+  parent.postMessage({
+   type:"cacaoQuizHeight",
+   height:document.documentElement.scrollHeight
+  },"*");
+ });
+}
+
+new ResizeObserver(notify).observe(document.body);
+window.addEventListener("load",notify);
 
 render();
 
 setInterval(()=>{
-  if(parisDate()!==today) location.reload();
-  else tick();
+ if(dateParis()!==today){
+  location.reload();
+ }else{
+  tick();
+ }
 },1000);
 </script>
 </body>
