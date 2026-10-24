@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#3b1d12">
+<title>Écouter Cacao Radio en direct</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+ margin:0;
+ padding:0;
+ min-height:100%;
+}
+
+body{
+ font-family:Arial,sans-serif;
+ background:#f5ecdf;
+ color:#3b1d12;
+}
+
+.player{
+ width:100%;
+ max-width:400px;
+ margin:auto;
+ padding:22px 20px 25px;
+ text-align:center;
+}
+
+.logo{
+ display:block;
+ width:88px;
+ height:88px;
+ object-fit:contain;
+ margin:0 auto 10px;
+}
+
+h1{
+ font-size:22px;
+ margin:0 0 5px;
+ letter-spacing:1px;
+}
+
+.subtitle{
+ font-size:13px;
+ color:#805e4c;
+ margin-bottom:17px;
+}
+
+.live{
+ display:inline-flex;
+ align-items:center;
+ gap:7px;
+ font-size:11px;
+ font-weight:bold;
+ letter-spacing:1.5px;
+ margin-bottom:16px;
+}
+
+.dot{
+ width:8px;
+ height:8px;
+ background:#d94a3a;
+ border-radius:50%;
+}
+
+.cover{
+ display:block;
+ width:145px;
+ height:145px;
+ object-fit:cover;
+ border-radius:15px;
+ margin:0 auto 15px;
+ box-shadow:0 5px 18px #3b1d1226;
+}
+
+.title{
+ font-family:Georgia,serif;
+ font-size:19px;
+ font-weight:bold;
+ line-height:1.3;
+ overflow-wrap:anywhere;
+}
+
+.artist{
+ font-size:14px;
+ color:#805e4c;
+ margin-top:5px;
+ min-height:18px;
+ overflow-wrap:anywhere;
+}
+
+.controls{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ gap:18px;
+ margin:22px 0 15px;
+}
+
+.play{
+ width:62px;
+ height:62px;
+ border:0;
+ border-radius:50%;
+ background:#3b1d12;
+ color:white;
+ font-size:24px;
+ cursor:pointer;
+ box-shadow:0 5px 12px #3b1d1233;
+}
+
+.volume{
+ width:125px;
+ accent-color:#713c23;
+}
+
+.status{
+ font-size:12px;
+ color:#805e4c;
+ min-height:16px;
+}
+
+.footer{
+ margin-top:17px;
+ padding-top:15px;
+ border-top:1px solid #d8c5b1;
+ font-size:12px;
+}
+
+.footer a{
+ color:#713c23;
+ text-decoration:none;
+ font-weight:bold;
+}
+
+@media(max-width:420px){
+ .player{padding:20px 16px}
+}
+</style>
+</head>
+
+<body>
+
+<main class="player">
+
+<img class="logo"
+ src="logo-fixe.png"
+ alt="Logo officiel Cacao Radio">
+
+<h1>CACAO RADIO</h1>
+
+<div class="subtitle">Easy Listening Radio</div>
+
+<div class="live">
+<span class="dot"></span>
+EN DIRECT
+</div>
+
+<img
+ id="cover"
+ class="cover"
+ src="icon-192.png"
+ alt="Pochette du titre en cours">
+
+<div class="title" id="title">
+Cacao Radio
+</div>
+
+<div class="artist" id="artist">
+Chargement du titre…
+</div>
+
+<div class="controls">
+
+<button
+ class="play"
+ id="play"
+ type="button"
+ aria-label="Écouter la radio">
+▶
+</button>
+
+<input
+ class="volume"
+ id="volume"
+ type="range"
+ min="0"
+ max="1"
+ step="0.05"
+ value="1"
+ aria-label="Volume">
+
+</div>
+
+<div class="status" id="status">
+Appuyez sur lecture pour écouter
+</div>
+
+<div class="footer">
+<a href="https://cacaoradio.com/"
+ target="_blank"
+ rel="noopener">
+cacaoradio.com
+</a>
+</div>
+
+</main>
+
+<audio id="audio" preload="none">
+<source src="https://stream10.vestaradio.com/Cacao-Radio">
+</audio>
+
+<script>
+const audio=document.getElementById("audio");
+const play=document.getElementById("play");
+const volume=document.getElementById("volume");
+const status=document.getElementById("status");
+
+const STATUS_API=
+"https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=status";
+
+let playRequested=false;
+
+play.addEventListener("click",async function(){
+
+ if(!audio.paused){
+  playRequested=false;
+  audio.pause();
+  return;
+ }
+
+ playRequested=true;
+ status.textContent="Connexion à Cacao Radio…";
+
+ try{
+  await audio.play();
+ }catch(e){
+  playRequested=false;
+  status.textContent="Impossible de démarrer la lecture.";
+ }
+
+});
+
+audio.addEventListener("playing",function(){
+ play.textContent="❚❚";
+ play.setAttribute("aria-label","Mettre en pause");
+ status.textContent="Vous écoutez Cacao Radio en direct";
+});
+
+audio.addEventListener("pause",function(){
+ play.textContent="▶";
+ play.setAttribute("aria-label","Écouter la radio");
+ if(!audio.ended){
+  status.textContent="Lecture en pause";
+ }
+});
+
+audio.addEventListener("waiting",function(){
+ if(playRequested){
+  status.textContent="Chargement du direct…";
+ }
+});
+
+audio.addEventListener("error",function(){
+ playRequested=false;
+ status.textContent="Flux momentanément indisponible.";
+});
+
+volume.addEventListener("input",function(){
+ audio.volume=Number(volume.value);
+});
+
+async function updateNowPlaying(){
+
+ try{
+  const response=await fetch(STATUS_API,{
+   cache:"no-store"
+  });
+
+  if(!response.ok)throw new Error("API");
+
+  const data=await response.json();
+
+  if(!data.success)throw new Error("Statut");
+
+  const title=data.title||
+   data.now_playing||
+   "Cacao Radio";
+
+  const artist=data.artist||
+   "Easy Listening Radio";
+
+  const cover=data.cover||
+   data.logo||
+   "icon-192.png";
+
+  document.getElementById("title").textContent=title;
+  document.getElementById("artist").textContent=artist;
+
+  const image=document.getElementById("cover");
+
+  image.onerror=function(){
+   image.onerror=null;
+   image.src="icon-192.png";
+  };
+
+  image.src=cover;
+
+  if("mediaSession" in navigator &&
+     "MediaMetadata" in window){
+
+   try{
+    navigator.mediaSession.metadata=new MediaMetadata({
+     title:title,
+     artist:artist,
+     album:"Cacao Radio",
+     artwork:[{src:cover}]
+    });
+   }catch(e){}
+  }
+
+ }catch(e){
+  document.getElementById("title").textContent=
+   "Cacao Radio";
+  document.getElementById("artist").textContent=
+   "Titre momentanément indisponible";
+ }
+
+}
+
+updateNowPlaying();
+setInterval(updateNowPlaying,15000);
+
+if("mediaSession" in navigator){
+ try{
+  navigator.mediaSession.setActionHandler("play",function(){
+   audio.play();
+  });
+
+  navigator.mediaSession.setActionHandler("pause",function(){
+   audio.pause();
+  });
+ }catch(e){}
+}
+</script>
+
+</body>
+</html>
