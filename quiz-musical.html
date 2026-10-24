@@ -5,256 +5,72 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Le Quiz Musical - Cacao Radio</title>
-
 <style>
 *{box-sizing:border-box}
-
-html,body{
-  margin:0;
-  padding:0;
-  background:transparent;
-}
-
-body{
-  padding:5px;
-  font-family:Arial,sans-serif;
-  color:#3b251b;
-}
-
-.quiz{
-  width:100%;
-  max-width:600px;
-  margin:0 auto;
-  background:#fff9f1;
-  border:1px solid #e6d2be;
-  border-radius:18px;
-  overflow:hidden;
-  text-align:center;
-}
-
-/* VISUEL COMPACT */
-.hero-crop{
-  width:100%;
-  height:245px;
-  position:relative;
-  overflow:hidden;
-  background:#b18c72;
-}
-
-.hero{
-  display:block;
-  width:100%;
-  height:auto;
-}
-
-.content{
-  padding:17px 20px 25px;
-}
-
-.kicker{
-  color:#80513a;
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:1.5px;
-}
-
-h1{
-  font-family:Georgia,serif;
-  font-size:29px;
-  margin:8px 0 5px;
-}
-
-.sub{
-  font-size:12px;
-  color:#805e4c;
-  letter-spacing:1px;
-  margin-bottom:23px;
-}
-
-.meta{
-  font-size:13px;
-  color:#70432e;
-  font-weight:bold;
-}
-
-.progress{
-  height:7px;
-  background:#ead7c6;
-  border-radius:12px;
-  overflow:hidden;
-  margin:13px 0 20px;
-}
-
-.bar{
-  height:100%;
-  width:0;
-  background:#8d4c30;
-  transition:width .2s;
-}
-
-.question{
-  font-size:20px;
-  font-weight:bold;
-  line-height:1.4;
-  margin-bottom:18px;
-}
-
-.answers{
-  display:grid;
-  gap:9px;
-}
-
-.answer{
-  width:100%;
-  background:#fff;
-  color:#3b251b;
-  border:1px solid #dfc4ae;
-  border-radius:11px;
-  padding:14px;
-  text-align:left;
-  font-size:15px;
-  cursor:pointer;
-}
-
-.answer:disabled{
-  opacity:1;
-  cursor:default;
-}
-
-.answer.correct{
-  background:#e6f3e9;
-  border-color:#438b5a;
-}
-
-.answer.wrong{
-  background:#fbe9e9;
-  border-color:#bd5b5b;
-}
-
-.primary{
-  margin-top:17px;
-  padding:13px 24px;
-  border:0;
-  border-radius:30px;
-  background:#74412d;
-  color:#fff;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.feedback{
-  margin-top:13px;
-  font-size:14px;
-  font-weight:bold;
-}
-
-.result{
-  font-family:Georgia,serif;
-  font-size:46px;
-  font-weight:bold;
-  color:#74412d;
-  margin:15px 0;
-}
-
-.muted{
-  font-size:14px;
-  line-height:1.6;
-}
-
-.footer{
-  margin-top:25px;
-  padding:18px 8px 12px;
-  border-top:1px solid #ead8c7;
-  color:#74412d;
-  font-size:14px;
-  line-height:1.6;
-  text-align:center;
-}
-
-.hidden{
-  display:none!important;
-}
-
+html,body{margin:0;padding:0;background:transparent}
+body{font-family:Arial,sans-serif;color:#3b251b}
+.quiz{width:100%;max-width:600px;margin:0 auto;background:#fff9f1;border:1px solid #e6d2be;border-radius:18px;overflow:hidden;text-align:center}
+.hero-crop{width:100%;aspect-ratio:2.45/1;overflow:hidden;background:#b18c72}
+.hero{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+.content{padding:17px 20px 25px}
+.kicker{color:#80513a;font-size:12px;font-weight:bold;letter-spacing:1.5px}
+h1{font:700 29px Georgia,serif;margin:8px 0 5px}
+.sub{font-size:12px;color:#805e4c;letter-spacing:1px;margin-bottom:23px}
+.meta{font-size:13px;color:#70432e;font-weight:bold}
+.progress{height:7px;background:#ead7c6;border-radius:12px;overflow:hidden;margin:13px 0 20px}
+.bar{height:100%;background:#8d4c30;width:0;transition:width .2s}
+.question{font-size:20px;font-weight:bold;line-height:1.4;margin-bottom:18px}
+.answers{display:grid;gap:9px}
+.answer{width:100%;background:#fff;color:#3b251b;border:1px solid #dfc4ae;border-radius:11px;padding:14px;text-align:left;font-size:15px;cursor:pointer}
+.answer:disabled{opacity:1;cursor:default}
+.answer.correct{background:#e6f3e9;border-color:#438b5a}
+.answer.wrong{background:#fbe9e9;border-color:#bd5b5b}
+.primary{margin-top:17px;padding:13px 24px;border:0;border-radius:30px;background:#74412d;color:#fff;font-size:15px;font-weight:bold;cursor:pointer}
+.feedback{margin-top:13px;font-size:14px;font-weight:bold}
+.result{font:700 46px Georgia,serif;color:#74412d;margin:15px 0}
+.muted{font-size:14px;line-height:1.6}
+.footer{margin-top:25px;padding:18px 8px 12px;border-top:1px solid #ead8c7;color:#74412d;font-size:14px;line-height:1.6}
+.hidden{display:none!important}
 @media(max-width:480px){
-  body{padding:3px}
-  .hero-crop{height:190px}
-  .content{padding:15px 13px 22px}
-  h1{font-size:26px}
-  .question{font-size:18px}
-  .answer{padding:13px;font-size:14px}
-  .footer{font-size:13px}
+.content{padding:15px 13px 22px}
+.hero-crop{aspect-ratio:2.1/1}
+h1{font-size:26px}
+.question{font-size:18px}
+.answer{padding:13px;font-size:14px}
+.footer{font-size:13px}
 }
 </style>
 </head>
-
 <body>
-
 <main class="quiz">
-
 <div class="hero-crop">
-  <img
-    class="hero"
-    src="https://cacaoradio.github.io/cacao-radio/quiz-musical-visuel.png"
-    alt="Deux nounours chocolat guimauve avec une radio">
+<img class="hero" src="https://cacaoradio.github.io/cacao-radio/quiz-musical-visuel.png" alt="Nounours chocolat guimauve avec une radio">
 </div>
-
 <div class="content">
-
-  <div class="kicker">LE DÉFI DU JOUR</div>
-  <h1>Le Quiz Musical</h1>
-  <div class="sub">CACAO RADIO · EASY LISTENING RADIO</div>
-
-  <section id="game">
-
-    <div class="meta" id="meta"></div>
-
-    <div class="progress">
-      <div class="bar" id="bar"></div>
-    </div>
-
-    <div class="question" id="question"></div>
-
-    <div class="answers" id="answers"></div>
-
-    <div class="feedback" id="feedback" aria-live="polite"></div>
-
-    <button class="primary hidden" id="next">
-      Question suivante →
-    </button>
-
-  </section>
-
-  <section id="done" class="hidden">
-
-    <p>Bravo, vous avez terminé le quiz du jour !</p>
-
-    <div class="result" id="score"></div>
-
-    <p class="muted">
-      Rendez-vous demain pour un nouveau quiz musical !
-    </p>
-
-    <p class="muted" id="countdown"></p>
-
-  </section>
-
-  <div class="footer">
-    ♪ Un nouveau quiz chaque jour à minuit · Heure de Paris ♪
-  </div>
-
+<div class="kicker">LE DÉFI DU JOUR</div>
+<h1>Le Quiz Musical</h1>
+<div class="sub">CACAO RADIO · EASY LISTENING RADIO</div>
+<section id="game">
+<div class="meta" id="meta"></div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="question" id="question"></div>
+<div class="answers" id="answers"></div>
+<div class="feedback" id="feedback" aria-live="polite"></div>
+<button class="primary hidden" id="next">Question suivante →</button>
+</section>
+<section id="done" class="hidden">
+<p>Bravo, vous avez terminé le quiz du jour !</p>
+<div class="result" id="score"></div>
+<p class="muted">Rendez-vous demain pour un nouveau quiz musical !</p>
+<p class="muted" id="countdown"></p>
+</section>
+<div class="footer">♪ Un nouveau quiz chaque jour à minuit · Heure de Paris ♪</div>
 </div>
 </main>
-
 <script>
 "use strict";
 
-/*
-  150 chansons.
-  Deux types de questions par chanson.
-  Total : 300 questions.
-*/
-
+// 150 chansons, 2 types de questions = 300 questions.
 const data=`Michael Jackson|Billie Jean
 ABBA|Dancing Queen
 Adele|Rolling in the Deep
@@ -404,317 +220,212 @@ Miley Cyrus|Wrecking Ball
 Lewis Capaldi|Someone You Loved
 Hozier|Take Me to Church
 Vance Joy|Riptide
-Avicii|Wake Me Up`
-.trim()
-.split("\n")
-.map(s=>s.split("|"));
+Avicii|Wake Me Up`.trim().split("\n").map(s=>s.split("|"));
 
 const $=id=>document.getElementById(id);
 
 function dateParis(){
-  const p=Object.fromEntries(
-    new Intl.DateTimeFormat("en-GB",{
-      timeZone:"Europe/Paris",
-      year:"numeric",
-      month:"2-digit",
-      day:"2-digit"
-    })
-    .formatToParts(new Date())
-    .map(x=>[x.type,x.value])
-  );
-
-  return `${p.year}-${p.month}-${p.day}`;
+ const p=Object.fromEntries(
+  new Intl.DateTimeFormat("en-GB",{
+   timeZone:"Europe/Paris",
+   year:"numeric",
+   month:"2-digit",
+   day:"2-digit"
+  }).formatToParts(new Date()).map(x=>[x.type,x.value])
+ );
+ return `${p.year}-${p.month}-${p.day}`;
 }
 
 function hash(s){
-  let h=2166136261;
-
-  for(const c of s){
-    h^=c.charCodeAt(0);
-    h=Math.imul(h,16777619);
-  }
-
-  return h>>>0;
+ let h=2166136261;
+ for(const c of s){
+  h^=c.charCodeAt(0);
+  h=Math.imul(h,16777619);
+ }
+ return h>>>0;
 }
 
 const today=dateParis();
-
 const parts=today.split("-").map(Number);
-
 const day=Math.floor(
-  Date.UTC(parts[0],parts[1]-1,parts[2])/86400000
+ Date.UTC(parts[0],parts[1]-1,parts[2])/86400000
 );
-
 const cycle=Math.floor(day/30);
 const slot=((day%30)+30)%30;
 
-const order=Array.from(
-  {length:300},
-  (_,i)=>i
-).sort((a,b)=>
-  hash(cycle+"-"+a)-hash(cycle+"-"+b)||a-b
-);
+const order=Array.from({length:300},(_,i)=>i)
+.sort((a,b)=>hash(cycle+"-"+a)-hash(cycle+"-"+b)||a-b);
 
 const ids=order.slice(slot*10,slot*10+10);
 
 function build(id){
+ const i=id%data.length;
+ const reverse=id>=data.length;
+ const [artist,title]=data[i];
+ const correct=reverse?title:artist;
 
-  const i=id%data.length;
-  const reverse=id>=data.length;
+ const pool=[...new Set(
+  data.filter(row=>!reverse||row[0]!==artist)
+  .map(row=>reverse?row[1]:row[0])
+ )].filter(x=>x!==correct);
 
-  const [artist,title]=data[i];
+ pool.sort((a,b)=>hash(today+id+a)-hash(today+id+b));
 
-  const correct=reverse?title:artist;
+ const opts=[correct,...pool.slice(0,2)]
+ .sort((a,b)=>
+  hash(today+id+"option"+a)-
+  hash(today+id+"option"+b)
+ );
 
-  const pool=[
-    ...new Set(
-      data
-      .filter(row=>!reverse||row[0]!==artist)
-      .map(row=>reverse?row[1]:row[0])
-    )
-  ].filter(x=>x!==correct);
-
-  pool.sort((a,b)=>
-    hash(today+id+a)-hash(today+id+b)
-  );
-
-  const opts=[correct,...pool.slice(0,2)]
-  .sort((a,b)=>
-    hash(today+id+"option"+a)-
-    hash(today+id+"option"+b)
-  );
-
-  return {
-    q:reverse
-      ?`Parmi ces trois titres, lequel est interprété par ${artist} ?`
-      :`Qui interprète « ${title} » ?`,
-    opts,
-    answer:opts.indexOf(correct)
-  };
+ return {
+  q:reverse
+   ?`Parmi ces trois titres, lequel est interprété par ${artist} ?`
+   :`Qui interprète « ${title} » ?`,
+  opts,
+  answer:opts.indexOf(correct)
+ };
 }
 
 const quiz=ids.map(id=>build(id));
-
 const key="cacao-quiz-v2-"+today;
 
 let state;
-
 try{
-  state=JSON.parse(
-    localStorage.getItem(key)||"null"
-  );
-}catch(e){
-  state=null;
-}
+ state=JSON.parse(localStorage.getItem(key)||"null");
+}catch(e){}
 
-if(
-  !state||
-  !Array.isArray(state.picks)||
-  !Number.isInteger(state.i)||
-  state.i<0||
-  state.i>10||
-  state.picks.length>10
-){
-  state={
-    i:0,
-    picks:[],
-    completed:false
-  };
+if(!state||
+ !Array.isArray(state.picks)||
+ !Number.isInteger(state.i)||
+ state.i<0||state.i>10||
+ state.picks.length>10){
+ state={i:0,picks:[],completed:false};
 }
 
 function save(){
-  try{
-    localStorage.setItem(
-      key,
-      JSON.stringify(state)
-    );
-  }catch(e){
-    $("feedback").textContent=
-      "Votre navigateur ne peut pas enregistrer votre progression.";
-  }
+ try{
+  localStorage.setItem(key,JSON.stringify(state));
+ }catch(e){
+  $("feedback").textContent=
+   "Votre navigateur ne peut pas enregistrer votre progression.";
+ }
 }
 
 function score(){
-  return state.picks.reduce(
-    (n,p,i)=>
-      n+(quiz[i]&&p===quiz[i].answer?1:0),
-    0
-  );
+ return state.picks.reduce(
+  (n,p,i)=>n+(quiz[i]&&p===quiz[i].answer?1:0),0
+ );
 }
 
 function render(){
-
-  if(state.completed||state.i>=10){
-
-    state.completed=true;
-    save();
-
-    $("game").classList.add("hidden");
-    $("done").classList.remove("hidden");
-
-    $("score").textContent=score()+" / 10";
-
-    tick();
-    notify();
-
-    return;
-  }
-
-  const q=quiz[state.i];
-
-  const answered=
-    state.picks.length>state.i;
-
-  $("meta").textContent=
-    `QUESTION ${state.i+1} / 10`;
-
-  $("bar").style.width=
-    state.i*10+"%";
-
-  $("question").textContent=q.q;
-
-  $("answers").replaceChildren();
-
-  q.opts.forEach((answer,i)=>{
-
-    const b=document.createElement("button");
-
-    b.className="answer";
-
-    b.textContent=
-      String.fromCharCode(65+i)+". "+answer;
-
-    b.disabled=answered;
-
-    if(answered){
-
-      if(i===q.answer){
-        b.classList.add("correct");
-      }else if(i===state.picks[state.i]){
-        b.classList.add("wrong");
-      }
-
-    }else{
-
-      b.onclick=()=>{
-        state.picks[state.i]=i;
-        save();
-        render();
-      };
-
-    }
-
-    $("answers").append(b);
-  });
-
-  $("feedback").textContent=answered
-    ?(
-      state.picks[state.i]===q.answer
-        ?"Bonne réponse !"
-        :"La bonne réponse est : "+q.opts[q.answer]
-    )
-    :"";
-
-  $("next").classList.toggle(
-    "hidden",
-    !answered
-  );
-
-  $("next").textContent=
-    state.i===9
-      ?"Voir mon score →"
-      :"Question suivante →";
-
+ if(state.completed||state.i>=10){
+  state.completed=true;
+  save();
+  $("game").classList.add("hidden");
+  $("done").classList.remove("hidden");
+  $("score").textContent=score()+" / 10";
+  tick();
   notify();
+  return;
+ }
+
+ const q=quiz[state.i];
+ const answered=state.picks.length>state.i;
+
+ $("meta").textContent=`QUESTION ${state.i+1} / 10`;
+ $("bar").style.width=state.i*10+"%";
+ $("question").textContent=q.q;
+ $("answers").replaceChildren();
+
+ q.opts.forEach((answer,i)=>{
+  const b=document.createElement("button");
+  b.className="answer";
+  b.textContent=String.fromCharCode(65+i)+". "+answer;
+  b.disabled=answered;
+
+  if(answered){
+   if(i===q.answer)b.classList.add("correct");
+   else if(i===state.picks[state.i])b.classList.add("wrong");
+  }else{
+   b.onclick=()=>{
+    state.picks[state.i]=i;
+    save();
+    render();
+   };
+  }
+  $("answers").append(b);
+ });
+
+ $("feedback").textContent=answered
+  ?(state.picks[state.i]===q.answer
+   ?"Bonne réponse !"
+   :"La bonne réponse est : "+q.opts[q.answer])
+  :"";
+
+ $("next").classList.toggle("hidden",!answered);
+ $("next").textContent=state.i===9
+  ?"Voir mon score →"
+  :"Question suivante →";
+
+ notify();
 }
 
 $("next").onclick=()=>{
-
-  if(state.picks.length<=state.i){
-    return;
-  }
-
-  state.i++;
-
-  if(state.i===10){
-    state.completed=true;
-  }
-
-  save();
-  render();
+ if(state.picks.length<=state.i)return;
+ state.i++;
+ if(state.i===10)state.completed=true;
+ save();
+ render();
 };
 
 function tick(){
+ if($("done").classList.contains("hidden"))return;
 
-  if(
-    $("done").classList.contains("hidden")
-  ){
-    return;
-  }
+ const p=Object.fromEntries(
+  new Intl.DateTimeFormat("en-GB",{
+   timeZone:"Europe/Paris",
+   hour:"2-digit",
+   minute:"2-digit",
+   second:"2-digit",
+   hourCycle:"h23"
+  }).formatToParts(new Date()).map(x=>[x.type,x.value])
+ );
 
-  const p=Object.fromEntries(
-    new Intl.DateTimeFormat("en-GB",{
-      timeZone:"Europe/Paris",
-      hour:"2-digit",
-      minute:"2-digit",
-      second:"2-digit",
-      hourCycle:"h23"
-    })
-    .formatToParts(new Date())
-    .map(x=>[x.type,x.value])
-  );
+ const seconds=(
+  86400-(
+   Number(p.hour)*3600+
+   Number(p.minute)*60+
+   Number(p.second)
+  )
+ )%86400;
 
-  const seconds=(
-    86400-(
-      Number(p.hour)*3600+
-      Number(p.minute)*60+
-      Number(p.second)
-    )
-  )%86400;
-
-  $("countdown").textContent=
-    "Prochain quiz dans "+
-    String(Math.floor(seconds/3600)).padStart(2,"0")+"h "+
-    String(Math.floor(seconds%3600/60)).padStart(2,"0")+"min "+
-    String(seconds%60).padStart(2,"0")+"s";
+ $("countdown").textContent=
+  "Prochain quiz dans "+
+  String(Math.floor(seconds/3600)).padStart(2,"0")+"h "+
+  String(Math.floor(seconds%3600/60)).padStart(2,"0")+"min "+
+  String(seconds%60).padStart(2,"0")+"s";
 }
 
 function notify(){
-
-  requestAnimationFrame(()=>{
-
-    parent.postMessage({
-      type:"cacaoQuizHeight",
-      height:document.documentElement.scrollHeight
-    },"*");
-
-  });
-
+ requestAnimationFrame(()=>{
+  parent.postMessage({
+   type:"cacaoQuizHeight",
+   height:document.documentElement.scrollHeight
+  },"*");
+ });
 }
 
 if("ResizeObserver" in window){
-  new ResizeObserver(notify)
-    .observe(document.body);
+ new ResizeObserver(notify).observe(document.body);
 }
 
-window.addEventListener(
-  "load",
-  notify
-);
-
+window.addEventListener("load",notify);
 render();
 
 setInterval(()=>{
-
-  if(dateParis()!==today){
-    location.reload();
-  }else{
-    tick();
-  }
-
+ if(dateParis()!==today)location.reload();
+ else tick();
 },1000);
-
 </script>
-
 </body>
 </html>
