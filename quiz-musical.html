@@ -1,68 +1,486 @@
-<!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Le Quiz Musical du Jour – Cacao Radio</title>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Musical du Jour - Cacao Radio</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;padding:12px;background:transparent;font-family:Arial,sans-serif;color:#34231b}.quiz{max-width:600px;margin:auto;background:#fff9f1;border:1px solid #e8d8c7;border-radius:18px;padding:24px 20px;box-shadow:0 5px 18px #4025100c;text-align:center}h1{font-family:Georgia,serif;font-size:clamp(24px,5vw,31px);margin:4px 0 6px;color:#211710}.sub{font-size:12px;letter-spacing:1.4px;color:#745644;margin-bottom:22px}.pill{display:inline-block;background:#efe1d1;border-radius:20px;padding:7px 13px;font-size:12px;color:#5c3a29}.question{font-size:21px;font-weight:700;line-height:1.4;margin:22px 0}.answers{display:grid;gap:10px;text-align:left}.answer{display:block;width:100%;padding:15px 17px;border:1px solid #d9c6b5;border-radius:11px;background:white;text-align:left;color:#34231b;font:inherit;cursor:pointer}.answer:hover:not(:disabled){background:#f3e7dc}.answer:disabled{cursor:default}.answer.selected{border-color:#80513a;background:#f3e7dc}.answer.correct{border-color:#387b55;background:#e9f5ec}.answer.wrong{border-color:#b44848;background:#fbecec}.primary{border:0;border-radius:11px;background:#593827;color:white;font:700 15px Arial,sans-serif;padding:14px 20px;cursor:pointer;margin-top:17px}.primary:disabled{opacity:.4;cursor:not-allowed}.progress{height:6px;background:#e9d9c9;border-radius:6px;overflow:hidden;margin:15px 0}.bar{height:100%;background:#80513a;transition:width .2s}.muted{color:#725d4d;font-size:14px;line-height:1.5}.result{font:700 48px Georgia,serif;margin:14px 0;color:#593827}.hidden{display:none}.footer{margin-top:24px;font-size:12px;color:#866b58}#feedback{margin-top:14px;font-weight:600}button:focus-visible{outline:3px solid #bc8c65;outline-offset:2px}
-</style></head><body><main class="quiz"><span class="pill">🎵 LE DÉFI DU JOUR</span><h1>Le Quiz Musical</h1><div class="sub">CACAO RADIO · EASY LISTENING RADIO</div><div id="game"><div id="meta" class="muted"></div><div class="progress"><div class="bar" id="bar"></div></div><div id="question" class="question"></div><div id="answers" class="answers"></div><div id="feedback" aria-live="polite"></div><button class="primary hidden" id="next">Question suivante →</button></div><div id="done" class="hidden" aria-live="polite"><p id="doneText"></p><div id="score" class="result"></div><p class="muted">Rendez-vous demain pour un nouveau quiz musical !</p><p id="countdown" class="muted"></p></div><div class="footer">Un nouveau quiz chaque jour à minuit · Heure de Paris</div></main>
+* {
+  box-sizing:border-box;
+}
+
+body {
+  margin:0;
+  padding:12px;
+  background:transparent;
+  font-family:Arial,sans-serif;
+  color:#34231b;
+}
+
+.quiz {
+  max-width:600px;
+  margin:auto;
+  padding:24px 20px 22px;
+  background:#fff9f1;
+  border:1px solid #e8d8c7;
+  border-radius:18px;
+  text-align:center;
+}
+
+h1 {
+  font-family:Georgia,serif;
+  font-size:29px;
+  color:#211710;
+  margin:12px 0 6px;
+}
+
+.sub {
+  font-size:12px;
+  letter-spacing:1.2px;
+  color:#745644;
+  margin-bottom:22px;
+}
+
+.pill {
+  display:inline-block;
+  background:#efe1d1;
+  border-radius:20px;
+  padding:8px 15px;
+  font-size:12px;
+  color:#5c3a29;
+}
+
+.question {
+  font-size:21px;
+  font-weight:bold;
+  line-height:1.4;
+  margin:22px 0;
+}
+
+.answers {
+  display:grid;
+  gap:10px;
+  text-align:left;
+}
+
+.answer {
+  width:100%;
+  padding:15px;
+  border:1px solid #d9c6b5;
+  border-radius:11px;
+  background:white;
+  color:#34231b;
+  font:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+
+.answer.correct {
+  border-color:#387b55;
+  background:#e9f5ec;
+}
+
+.answer.wrong {
+  border-color:#b44848;
+  background:#fbecec;
+}
+
+.primary {
+  border:0;
+  border-radius:11px;
+  background:#593827;
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  padding:14px 20px;
+  cursor:pointer;
+  margin-top:18px;
+}
+
+.progress {
+  height:6px;
+  background:#e9d9c9;
+  border-radius:6px;
+  overflow:hidden;
+  margin:15px 0;
+}
+
+.bar {
+  height:100%;
+  background:#80513a;
+}
+
+.muted {
+  color:#725d4d;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.result {
+  font:700 48px Georgia,serif;
+  color:#593827;
+  margin:15px 0;
+}
+
+.hidden {
+  display:none;
+}
+
+/* Phrase du bas : cadrage amélioré */
+.footer {
+  margin-top:28px;
+  padding:12px 10px 20px;
+  font-size:14px;
+  line-height:1.5;
+  color:#593827;
+  text-align:center;
+}
+
+#feedback {
+  margin-top:14px;
+  font-weight:bold;
+}
+
+@media(max-width:480px) {
+  .quiz {
+    padding:20px 15px 18px;
+  }
+
+  h1 {
+    font-size:26px;
+  }
+
+  .question {
+    font-size:19px;
+  }
+
+  .footer {
+    font-size:13px;
+    padding:12px 5px 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="quiz">
+
+<span class="pill">🎵 LE DÉFI DU JOUR</span>
+
+<h1>Le Quiz Musical</h1>
+
+<div class="sub">
+CACAO RADIO · EASY LISTENING RADIO
+</div>
+
+<div id="game">
+
+<div id="meta" class="muted"></div>
+
+<div class="progress">
+  <div class="bar" id="bar"></div>
+</div>
+
+<div id="question" class="question"></div>
+
+<div id="answers" class="answers"></div>
+
+<div id="feedback"></div>
+
+<button class="primary hidden" id="next">
+Question suivante →
+</button>
+
+</div>
+
+<div id="done" class="hidden">
+
+<p>Bravo, vous avez terminé le quiz du jour !</p>
+
+<div id="score" class="result"></div>
+
+<p class="muted">
+Rendez-vous demain pour un nouveau quiz musical !
+</p>
+
+<p id="countdown" class="muted"></p>
+
+</div>
+
+<div class="footer">
+Un nouveau quiz chaque jour à minuit · Heure de Paris
+</div>
+
+</main>
+
 <script>
-'use strict';
-// Banque de 40 questions : le site en sélectionne 10 par jour de façon déterministe.
-const bank=[
-['Qui interprète « Billie Jean » ?',['Prince','Michael Jackson','Stevie Wonder'],1],
-['Quel groupe interprète « Dancing Queen » ?',['ABBA','Bee Gees','Fleetwood Mac'],0],
-['Qui chante « Rolling in the Deep » ?',['Dua Lipa','Amy Winehouse','Adele'],2],
-['Quel groupe a sorti « Viva la Vida » ?',['Coldplay','Keane','Muse'],0],
-['Qui interprète « Like a Prayer » ?',['Cyndi Lauper','Madonna','Cher'],1],
-['Quel artiste chante « Purple Rain » ?',['Prince','David Bowie','George Michael'],0],
-['Qui interprète « Someone Like You » ?',['Sia','Adele','Duffy'],1],
-['Quel groupe chante « Dreams » (1977) ?',['Fleetwood Mac','The Police','Eagles'],0],
-['Qui interprète « Get Lucky » avec Pharrell Williams ?',['Justice','Daft Punk','Air'],1],
-['Quel chanteur a sorti « Shape of You » ?',['Sam Smith','Ed Sheeran','James Arthur'],1],
-['Qui interprète « Bad Romance » ?',['Katy Perry','Lady Gaga','Rihanna'],1],
-['Quel groupe a enregistré « Wonderwall » ?',['Blur','Oasis','Radiohead'],1],
-['Qui chante « Back to Black » ?',['Amy Winehouse','Adele','Lana Del Rey'],0],
-['Quel artiste interprète « Blinding Lights » ?',['The Weeknd','Bruno Mars','Khalid'],0],
-['Quel groupe chante « Take On Me » ?',['Duran Duran','a-ha','Tears for Fears'],1],
-['Qui interprète « Happy » ?',['Pharrell Williams','Justin Timberlake','Ne-Yo'],0],
-['Quel groupe a sorti « Hotel California » ?',['Eagles','America','Chicago'],0],
-['Qui chante « Rehab » ?',['Duffy','Amy Winehouse','Adele'],1],
-['Qui interprète « Levitating » ?',['Dua Lipa','Ariana Grande','Miley Cyrus'],0],
-['Quel groupe chante « Every Breath You Take » ?',['U2','The Police','Genesis'],1],
-['Qui interprète « Flowers » (2023) ?',['Miley Cyrus','Selena Gomez','Sia'],0],
-['Quel groupe a sorti « Bohemian Rhapsody » ?',['Queen','Led Zeppelin','The Beatles'],0],
-['Qui chante « Hello » (2015) ?',['Adele','Beyoncé','Jessie J'],0],
-['Quel artiste interprète « Rocket Man » ?',['Elton John','Billy Joel','David Bowie'],0],
-['Qui interprète « Crazy in Love » avec Jay-Z ?',['Rihanna','Beyoncé','Alicia Keys'],1],
-['Quel groupe chante « Yellow » ?',['Travis','Coldplay','Keane'],1],
-['Qui interprète « Stay With Me » ?',['Sam Smith','Lewis Capaldi','John Legend'],0],
-['Quel groupe a enregistré « September » ?',['Earth, Wind & Fire','Kool & the Gang','Chic'],0],
-['Qui chante « Toxic » ?',['Britney Spears','Christina Aguilera','Kylie Minogue'],0],
-['Quel artiste interprète « Thinking Out Loud » ?',['Ed Sheeran','James Blunt','Shawn Mendes'],0],
-['Qui interprète « Smooth Operator » ?',['Sade','Annie Lennox','Tina Turner'],0],
-['Quel groupe chante « Africa » ?',['Toto','Journey','Foreigner'],0],
-['Qui interprète « No Ordinary Love » ?',['Sade','Whitney Houston','Tracy Chapman'],0],
-['Qui chante « Fast Car » à l’origine ?',['Tracy Chapman','Suzanne Vega','Joan Armatrading'],0],
-['Quel groupe interprète « Everybody Wants to Rule the World » ?',['Tears for Fears','Simple Minds','Talk Talk'],0],
-['Qui chante « Valerie » sur la version produite par Mark Ronson ?',['Amy Winehouse','Lily Allen','Duffy'],0],
-['Qui interprète « New Rules » ?',['Dua Lipa','Rita Ora','Ellie Goulding'],0],
-['Quel groupe chante « Don’t Stop Me Now » ?',['Queen','Supertramp','Electric Light Orchestra'],0],
-['Qui interprète « Ordinary People » ?',['John Legend','Alicia Keys','Ne-Yo'],0],
-['Quel artiste chante « As It Was » ?',['Harry Styles','Niall Horan','Zayn'],0]
+"use strict";
+
+const bank = [
+["Qui interprète Billie Jean ?",["Prince","Michael Jackson","Stevie Wonder"],1],
+["Quel groupe chante Dancing Queen ?",["ABBA","Bee Gees","Fleetwood Mac"],0],
+["Qui chante Rolling in the Deep ?",["Dua Lipa","Amy Winehouse","Adele"],2],
+["Quel groupe a sorti Viva la Vida ?",["Coldplay","Keane","Muse"],0],
+["Qui chante Like a Prayer ?",["Cyndi Lauper","Madonna","Cher"],1],
+["Qui interprète Purple Rain ?",["Prince","David Bowie","George Michael"],0],
+["Qui chante Someone Like You ?",["Sia","Adele","Duffy"],1],
+["Quel groupe chante Dreams en 1977 ?",["Fleetwood Mac","The Police","Eagles"],0],
+["Qui chante Get Lucky avec Pharrell ?",["Justice","Daft Punk","Air"],1],
+["Qui chante Shape of You ?",["Sam Smith","Ed Sheeran","James Arthur"],1],
+["Qui interprète Bad Romance ?",["Katy Perry","Lady Gaga","Rihanna"],1],
+["Quel groupe chante Wonderwall ?",["Blur","Oasis","Radiohead"],1],
+["Qui chante Back to Black ?",["Amy Winehouse","Adele","Lana Del Rey"],0],
+["Qui chante Blinding Lights ?",["The Weeknd","Bruno Mars","Khalid"],0],
+["Quel groupe chante Take On Me ?",["Duran Duran","a-ha","Tears for Fears"],1],
+["Qui interprète Happy ?",["Pharrell Williams","Justin Timberlake","Ne-Yo"],0],
+["Quel groupe chante Hotel California ?",["Eagles","America","Chicago"],0],
+["Qui chante Rehab ?",["Duffy","Amy Winehouse","Adele"],1],
+["Qui chante Levitating ?",["Dua Lipa","Ariana Grande","Miley Cyrus"],0],
+["Quel groupe chante Every Breath You Take ?",["U2","The Police","Genesis"],1],
+["Qui chante Flowers en 2023 ?",["Miley Cyrus","Selena Gomez","Sia"],0],
+["Quel groupe chante Bohemian Rhapsody ?",["Queen","Led Zeppelin","The Beatles"],0],
+["Qui chante Hello en 2015 ?",["Adele","Beyoncé","Jessie J"],0],
+["Qui interprète Rocket Man ?",["Elton John","Billy Joel","David Bowie"],0],
+["Qui chante Crazy in Love avec Jay-Z ?",["Rihanna","Beyoncé","Alicia Keys"],1],
+["Quel groupe chante Yellow ?",["Travis","Coldplay","Keane"],1],
+["Qui chante Stay With Me ?",["Sam Smith","Lewis Capaldi","John Legend"],0],
+["Quel groupe chante September ?",["Earth, Wind & Fire","Kool & the Gang","Chic"],0],
+["Qui chante Toxic ?",["Britney Spears","Christina Aguilera","Kylie Minogue"],0],
+["Qui chante Thinking Out Loud ?",["Ed Sheeran","James Blunt","Shawn Mendes"],0],
+["Qui chante Smooth Operator ?",["Sade","Annie Lennox","Tina Turner"],0],
+["Quel groupe chante Africa ?",["Toto","Journey","Foreigner"],0],
+["Qui chante No Ordinary Love ?",["Sade","Whitney Houston","Tracy Chapman"],0],
+["Qui chante Fast Car à l'origine ?",["Tracy Chapman","Suzanne Vega","Joan Armatrading"],0],
+["Quel groupe chante Everybody Wants to Rule the World ?",["Tears for Fears","Simple Minds","Talk Talk"],0],
+["Qui chante Valerie avec Mark Ronson ?",["Amy Winehouse","Lily Allen","Duffy"],0],
+["Qui chante New Rules ?",["Dua Lipa","Rita Ora","Ellie Goulding"],0],
+["Quel groupe chante Don't Stop Me Now ?",["Queen","Supertramp","ELO"],0],
+["Qui chante Ordinary People ?",["John Legend","Alicia Keys","Ne-Yo"],0],
+["Qui chante As It Was ?",["Harry Styles","Niall Horan","Zayn"],0]
 ];
-const $=id=>document.getElementById(id);
-const parisDate=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-const key='cacao-quiz-v1-'+parisDate();
-function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
-function dailyQuestions(date){const items=bank.map((q,i)=>({q,i,sort:hash(date+'-'+i)}));items.sort((a,b)=>a.sort-b.sort);return items.slice(0,10).map(x=>x.q)}
-const quiz=dailyQuestions(parisDate());let state;
-try{state=JSON.parse(localStorage.getItem(key)||'null')}catch(e){state=null}
-if(!state||!Number.isInteger(state.i)||!Array.isArray(state.picks)||state.i<0||state.i>10){state={i:0,picks:[],completed:false}}
-function save(){try{localStorage.setItem(key,JSON.stringify(state))}catch(e){$('feedback').textContent='Votre navigateur ne permet pas de conserver la participation. Activez le stockage local pour sauvegarder votre progression.'}}
-function points(){return state.picks.reduce((sum,v,i)=>sum+(v===quiz[i][2]?1:0),0)}
-function render(){if(state.completed||state.i>=10){state.completed=true;save();$('game').classList.add('hidden');$('done').classList.remove('hidden');$('doneText').textContent='Bravo, vous avez terminé le quiz du jour !';$('score').textContent=points()+' / 10';tick();return}
-$('meta').textContent='QUESTION '+(state.i+1)+' / 10';$('bar').style.width=(state.i*10)+'%';const q=quiz[state.i];$('question').textContent=q[0];$('answers').replaceChildren();const answered=state.picks.length>state.i;
-q[1].forEach((txt,n)=>{const b=document.createElement('button');b.className='answer';b.textContent=String.fromCharCode(65+n)+'. '+txt;b.disabled=answered;if(answered){if(n===q[2])b.classList.add('correct');else if(n===state.picks[state.i])b.classList.add('wrong')}else b.onclick=()=>{state.picks[state.i]=n;save();render()};$('answers').appendChild(b)});
-$('feedback').textContent=answered?(state.picks[state.i]===q[2]?'Bonne réponse !':'La bonne réponse est : '+q[1][q[2]]):'';$('next').classList.toggle('hidden',!answered);$('next').textContent=state.i===9?'Voir mon score →':'Question suivante →'}
-$('next').onclick=()=>{if(state.picks.length<=state.i)return;state.i++;if(state.i===10)state.completed=true;save();render()};
-function tick(){if(!$('done').classList.contains('hidden')){const now=new Date();const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(now);const p={};parts.forEach(x=>p[x.type]=x.value);let secs=86400-(+p.hour*3600+ +p.minute*60+ +p.second);if(secs===86400)secs=0;$('countdown').textContent='Prochain quiz dans '+String(Math.floor(secs/3600)).padStart(2,'0')+'h '+String(Math.floor(secs%3600/60)).padStart(2,'0')+'min '+String(secs%60).padStart(2,'0')+'s'}}
-render();setInterval(()=>{if(parisDate()!==key.slice(-10))location.reload();else tick()},1000);
-</script></body></html>
+
+const $ = id => document.getElementById(id);
+
+function parisDate() {
+  return new Intl.DateTimeFormat("en-CA",{
+    timeZone:"Europe/Paris",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit"
+  }).format(new Date());
+}
+
+const today = parisDate();
+const key = "cacao-quiz-v1-" + today;
+
+function hash(s) {
+  let h = 2166136261;
+
+  for(const c of s) {
+    h ^= c.charCodeAt(0);
+    h = Math.imul(h,16777619);
+  }
+
+  return h >>> 0;
+}
+
+function dailyQuestions(date) {
+  return bank.map((q,i)=>({
+    q,
+    sort:hash(date+"-"+i)
+  }))
+  .sort((a,b)=>a.sort-b.sort)
+  .slice(0,10)
+  .map(x=>x.q);
+}
+
+const quiz = dailyQuestions(today);
+
+let state;
+
+try {
+  state = JSON.parse(
+    localStorage.getItem(key)||"null"
+  );
+} catch(e) {
+  state = null;
+}
+
+if(!state ||
+   !Number.isInteger(state.i) ||
+   !Array.isArray(state.picks) ||
+   state.i < 0 ||
+   state.i > 10) {
+
+  state = {
+    i:0,
+    picks:[],
+    completed:false
+  };
+}
+
+function save() {
+  try {
+    localStorage.setItem(
+      key,
+      JSON.stringify(state)
+    );
+  } catch(e) {
+    $("feedback").textContent =
+      "Le navigateur ne peut pas sauvegarder votre progression.";
+  }
+}
+
+function points() {
+  return state.picks.reduce(
+    (sum,v,i)=>sum+(v===quiz[i][2]?1:0),0
+  );
+}
+
+function render() {
+
+  if(state.completed || state.i>=10) {
+
+    state.completed=true;
+    save();
+
+    $("game").classList.add("hidden");
+    $("done").classList.remove("hidden");
+    $("score").textContent=points()+" / 10";
+
+    tick();
+    return;
+  }
+
+  $("meta").textContent =
+    "QUESTION "+(state.i+1)+" / 10";
+
+  $("bar").style.width=(state.i*10)+"%";
+
+  const q=quiz[state.i];
+
+  $("question").textContent=q[0];
+  $("answers").replaceChildren();
+
+  const answered=state.picks.length>state.i;
+
+  q[1].forEach((txt,n)=>{
+
+    const b=document.createElement("button");
+
+    b.className="answer";
+
+    b.textContent=
+      String.fromCharCode(65+n)+". "+txt;
+
+    b.disabled=answered;
+
+    if(answered) {
+
+      if(n===q[2]) {
+        b.classList.add("correct");
+      } else if(n===state.picks[state.i]) {
+        b.classList.add("wrong");
+      }
+
+    } else {
+
+      b.onclick=()=>{
+        state.picks[state.i]=n;
+        save();
+        render();
+      };
+
+    }
+
+    $("answers").appendChild(b);
+  });
+
+  $("feedback").textContent=answered
+    ? (
+      state.picks[state.i]===q[2]
+      ? "Bonne réponse !"
+      : "La bonne réponse est : "+q[1][q[2]]
+    )
+    : "";
+
+  $("next").classList.toggle(
+    "hidden",
+    !answered
+  );
+
+  $("next").textContent=state.i===9
+    ? "Voir mon score →"
+    : "Question suivante →";
+}
+
+$("next").onclick=()=>{
+
+  if(state.picks.length<=state.i) return;
+
+  state.i++;
+
+  if(state.i===10) {
+    state.completed=true;
+  }
+
+  save();
+  render();
+};
+
+function tick() {
+
+  if($("done").classList.contains("hidden")) {
+    return;
+  }
+
+  const parts=new Intl.DateTimeFormat("en-GB",{
+    timeZone:"Europe/Paris",
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hourCycle:"h23"
+  }).formatToParts(new Date());
+
+  const p={};
+
+  parts.forEach(x=>{
+    p[x.type]=x.value;
+  });
+
+  let secs=86400-(
+    Number(p.hour)*3600+
+    Number(p.minute)*60+
+    Number(p.second)
+  );
+
+  if(secs===86400) secs=0;
+
+  $("countdown").textContent=
+    "Prochain quiz dans "+
+    String(Math.floor(secs/3600))
+      .padStart(2,"0")+"h "+
+    String(Math.floor(secs%3600/60))
+      .padStart(2,"0")+"min "+
+    String(secs%60)
+      .padStart(2,"0")+"s";
+}
+
+render();
+
+setInterval(()=>{
+
+  if(parisDate()!==today) {
+    location.reload();
+  } else {
+    tick();
+  }
+
+},1000);
+
+</script>
+</body>
+</html>
