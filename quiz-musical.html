@@ -4,222 +4,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quiz Musical du Jour - Cacao Radio</title>
-
+<title>Le Quiz Musical - Cacao Radio</title>
 <style>
-* {
-  box-sizing:border-box;
-}
-
-body {
-  margin:0;
-  padding:12px;
-  background:transparent;
-  font-family:Arial,sans-serif;
-  color:#34231b;
-}
-
-.quiz {
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:transparent}
+body{font-family:Arial,sans-serif;color:#3c2419;padding:8px}
+.quiz{
   max-width:600px;
   margin:auto;
-  padding:24px 20px 22px;
-  background:#fff9f1;
-  border:1px solid #e8d8c7;
+  background:#fff8ef;
+  border:1px solid #e8d4bf;
   border-radius:18px;
+  overflow:hidden;
   text-align:center;
 }
-
-h1 {
-  font-family:Georgia,serif;
-  font-size:29px;
-  color:#211710;
-  margin:12px 0 6px;
+.hero{
+  width:100%;
+  aspect-ratio:1279/450;
+  background-image:url("https://cacaoradio.github.io/cacao-radio/quiz-musical-visuel.png");
+  background-repeat:no-repeat;
+  background-size:100% auto;
+  background-position:top center;
 }
-
-.sub {
-  font-size:12px;
-  letter-spacing:1.2px;
-  color:#745644;
-  margin-bottom:22px;
+.content{padding:16px 22px 20px}
+.meta{
+  font-size:13px;
+  font-weight:bold;
+  letter-spacing:1px;
+  color:#75432b;
 }
-
-.pill {
-  display:inline-block;
-  background:#efe1d1;
+.progress{
+  height:7px;
+  background:#ead4c1;
   border-radius:20px;
-  padding:8px 15px;
-  font-size:12px;
-  color:#5c3a29;
+  overflow:hidden;
+  margin:15px 0 22px;
 }
-
-.question {
+.bar{
+  height:100%;
+  width:0;
+  background:#87472d;
+  transition:width .3s;
+}
+.question{
   font-size:21px;
   font-weight:bold;
   line-height:1.4;
-  margin:22px 0;
+  margin-bottom:20px;
 }
-
-.answers {
-  display:grid;
-  gap:10px;
-  text-align:left;
-}
-
-.answer {
+.answers{display:grid;gap:10px}
+.answer{
   width:100%;
-  padding:15px;
-  border:1px solid #d9c6b5;
-  border-radius:11px;
-  background:white;
-  color:#34231b;
-  font:inherit;
+  padding:14px;
+  border:1px solid #dfbea5;
+  border-radius:12px;
+  background:#fff;
+  color:#3c2419;
   text-align:left;
+  font-size:15px;
   cursor:pointer;
 }
-
-.answer.correct {
-  border-color:#387b55;
-  background:#e9f5ec;
+.answer:disabled{cursor:default;opacity:1}
+.answer.correct{
+  background:#e4f3e7;
+  border-color:#448b58;
 }
-
-.answer.wrong {
-  border-color:#b44848;
-  background:#fbecec;
+.answer.wrong{
+  background:#fae6e6;
+  border-color:#bd5555;
 }
-
-.primary {
-  border:0;
-  border-radius:11px;
-  background:#593827;
+.primary{
+  margin-top:17px;
+  padding:14px 25px;
+  background:#75402a;
   color:white;
+  border:0;
+  border-radius:30px;
   font-size:15px;
   font-weight:bold;
-  padding:14px 20px;
   cursor:pointer;
-  margin-top:18px;
 }
-
-.progress {
-  height:6px;
-  background:#e9d9c9;
-  border-radius:6px;
-  overflow:hidden;
-  margin:15px 0;
-}
-
-.bar {
-  height:100%;
-  background:#80513a;
-}
-
-.muted {
-  color:#725d4d;
+.feedback{
+  margin-top:13px;
   font-size:14px;
-  line-height:1.5;
-}
-
-.result {
-  font:700 48px Georgia,serif;
-  color:#593827;
-  margin:15px 0;
-}
-
-.hidden {
-  display:none;
-}
-
-/* Phrase du bas : cadrage amélioré */
-.footer {
-  margin-top:28px;
-  padding:12px 10px 20px;
-  font-size:14px;
-  line-height:1.5;
-  color:#593827;
-  text-align:center;
-}
-
-#feedback {
-  margin-top:14px;
   font-weight:bold;
 }
-
-@media(max-width:480px) {
-  .quiz {
-    padding:20px 15px 18px;
-  }
-
-  h1 {
-    font-size:26px;
-  }
-
-  .question {
-    font-size:19px;
-  }
-
-  .footer {
-    font-size:13px;
-    padding:12px 5px 18px;
-  }
+.footer{
+  margin-top:25px;
+  padding:15px 8px 12px;
+  border-top:1px solid #ead8c7;
+  color:#75432b;
+  font-size:14px;
+  line-height:1.5;
+}
+.result{
+  font-family:Georgia,serif;
+  font-size:45px;
+  font-weight:bold;
+  color:#75402a;
+  margin:15px 0;
+}
+.muted{font-size:14px;line-height:1.5}
+.hidden{display:none!important}
+@media(max-width:480px){
+  body{padding:4px}
+  .content{padding:15px 14px 18px}
+  .question{font-size:18px}
+  .answer{padding:13px;font-size:14px}
+  .footer{font-size:12px}
 }
 </style>
 </head>
-
 <body>
 
 <main class="quiz">
+  <div class="hero" role="img"
+    aria-label="Deux nounours chocolat guimauve pour le quiz musical Cacao Radio">
+  </div>
 
-<span class="pill">🎵 LE DÉFI DU JOUR</span>
+  <div class="content">
+    <section id="game">
+      <div id="meta" class="meta"></div>
+      <div class="progress">
+        <div id="bar" class="bar"></div>
+      </div>
+      <div id="question" class="question"></div>
+      <div id="answers" class="answers"></div>
+      <div id="feedback" class="feedback"></div>
+      <button id="next" class="primary hidden">
+        Question suivante →
+      </button>
+    </section>
 
-<h1>Le Quiz Musical</h1>
+    <section id="done" class="hidden">
+      <p>Bravo, vous avez terminé le quiz du jour !</p>
+      <div id="score" class="result"></div>
+      <p class="muted">
+        Rendez-vous demain pour un nouveau quiz musical !
+      </p>
+      <p id="countdown" class="muted"></p>
+    </section>
 
-<div class="sub">
-CACAO RADIO · EASY LISTENING RADIO
-</div>
-
-<div id="game">
-
-<div id="meta" class="muted"></div>
-
-<div class="progress">
-  <div class="bar" id="bar"></div>
-</div>
-
-<div id="question" class="question"></div>
-
-<div id="answers" class="answers"></div>
-
-<div id="feedback"></div>
-
-<button class="primary hidden" id="next">
-Question suivante →
-</button>
-
-</div>
-
-<div id="done" class="hidden">
-
-<p>Bravo, vous avez terminé le quiz du jour !</p>
-
-<div id="score" class="result"></div>
-
-<p class="muted">
-Rendez-vous demain pour un nouveau quiz musical !
-</p>
-
-<p id="countdown" class="muted"></p>
-
-</div>
-
-<div class="footer">
-Un nouveau quiz chaque jour à minuit · Heure de Paris
-</div>
-
+    <div class="footer">
+      ♪ Un nouveau quiz chaque jour à minuit · Heure de Paris ♪
+    </div>
+  </div>
 </main>
 
 <script>
 "use strict";
 
-const bank = [
+const bank=[
 ["Qui interprète Billie Jean ?",["Prince","Michael Jackson","Stevie Wonder"],1],
 ["Quel groupe chante Dancing Queen ?",["ABBA","Bee Gees","Fleetwood Mac"],0],
 ["Qui chante Rolling in the Deep ?",["Dua Lipa","Amy Winehouse","Adele"],2],
@@ -262,9 +197,9 @@ const bank = [
 ["Qui chante As It Was ?",["Harry Styles","Niall Horan","Zayn"],0]
 ];
 
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
 
-function parisDate() {
+function parisDate(){
   return new Intl.DateTimeFormat("en-CA",{
     timeZone:"Europe/Paris",
     year:"numeric",
@@ -273,169 +208,116 @@ function parisDate() {
   }).format(new Date());
 }
 
-const today = parisDate();
-const key = "cacao-quiz-v1-" + today;
+const today=parisDate();
+const key="cacao-quiz-v1-"+today;
 
-function hash(s) {
-  let h = 2166136261;
-
-  for(const c of s) {
-    h ^= c.charCodeAt(0);
-    h = Math.imul(h,16777619);
+function hash(s){
+  let h=2166136261;
+  for(const c of s){
+    h^=c.charCodeAt(0);
+    h=Math.imul(h,16777619);
   }
-
-  return h >>> 0;
+  return h>>>0;
 }
 
-function dailyQuestions(date) {
-  return bank.map((q,i)=>({
-    q,
-    sort:hash(date+"-"+i)
-  }))
-  .sort((a,b)=>a.sort-b.sort)
-  .slice(0,10)
-  .map(x=>x.q);
-}
-
-const quiz = dailyQuestions(today);
+const quiz=bank.map((q,i)=>({
+  q,sort:hash(today+"-"+i)
+}))
+.sort((a,b)=>a.sort-b.sort)
+.slice(0,10)
+.map(x=>x.q);
 
 let state;
-
-try {
-  state = JSON.parse(
-    localStorage.getItem(key)||"null"
-  );
-} catch(e) {
-  state = null;
+try{
+  state=JSON.parse(localStorage.getItem(key)||"null");
+}catch(e){
+  state=null;
 }
 
 if(!state ||
    !Number.isInteger(state.i) ||
    !Array.isArray(state.picks) ||
-   state.i < 0 ||
-   state.i > 10) {
-
-  state = {
-    i:0,
-    picks:[],
-    completed:false
-  };
+   state.i<0 || state.i>10){
+  state={i:0,picks:[],completed:false};
 }
 
-function save() {
-  try {
-    localStorage.setItem(
-      key,
-      JSON.stringify(state)
-    );
-  } catch(e) {
-    $("feedback").textContent =
-      "Le navigateur ne peut pas sauvegarder votre progression.";
+function save(){
+  try{
+    localStorage.setItem(key,JSON.stringify(state));
+  }catch(e){
+    $("feedback").textContent=
+      "Impossible de sauvegarder la progression.";
   }
 }
 
-function points() {
+function points(){
   return state.picks.reduce(
     (sum,v,i)=>sum+(v===quiz[i][2]?1:0),0
   );
 }
 
-function render() {
-
-  if(state.completed || state.i>=10) {
-
+function render(){
+  if(state.completed || state.i>=10){
     state.completed=true;
     save();
-
     $("game").classList.add("hidden");
     $("done").classList.remove("hidden");
     $("score").textContent=points()+" / 10";
-
     tick();
     return;
   }
 
-  $("meta").textContent =
-    "QUESTION "+(state.i+1)+" / 10";
-
+  $("meta").textContent="QUESTION "+(state.i+1)+" / 10";
   $("bar").style.width=(state.i*10)+"%";
 
   const q=quiz[state.i];
-
   $("question").textContent=q[0];
   $("answers").replaceChildren();
 
   const answered=state.picks.length>state.i;
 
   q[1].forEach((txt,n)=>{
-
     const b=document.createElement("button");
-
     b.className="answer";
-
-    b.textContent=
-      String.fromCharCode(65+n)+". "+txt;
-
+    b.textContent=String.fromCharCode(65+n)+". "+txt;
     b.disabled=answered;
 
-    if(answered) {
-
-      if(n===q[2]) {
-        b.classList.add("correct");
-      } else if(n===state.picks[state.i]) {
+    if(answered){
+      if(n===q[2]) b.classList.add("correct");
+      else if(n===state.picks[state.i])
         b.classList.add("wrong");
-      }
-
-    } else {
-
+    }else{
       b.onclick=()=>{
         state.picks[state.i]=n;
         save();
         render();
       };
-
     }
-
     $("answers").appendChild(b);
   });
 
   $("feedback").textContent=answered
-    ? (
-      state.picks[state.i]===q[2]
+    ? state.picks[state.i]===q[2]
       ? "Bonne réponse !"
       : "La bonne réponse est : "+q[1][q[2]]
-    )
     : "";
 
-  $("next").classList.toggle(
-    "hidden",
-    !answered
-  );
-
+  $("next").classList.toggle("hidden",!answered);
   $("next").textContent=state.i===9
     ? "Voir mon score →"
     : "Question suivante →";
 }
 
 $("next").onclick=()=>{
-
   if(state.picks.length<=state.i) return;
-
   state.i++;
-
-  if(state.i===10) {
-    state.completed=true;
-  }
-
+  if(state.i===10) state.completed=true;
   save();
   render();
 };
 
-function tick() {
-
-  if($("done").classList.contains("hidden")) {
-    return;
-  }
+function tick(){
+  if($("done").classList.contains("hidden")) return;
 
   const parts=new Intl.DateTimeFormat("en-GB",{
     timeZone:"Europe/Paris",
@@ -446,41 +328,28 @@ function tick() {
   }).formatToParts(new Date());
 
   const p={};
-
-  parts.forEach(x=>{
-    p[x.type]=x.value;
-  });
+  parts.forEach(x=>p[x.type]=x.value);
 
   let secs=86400-(
     Number(p.hour)*3600+
     Number(p.minute)*60+
     Number(p.second)
   );
-
   if(secs===86400) secs=0;
 
   $("countdown").textContent=
     "Prochain quiz dans "+
-    String(Math.floor(secs/3600))
-      .padStart(2,"0")+"h "+
-    String(Math.floor(secs%3600/60))
-      .padStart(2,"0")+"min "+
-    String(secs%60)
-      .padStart(2,"0")+"s";
+    String(Math.floor(secs/3600)).padStart(2,"0")+"h "+
+    String(Math.floor(secs%3600/60)).padStart(2,"0")+"min "+
+    String(secs%60).padStart(2,"0")+"s";
 }
 
 render();
 
 setInterval(()=>{
-
-  if(parisDate()!==today) {
-    location.reload();
-  } else {
-    tick();
-  }
-
+  if(parisDate()!==today) location.reload();
+  else tick();
 },1000);
-
 </script>
 </body>
 </html>
