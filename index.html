@@ -1121,16 +1121,16 @@ async function shareApp(){
  const shareData={
   title:"Cacao Radio",
   text:"🎧 Cacao Radio – Easy Listening Radio",
-  url:"https://cacaoradio.com/"
+  url:"https://cacaoradio.github.io/cacao-radio/"
  };
  if(navigator.share){
   try{await navigator.share(shareData)}catch(e){}
  }else{
   try{
    await navigator.clipboard.writeText(shareData.url);
-   alert("Le lien de Cacao Radio a été copié !");
+   alert("Le lien de l'application Cacao Radio a été copié !");
   }catch(e){
-   alert("https://cacaoradio.com/");
+   alert("https://cacaoradio.github.io/cacao-radio/");
   }
  }
 }
