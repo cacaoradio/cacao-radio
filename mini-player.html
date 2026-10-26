@@ -210,12 +210,25 @@ cacaoradio.com
 
 </main>
 
-<audio id="audio" preload="none">
-<source src="https://stream10.vestaradio.com/Cacao-Radio">
+<!-- MESSAGE DE BIENVENUE -->
+
+<audio
+ id="welcome"
+ preload="none"
+ src="welcome.m4a.m4a">
+</audio>
+
+<!-- DIRECT CACAO RADIO -->
+
+<audio
+ id="audio"
+ preload="none"
+ src="https://stream10.vestaradio.com/Cacao-Radio">
 </audio>
 
 <script>
 const audio=document.getElementById("audio");
+const welcome=document.getElementById("welcome");
 const play=document.getElementById("play");
 const volume=document.getElementById("volume");
 const status=document.getElementById("status");
@@ -224,43 +237,154 @@ const STATUS_API=
 "https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=status";
 
 let playRequested=false;
+let welcomePlayed=false;
+let phase="idle";
+let requestId=0;
 
-play.addEventListener("click",async function(){
+function updateButton(){
+ const active=
+  (phase==="welcome" && !welcome.paused) ||
+  (phase==="live" && !audio.paused);
 
- if(!audio.paused){
-  playRequested=false;
-  audio.pause();
-  return;
- }
+ play.textContent=active?"❚❚":"▶";
+ play.setAttribute(
+  "aria-label",
+  active?"Mettre en pause":"Écouter la radio"
+ );
+}
 
- playRequested=true;
+async function startLive(token){
+
+ if(token!==requestId || !playRequested)return;
+
+ phase="live";
  status.textContent="Connexion à Cacao Radio…";
 
  try{
   await audio.play();
+
+  if(token!==requestId || !playRequested){
+   audio.pause();
+   return;
+  }
+
+  updateButton();
+
  }catch(e){
+  if(token!==requestId)return;
   playRequested=false;
-  status.textContent="Impossible de démarrer la lecture.";
+  phase="idle";
+  status.textContent=
+   "Impossible de démarrer le direct. Réessayez.";
+  updateButton();
+ }
+}
+
+async function startWelcome(token){
+
+ phase="welcome";
+ status.textContent="Bienvenue sur Cacao Radio…";
+
+ try{
+  welcome.currentTime=0;
+  await welcome.play();
+
+  if(token!==requestId || !playRequested){
+   welcome.pause();
+   return;
+  }
+
+  welcomePlayed=true;
+  updateButton();
+
+ }catch(e){
+
+  if(token!==requestId)return;
+
+  // Si le message ne peut pas être lu,
+  // on essaie directement la radio.
+  welcomePlayed=true;
+  await startLive(token);
+ }
+}
+
+play.addEventListener("click",async function(){
+
+ if(phase==="welcome" && !welcome.paused){
+  playRequested=false;
+  requestId++;
+  welcome.pause();
+  status.textContent="Lecture en pause";
+  updateButton();
+  return;
  }
 
+ if(phase==="live" && !audio.paused){
+  playRequested=false;
+  requestId++;
+  audio.pause();
+  status.textContent="Lecture en pause";
+  updateButton();
+  return;
+ }
+
+ playRequested=true;
+ const token=++requestId;
+
+ if(phase==="welcome" && welcome.paused){
+  try{
+   await welcome.play();
+   if(token!==requestId){
+    welcome.pause();
+    return;
+   }
+   updateButton();
+  }catch(e){
+   await startLive(token);
+  }
+  return;
+ }
+
+ if(!welcomePlayed){
+  await startWelcome(token);
+ }else{
+  await startLive(token);
+ }
+});
+
+welcome.addEventListener("playing",function(){
+ phase="welcome";
+ status.textContent="Bienvenue sur Cacao Radio…";
+ updateButton();
+});
+
+welcome.addEventListener("ended",function(){
+ if(!playRequested)return;
+ startLive(requestId);
+});
+
+welcome.addEventListener("error",function(){
+ if(phase==="welcome" && playRequested){
+  welcomePlayed=true;
+  startLive(requestId);
+ }
 });
 
 audio.addEventListener("playing",function(){
- play.textContent="❚❚";
- play.setAttribute("aria-label","Mettre en pause");
+ phase="live";
  status.textContent="Vous écoutez Cacao Radio en direct";
+ updateButton();
 });
 
 audio.addEventListener("pause",function(){
- play.textContent="▶";
- play.setAttribute("aria-label","Écouter la radio");
- if(!audio.ended){
+ updateButton();
+ if(phase==="live" && !playRequested){
   status.textContent="Lecture en pause";
  }
 });
 
 audio.addEventListener("waiting",function(){
- if(playRequested){
+ if(playRequested && phase==="live"){
   status.textContent="Chargement du direct…";
  }
 });
@@ -268,10 +392,13 @@ audio.addEventListener("waiting",function(){
 audio.addEventListener("error",function(){
  playRequested=false;
  status.textContent="Flux momentanément indisponible.";
+ updateButton();
 });
 
 volume.addEventListener("input",function(){
- audio.volume=Number(volume.value);
+ const level=Number(volume.value);
+ audio.volume=level;
+ welcome.volume=level;
 });
 
 async function updateNowPlaying(){
@@ -336,14 +463,29 @@ updateNowPlaying();
 setInterval(updateNowPlaying,15000);
 
 if("mediaSession" in navigator){
- try{
-  navigator.mediaSession.setActionHandler("play",function(){
-   audio.play();
-  });
 
-  navigator.mediaSession.setActionHandler("pause",function(){
-   audio.pause();
-  });
+ try{
+
+  navigator.mediaSession.setActionHandler(
+   "play",
+   function(){
+    if(playRequested)return;
+    play.click();
+   }
+  );
+
+  navigator.mediaSession.setActionHandler(
+   "pause",
+   function(){
+    if(
+     (phase==="welcome" && !welcome.paused) ||
+     (phase==="live" && !audio.paused)
+    ){
+     play.click();
+    }
+   }
+  );
+
  }catch(e){}
 }
 </script>
