@@ -1045,75 +1045,186 @@ setInterval(updateNowPlaying,15000);
 const HISTORY_API=
  "https://studio10.vestaradio.com/api/player-public.php?radio=Cacao-Radio&action=history";
 
+/*
+ CORRECTION CACAO RADIO
+ Supprime uniquement le nom de l'artiste
+ au début du titre lorsqu'il est répété.
+
+ Exemples :
+ "Ivana June - Verano!" devient "Verano!"
+ "French 79 - Colors Collide" devient "Colors Collide"
+
+ Les titres sans doublon restent inchangés.
+*/
+function cleanHistoryTitle(rawTitle,rawArtist){
+ const title=String(rawTitle||"Titre").trim();
+ const artist=String(rawArtist||"").trim();
+
+ if(!artist)return title;
+
+ if(
+  title.slice(0,artist.length).toLocaleLowerCase()===
+  artist.toLocaleLowerCase()
+ ){
+  const remainder=title.slice(artist.length);
+
+  if(/^\s*[-–—:]\s*/.test(remainder)){
+   const cleaned=remainder.replace(
+    /^\s*[-–—:]\s*/,""
+   ).trim();
+
+   if(cleaned)return cleaned;
+  }
+ }
+
+ return title;
+}
+
 async function openHistory(){
  const modal=document.getElementById("historyModal");
  const list=document.getElementById("historyList");
+
  modal.style.display="flex";
  document.body.style.overflow="hidden";
- list.innerHTML='<div class="history-loading">Chargement des derniers titres…</div>';
+
+ list.innerHTML=
+  '<div class="history-loading">Chargement des derniers titres…</div>';
+
  try{
-  const response=await fetch(HISTORY_API,{cache:"no-store"});
+  const response=await fetch(HISTORY_API,{
+   cache:"no-store"
+  });
+
   if(!response.ok)throw new Error("API");
+
   const data=await response.json();
+
   let tracks=[];
-  if(Array.isArray(data))tracks=data;
-  else if(Array.isArray(data.history))tracks=data.history;
-  else if(Array.isArray(data.tracks))tracks=data.tracks;
-  else if(Array.isArray(data.items))tracks=data.items;
-  else if(Array.isArray(data.data))tracks=data.data;
-  else if(data.data&&Array.isArray(data.data.history)){
+
+  if(Array.isArray(data)){
+   tracks=data;
+  }else if(Array.isArray(data.history)){
+   tracks=data.history;
+  }else if(Array.isArray(data.tracks)){
+   tracks=data.tracks;
+  }else if(Array.isArray(data.items)){
+   tracks=data.items;
+  }else if(Array.isArray(data.data)){
+   tracks=data.data;
+  }else if(
+   data.data&&Array.isArray(data.data.history)
+  ){
    tracks=data.data.history;
   }
+
   tracks=tracks.slice(0,20);
+
   if(!tracks.length){
-   list.innerHTML='<div class="history-loading">Historique momentanément indisponible.</div>';
+   list.innerHTML=
+    '<div class="history-loading">Historique momentanément indisponible.</div>';
    return;
   }
+
   list.innerHTML="";
+
   tracks.forEach(function(track){
+
    const row=document.createElement("div");
    row.className="history-item";
+
+   /* POCHETTE */
    const cover=document.createElement("img");
    cover.className="history-cover";
-   cover.src=track.cover||track.image||track.artwork||
-    track.logo||"icon-192.png";
+
+   cover.src=
+    track.cover||
+    track.image||
+    track.artwork||
+    track.logo||
+    "icon-192.png";
+
    cover.onerror=function(){
     cover.onerror=null;
     cover.src="icon-192.png";
    };
+
    const info=document.createElement("div");
    info.className="history-info";
+
+   /* NOM DE L'ARTISTE */
+   const artistName=
+    track.artist||
+    track.author||
+    "";
+
+   /* TITRE DE LA CHANSON */
+   const rawTitle=
+    track.title||
+    track.song||
+    track.track||
+    "Titre";
+
+   /* SUPPRESSION DU DOUBLON */
+   const cleanTitle=cleanHistoryTitle(
+    rawTitle,
+    artistName
+   );
+
    const title=document.createElement("div");
    title.className="history-title";
-   title.textContent=track.title||track.song||track.track||"Titre";
+   title.textContent=cleanTitle;
+
+   /* ARTISTE SUR UNE SEULE LIGNE DISTINCTE */
    const artist=document.createElement("div");
    artist.className="history-artist";
-   artist.textContent=track.artist||track.author||"";
+   artist.textContent=artistName;
+
    info.appendChild(title);
-   if(artist.textContent)info.appendChild(artist);
-   const timeValue=track.time||track.hour||
-    track.datetime||track.date||"";
+
+   if(artist.textContent){
+    info.appendChild(artist);
+   }
+
+   /* HORAIRE DE DIFFUSION */
+   const timeValue=
+    track.time||
+    track.hour||
+    track.datetime||
+    track.date||
+    "";
+
    if(timeValue){
     const time=document.createElement("div");
     time.className="history-time";
     time.textContent=timeValue;
     info.appendChild(time);
    }
+
    row.appendChild(cover);
    row.appendChild(info);
    list.appendChild(row);
+
   });
+
  }catch(e){
-  console.error("Erreur historique Cacao Radio :",e);
-  list.innerHTML='<div class="history-loading">Historique momentanément indisponible.</div>';
+  console.error(
+   "Erreur historique Cacao Radio :",e
+  );
+
+  list.innerHTML=
+   '<div class="history-loading">Historique momentanément indisponible.</div>';
  }
 }
+
 function closeHistory(){
  document.getElementById("historyModal").style.display="none";
  document.body.style.overflow="";
 }
+
 function closeHistoryOutside(event){
- if(event.target.id==="historyModal")closeHistory();
+ if(event.target.id==="historyModal"){
+  closeHistory();
+ }
 }
 
 /* PARTAGER APPLICATION */
@@ -1145,6 +1256,7 @@ const conceptImages=[
  {file:"cacao-radio-professionnels.png",alt:"Les professionnels"},
  {file:"cacao-radio-360.png",alt:"Le concept multimédia à 360 degrés"}
 ];
+
 let conceptIndex=0;
 
 function renderConcept(){
@@ -1155,16 +1267,19 @@ function renderConcept(){
  document.getElementById("conceptCount").textContent=
   (conceptIndex+1)+" / "+conceptImages.length;
 }
+
 function openConcept(){
  conceptIndex=0;
  renderConcept();
  document.getElementById("conceptModal").style.display="flex";
  document.body.classList.add("modal-open");
 }
+
 function closeConcept(){
  document.getElementById("conceptModal").style.display="none";
  document.body.classList.remove("modal-open");
 }
+
 function changeConcept(direction){
  conceptIndex=(conceptIndex+direction+conceptImages.length)%
   conceptImages.length;
@@ -1174,7 +1289,9 @@ function changeConcept(direction){
 /* CLAVIER */
 document.addEventListener("keydown",function(event){
  const modal=document.getElementById("conceptModal");
+
  if(modal.style.display!=="flex")return;
+
  if(event.key==="Escape")closeConcept();
  if(event.key==="ArrowRight")changeConcept(1);
  if(event.key==="ArrowLeft")changeConcept(-1);
@@ -1182,12 +1299,17 @@ document.addEventListener("keydown",function(event){
 
 /* GLISSEMENT TACTILE */
 let conceptTouchStart=0;
+
 const conceptView=document.querySelector(".concept-view");
+
 conceptView.addEventListener("touchstart",function(event){
  conceptTouchStart=event.changedTouches[0].screenX;
 },{passive:true});
+
 conceptView.addEventListener("touchend",function(event){
- const difference=event.changedTouches[0].screenX-conceptTouchStart;
+ const difference=
+  event.changedTouches[0].screenX-conceptTouchStart;
+
  if(Math.abs(difference)>45){
   changeConcept(difference<0?1:-1);
  }
@@ -1199,6 +1321,7 @@ if("mediaSession" in navigator){
   navigator.mediaSession.setActionHandler("play",function(){
    audio.play();
   });
+
   navigator.mediaSession.setActionHandler("pause",function(){
    audio.pause();
   });
