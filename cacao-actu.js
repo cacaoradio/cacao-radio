@@ -219,9 +219,17 @@
   #cr-actu-chocolat {
     padding:18px 14px;
   }
+
+  /* MARGE DU TITRE ET DU TEXTE DE PRÉSENTATION */
+  #cr-actu-chocolat .cr-actu-entete {
+    padding-left:14px;
+    padding-right:14px;
+  }
+
   #cr-actu-chocolat .cr-actu-carte {
     flex-basis:88%;
   }
+
   #cr-actu-chocolat .cr-actu-badge {
     white-space:normal;
   }
@@ -449,10 +457,8 @@
 
   function element(tag,classe,texte) {
     const el = document.createElement(tag);
-
     if (classe) el.className = classe;
     if (texte !== undefined) el.textContent = texte;
-
     return el;
   }
 
@@ -692,7 +698,6 @@
       encodeURIComponent(source.flux);
 
     const controller = new AbortController();
-
     const timeout = setTimeout(
       () => controller.abort(),12000
     );
@@ -711,9 +716,7 @@
       if (
         json.status !== "ok" ||
         !Array.isArray(json.items)
-      ) {
-        return [];
-      }
+      ) return [];
 
       return json.items.map(item => ({
         titre:String(item.title || "").trim(),
@@ -740,9 +743,7 @@
         c &&
         Array.isArray(c.articles) &&
         Date.now()-c.sauvegarde < 7*86400000
-      ) {
-        return c.articles;
-      }
+      ) return c.articles;
 
     } catch (_) {}
 
@@ -763,17 +764,13 @@
         r.status==="fulfilled" ? r.value : []
       )
       .filter(a => {
-        const d = Date.parse(
-          a.date.replace(" ","T")
-        );
+        const d = Date.parse(a.date.replace(" ","T"));
 
         if (
           !Number.isFinite(d) ||
-          d>maintenant+86400000 ||
-          d<maintenant-120*86400000
-        ) {
-          return false;
-        }
+          d > maintenant+86400000 ||
+          d < maintenant-120*86400000
+        ) return false;
 
         if (!estPositif(a.titre)) return false;
 
@@ -797,17 +794,13 @@
       } catch (_) {}
 
     } else {
-      afficher(
-        selectionner(obtenirCache())
-      );
+      afficher(selectionner(obtenirCache()));
     }
   }
 
   /* DÉMARRAGE */
 
-  afficher(
-    selectionner(obtenirCache())
-  );
+  afficher(selectionner(obtenirCache()));
 
   actualiser().catch(() => {});
 
