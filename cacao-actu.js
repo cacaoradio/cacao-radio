@@ -1,8 +1,10 @@
 
 /* CACAO RADIO — CACAO ACTU
-   Un seul fichier pour l'accueil et la page dédiée.
-   Flux automatiques, événements, design et carrousel.
+   Fichier commun à l'accueil et à la page dédiée.
+   Événements, bonnes nouvelles, flux et carrousel.
+   Mise à jour : 21 novembre 2026.
 */
+
 (function () {
   "use strict";
 
@@ -13,7 +15,7 @@
   const grille = bloc.querySelector(".cr-actu-grille");
   if (!grille) return;
 
-  /* DESIGN COMMUN */
+  /* DESIGN ORIGINAL CONSERVÉ */
 
   if (!document.getElementById("cr-actu-styles-communs")) {
     const style = document.createElement("style");
@@ -84,6 +86,8 @@
   opacity:.8;
 }
 
+/* CARROUSEL HORIZONTAL */
+
 #cr-actu-chocolat .cr-actu-grille {
   display:flex;
   flex-wrap:nowrap;
@@ -107,6 +111,8 @@
   user-select:none;
   scroll-snap-type:none;
 }
+
+/* QUATRE CARTES VISIBLES SUR ORDINATEUR */
 
 #cr-actu-chocolat .cr-actu-carte {
   display:flex;
@@ -199,11 +205,15 @@
   font:700 13px/1.4 Arial,sans-serif;
 }
 
+/* TABLETTES */
+
 @media(max-width:900px) {
   #cr-actu-chocolat .cr-actu-carte {
     flex-basis:calc((100% - 14px)/2);
   }
 }
+
+/* SMARTPHONES */
 
 @media(max-width:560px) {
   #cr-actu-chocolat {
@@ -221,7 +231,7 @@
     document.head.appendChild(style);
   }
 
-  /* SOURCES D'ACTUALITÉS EXISTANTES */
+  /* SOURCES RSS EXISTANTES */
 
   const sources = [
     {
@@ -238,9 +248,66 @@
     }
   ];
 
-  /* SÉLECTION ÉDITORIALE EXISTANTE */
+  /* ÉVÉNEMENTS CHOCOLATÉS */
 
   const evenements = [
+    {
+      titre:"Alès : le Salon MIAM célèbre les artisans gourmands et les produits du terroir",
+      source:"Salon MIAM — organisateur",
+      lien:"https://www.miam-ales.com/",
+      dates:"20–23 nov. 2026",
+      debut:"2026-11-20",
+      fin:"2026-11-23",
+      ajouteLe:"2026-11-21T20:40:00+01:00"
+    },
+    {
+      titre:"Rodez : le Salon du Chocolat et des Délices réunit 38 exposants",
+      source:"Office de tourisme de Rodez",
+      lien:"https://www.rodez-tourisme.fr/offres/salon-du-chocolat-et-des-delices-rodez-fr-5361085/",
+      dates:"21–22 nov. 2026",
+      debut:"2026-11-21",
+      fin:"2026-11-22",
+      ajouteLe:"2026-11-21T20:39:00+01:00"
+    },
+    {
+      titre:"Canet-en-Roussillon : salon du chocolat et de l’artisanat gourmand",
+      source:"Tourisme Pyrénées-Orientales",
+      lien:"https://www.tourisme-pyreneesorientales.com/agenda/salon-du-chocolat-et-de-lartisanat-gourmand-canet-en-roussillon-fr-6049576/",
+      dates:"21–22 nov. 2026",
+      debut:"2026-11-21",
+      fin:"2026-11-22",
+      ajouteLe:"2026-11-21T20:38:00+01:00"
+    },
+    {
+      titre:"Gruissan : le Salon Chocolat et Délices revient début décembre",
+      source:"Office de tourisme de Gruissan",
+      lien:"https://www.gruissan-mediterranee.com/agenda-evenement-gruissan/salon-chocolat-et-delices/",
+      dates:"4–6 déc. 2026",
+      debut:"2026-12-04",
+      fin:"2026-12-06",
+      ajouteLe:"2026-11-21T20:37:00+01:00"
+    },
+    {
+      titre:"Paris : chocolats et spécialités gourmandes au Salon Saveurs",
+      source:"Salon Saveurs — organisateur",
+      lien:"https://www.salon-saveurs.com/infos-pratiques/dates-et-lieux/",
+      dates:"4–7 déc. 2026",
+      debut:"2026-12-04",
+      fin:"2026-12-07",
+      ajouteLe:"2026-11-21T20:36:00+01:00"
+    },
+    {
+      titre:"Santenay : dégustations et artisans au Marché du Chocolat",
+      source:"Beaune Tourisme",
+      lien:"https://www.beaune-tourisme.fr/sejourner/agenda/marche-du-chocolat-de-santenay-santenay-fr-3949406/",
+      dates:"6 déc. 2026",
+      debut:"2026-12-06",
+      fin:"2026-12-06",
+      ajouteLe:"2026-11-21T20:35:00+01:00"
+    },
+
+    /* ÉVÉNEMENTS DÉJÀ ENREGISTRÉS */
+
     {
       titre:"Paris : des chocolatiers à découvrir au Salon du Made in France jusqu’au 15 novembre",
       source:"MIF Expo — organisateur",
@@ -306,7 +373,33 @@
     }
   ];
 
-  /* FILTRES DES ACTUALITÉS */
+  /* BONNES NOUVELLES DU CHOCOLAT */
+
+  const actualitesSelection = [
+    {
+      titre:"Valrhona et l’Institut Lyfe s’unissent pour former les talents de demain",
+      source:"Valrhona",
+      lien:"https://www.valrhona.com/fr-FR/nos-actualites/toutes-nos-actualites/valrhona-et-institut-lyfe-s-unissent-pour-former-les-talents-de-la-gastronomie-de-demain",
+      date:"2026-11-17",
+      fin:"2027-01-15"
+    },
+    {
+      titre:"Valrhona met à l’honneur la créativité au Concours de la Pâtisserie Durable",
+      source:"Valrhona",
+      lien:"https://www.valrhona.com/fr-FR/nos-actualites/toutes-nos-actualites/l-audace-a-l-honneur-de-la-3e-edition-du-concours-de-la-patisserie-durable-2026",
+      date:"2026-11-14",
+      fin:"2027-01-15"
+    },
+    {
+      titre:"Justin Brocq sacré meilleur pain au chocolat de France 2026",
+      source:"Confédération de la boulangerie-pâtisserie",
+      lien:"https://boulangerie.org/blog/2026/10/30/justin-brocq-grand-vainqueur-du-5e-master-national-du-meilleur-pain-au-chocolat-2026/",
+      date:"2026-10-30",
+      fin:"2027-01-15"
+    }
+  ];
+
+  /* FILTRES DES FLUX */
 
   const motsChocolat = [
     "chocolat",
@@ -356,8 +449,10 @@
 
   function element(tag,classe,texte) {
     const el = document.createElement(tag);
+
     if (classe) el.className = classe;
     if (texte !== undefined) el.textContent = texte;
+
     return el;
   }
 
@@ -366,23 +461,50 @@
   function annoncesValides() {
     return evenements
       .filter(e =>
-        Date.parse(e.fin + "T23:59:59+01:00") >= Date.now()
+        Date.parse(e.fin+"T23:59:59+01:00") >= Date.now()
       )
       .map(e => ({
         ...e,
         timestamp:Date.parse(e.ajouteLe),
+        debutTimestamp:Date.parse(
+          e.debut+"T00:00:00+01:00"
+        ),
         rubrique:"ÉVÉNEMENT",
-        ligneSource:e.source + " · " + e.dates,
+        ligneSource:e.source+" · "+e.dates,
         automatique:false
       }));
   }
 
-  /* PLUS RÉCENT EN PREMIER */
+  /* ACTUALITÉS ÉDITORIALES NON EXPIRÉES */
+
+  function actualitesValides() {
+    return actualitesSelection
+      .filter(a =>
+        Date.parse(a.fin+"T23:59:59+01:00") >= Date.now()
+      )
+      .map(a => ({
+        ...a,
+        timestamp:Date.parse(
+          a.date+"T12:00:00+01:00"
+        ),
+        rubrique:"BONNE NOUVELLE",
+        ligneSource:
+          a.source+" · "+
+          dateFR(Date.parse(a.date+"T12:00:00+01:00")),
+        automatique:false
+      }));
+  }
+
+  /* CLASSEMENT CHRONOLOGIQUE */
 
   function selectionner(flux) {
     const vus = new Set();
 
-    return [...annoncesValides(),...flux]
+    return [
+      ...annoncesValides(),
+      ...actualitesValides(),
+      ...flux
+    ]
       .filter(a => {
         try {
           if (new URL(a.lien).protocol !== "https:") {
@@ -402,7 +524,34 @@
         vus.add(id);
         return true;
       })
-      .sort((a,b) => b.timestamp - a.timestamp);
+      .sort((a,b) => {
+
+        const aEvenement =
+          Number.isFinite(a.debutTimestamp);
+
+        const bEvenement =
+          Number.isFinite(b.debutTimestamp);
+
+        /* Salons : date de début croissante */
+
+        if (aEvenement && bEvenement) {
+          return (
+            a.debutTimestamp-b.debutTimestamp
+          ) || (
+            b.timestamp-a.timestamp
+          );
+        }
+
+        /* Les salons passent avant les actualités */
+
+        if (aEvenement !== bEvenement) {
+          return aEvenement ? -1 : 1;
+        }
+
+        /* Actualités : les plus récentes en premier */
+
+        return b.timestamp-a.timestamp;
+      });
   }
 
   /* AFFICHAGE DES CARTES */
@@ -410,12 +559,17 @@
   function afficher(articles) {
     grille.replaceChildren();
 
-    for (let i=0; i<Math.max(4,articles.length); i++) {
+    for (
+      let i=0;
+      i<Math.max(4,articles.length);
+      i++
+    ) {
       const a = articles[i];
 
       const carte = element(
         a ? "a" : "div",
-        "cr-actu-carte" + (a ? "" : " cr-actu-vide")
+        "cr-actu-carte" +
+        (a ? "" : " cr-actu-vide")
       );
 
       if (a) {
@@ -429,7 +583,11 @@
           "span",
           "cr-actu-rubrique",
           a
-            ? (i===0 ? "À LA UNE" : a.rubrique || "BONNE NOUVELLE")
+            ? (
+                i===0
+                  ? "À LA UNE"
+                  : a.rubrique || "BONNE NOUVELLE"
+              )
             : "À VENIR"
         )
       );
@@ -438,7 +596,9 @@
         element(
           "div",
           "cr-actu-titre-carte",
-          a ? a.titre : "Une prochaine belle nouvelle du chocolat…"
+          a
+            ? a.titre
+            : "Une prochaine belle nouvelle du chocolat…"
         )
       );
 
@@ -450,7 +610,7 @@
             "div",
             "cr-actu-source",
             a.ligneSource ||
-            a.source + " · " + dateFR(a.timestamp)
+            a.source+" · "+dateFR(a.timestamp)
           )
         );
 
@@ -458,7 +618,9 @@
           element(
             "span",
             "cr-actu-lire",
-            a.automatique ? "VOIR L'ANNONCE →" : "DÉCOUVRIR →"
+            a.automatique
+              ? "VOIR L'ANNONCE →"
+              : "DÉCOUVRIR →"
           )
         );
       }
@@ -487,12 +649,12 @@
   window.addEventListener("mousemove",e => {
     if (!souris) return;
 
-    const distance = e.clientX - depart;
+    const distance = e.clientX-depart;
 
     if (Math.abs(distance)>6 || glisse) {
       glisse = true;
       grille.classList.add("cr-actu-glisse");
-      grille.scrollLeft = scrollDepart - distance;
+      grille.scrollLeft = scrollDepart-distance;
       e.preventDefault();
     }
   });
@@ -504,7 +666,9 @@
     grille.classList.remove("cr-actu-glisse");
 
     if (glisse) {
-      setTimeout(() => { glisse=false; },0);
+      setTimeout(() => {
+        glisse=false;
+      },0);
     }
   });
 
@@ -516,11 +680,11 @@
     if (glisse) {
       e.preventDefault();
       e.stopPropagation();
-      glisse = false;
+      glisse=false;
     }
   },true);
 
-  /* CHARGEMENT DES FLUX */
+  /* CHARGEMENT DES FLUX RSS */
 
   async function chargerFlux(source) {
     const url =
@@ -528,6 +692,7 @@
       encodeURIComponent(source.flux);
 
     const controller = new AbortController();
+
     const timeout = setTimeout(
       () => controller.abort(),12000
     );
@@ -546,7 +711,9 @@
       if (
         json.status !== "ok" ||
         !Array.isArray(json.items)
-      ) return [];
+      ) {
+        return [];
+      }
 
       return json.items.map(item => ({
         titre:String(item.title || "").trim(),
@@ -561,7 +728,7 @@
     }
   }
 
-  /* CACHE DES ACTUALITÉS */
+  /* CACHE DES ACTUALITÉS RSS */
 
   function obtenirCache() {
     try {
@@ -573,7 +740,9 @@
         c &&
         Array.isArray(c.articles) &&
         Date.now()-c.sauvegarde < 7*86400000
-      ) return c.articles;
+      ) {
+        return c.articles;
+      }
 
     } catch (_) {}
 
@@ -594,13 +763,17 @@
         r.status==="fulfilled" ? r.value : []
       )
       .filter(a => {
-        const d = Date.parse(a.date.replace(" ","T"));
+        const d = Date.parse(
+          a.date.replace(" ","T")
+        );
 
         if (
           !Number.isFinite(d) ||
-          d > maintenant+86400000 ||
-          d < maintenant-120*86400000
-        ) return false;
+          d>maintenant+86400000 ||
+          d<maintenant-120*86400000
+        ) {
+          return false;
+        }
 
         if (!estPositif(a.titre)) return false;
 
@@ -624,15 +797,21 @@
       } catch (_) {}
 
     } else {
-      afficher(selectionner(obtenirCache()));
+      afficher(
+        selectionner(obtenirCache())
+      );
     }
   }
 
   /* DÉMARRAGE */
 
-  afficher(selectionner(obtenirCache()));
+  afficher(
+    selectionner(obtenirCache())
+  );
 
   actualiser().catch(() => {});
+
+  /* RAFRAÎCHISSEMENT TOUTES LES HEURES */
 
   setInterval(
     () => actualiser().catch(() => {}),
