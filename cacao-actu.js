@@ -2,7 +2,7 @@
 /* CACAO RADIO — CACAO ACTU
    Fichier commun à l'accueil et à la page dédiée.
    Événements, bonnes nouvelles, flux et carrousel.
-   Mise à jour : 21 novembre 2026.
+   Mise à jour : 22 novembre 2026.
 */
 
 (function () {
@@ -221,6 +221,7 @@
   }
 
   /* MARGE DU TITRE ET DU TEXTE DE PRÉSENTATION */
+
   #cr-actu-chocolat .cr-actu-entete {
     padding-left:14px;
     padding-right:14px;
@@ -385,6 +386,14 @@
 
   const actualitesSelection = [
     {
+      titre:"Saint-Malo : Noémie Bessec, ancienne candidate de Koh-Lanta, ouvre Le Comptoir de Mathilde",
+      source:"Noémie Bessec",
+      lien:"https://fr.linkedin.com/posts/no%C3%A9mie-bessec-4280ab275_nouvelle-casquette-dentrepreneuse-l-activity-7520767052119470080-bXOC",
+      date:"2026-11-22",
+      ligneSource:"Annonce de Noémie Bessec · sélection du 22 nov. 2026",
+      fin:"2027-01-22"
+    },
+    {
       titre:"Valrhona et l’Institut Lyfe s’unissent pour former les talents de demain",
       source:"Valrhona",
       lien:"https://www.valrhona.com/fr-FR/nos-actualites/toutes-nos-actualites/valrhona-et-institut-lyfe-s-unissent-pour-former-les-talents-de-la-gastronomie-de-demain",
@@ -494,9 +503,9 @@
           a.date+"T12:00:00+01:00"
         ),
         rubrique:"BONNE NOUVELLE",
-        ligneSource:
-          a.source+" · "+
-          dateFR(Date.parse(a.date+"T12:00:00+01:00")),
+        ligneSource:a.ligneSource ||
+          (a.source+" · "+
+          dateFR(Date.parse(a.date+"T12:00:00+01:00"))),
         automatique:false
       }));
   }
@@ -794,7 +803,9 @@
       } catch (_) {}
 
     } else {
-      afficher(selectionner(obtenirCache()));
+      afficher(
+        selectionner(obtenirCache())
+      );
     }
   }
 
