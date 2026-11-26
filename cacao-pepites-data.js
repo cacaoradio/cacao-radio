@@ -1,6 +1,6 @@
 
 /* CACAO RADIO — LA PÉPITE
-   SOURCE UNIQUE DES HUIT ARTICLES.
+   SOURCE UNIQUE DES NEUF ARTICLES.
    Pour ajouter une Pépite, ajouter un objet à ce tableau.
    Un nouvel article plus récent passe automatiquement en premier.
 */
@@ -9,28 +9,99 @@ const GITHUB="https://raw.githubusercontent.com/cacaoradio/cacao-radio/main/";
 window.CACAO_PEPITES=[
 
 /* =====================================
-   1 - IVANA JUNE – VERANO!
+   1 - NATALIE IMBRUGLIA – BEAUTIFUL LOVE
 ===================================== */
 
 {
- id:"ivana-june-verano",
- date:"2026-11-19",
- categorie:"Nouveauté musicale",
- titre:"Ivana June – Verano!",
- resume:"Une parenthèse pop pleine de nostalgie : avec « Verano! », Ivana June raconte cet été que l’on voudrait voir durer encore un peu.",
- image:GITHUB+"la_pepite_ivana_june_verano.png",
- youtube:"https://youtu.be/vjimWBKJ8UI",
- contenu:[
-  {titre:"",texte:"Avec « Verano! », Ivana June nous plonge dans une atmosphère estivale où la légèreté se mêle à la nostalgie. Un titre à découvrir dans La Pépite de Cacao Radio."},
-  {titre:"Un été qu’on ne veut pas quitter",texte:"« Verano! » évoque ce sentiment universel : vouloir retenir les derniers instants de l’été. Le morceau s’accompagne d’un clip qui raconte cette envie de prolonger une saison pleine de souvenirs, même lorsque le temps avance."},
-  {titre:"Un clip comme un petit film",texte:"Réalisé par Bea Dero, le clip suit une jeune Ivana qui refuse de voir l’été se terminer. On y découvre notamment une enfant portant une radio rouge, puis des scènes où la musique et l’imaginaire occupent toute la place. Le film joue sur les souvenirs d’enfance et le passage du temps."},
-  {titre:"Une production indépendante",texte:"Dans la présentation de la vidéo officielle, Ivana June et Bea Dero soulignent le travail consacré à ce clip indépendant. Une création visuelle qui accompagne le titre avec un regard tendre et une pointe de fantaisie."},
-  {titre:"La Pépite de Cacao Radio",texte:"Entre énergie pop et mélancolie des beaux jours, « Verano! » est une invitation à garder un peu de soleil avec soi. Découvrez Ivana June et son clip sur Cacao Radio."}
- ]
+id:"natalie-imbruglia-beautiful-love",
+date:"2026-11-26",
+categorie:"Nouveauté musicale",
+titre:"Natalie Imbruglia – Beautiful Love",
+resume:"Avec « Beautiful Love », Natalie Imbruglia signe un retour lumineux, entre pop électronique, renaissance personnelle et émotions. Découvrez son album « Algorithm » sur Cacao Radio.",
+image:GITHUB+"la_pepite_natalie_imbruglia_beautiful_love.png",
+youtube:"https://www.youtube.com/watch?v=wAxRe2A_6uI",
+contenu:[
+{
+titre:"",
+texte:"Près de trente ans après le succès mondial de « Torn », Natalie Imbruglia continue de se réinventer. Avec « Beautiful Love », extrait de son album « Algorithm », la chanteuse australienne dévoile une chanson lumineuse, portée par des sonorités électro-pop et un message profondément personnel."
+},
+{
+titre:"« Beautiful Love », une chanson sur l'amour de soi",
+texte:"Derrière son refrain entraînant et ses synthétiseurs lumineux, « Beautiful Love » raconte avant tout une réconciliation avec soi-même. Natalie Imbruglia y évoque l'acceptation de ses imperfections, la confiance retrouvée et la possibilité de retrouver la lumière après une période difficile. Bien plus qu'une chanson d'amour romantique, ce titre parle de reconstruction et de liberté intérieure."
+},
+{
+titre:"Une collaboration avec Gary Lightbody de Snow Patrol",
+texte:"Pour écrire « Beautiful Love », Natalie Imbruglia a collaboré avec Gary Lightbody, chanteur du groupe Snow Patrol, et le producteur britannique Fraser T Smith. Lors d'une séance d'écriture, la chanteuse, intimidée, s'est mise à raconter ses expériences personnelles. Gary Lightbody a écouté ses confidences et s'en est inspiré pour les paroles. Une rencontre qui a donné naissance à l'un des titres les plus intimes de son nouvel album."
+},
+{
+titre:"« Algorithm », un album entre pop, disco et introspection",
+texte:"Sorti le 4 septembre 2026, « Algorithm » est le septième album studio de Natalie Imbruglia. Cinq ans après « Firebird », elle y explore des sonorités pop, électroniques, disco et house. L'album aborde les relations amoureuses, l'identité, les réseaux sociaux, les difficultés personnelles et la liberté de devenir soi-même. Pour ce projet, l'artiste a choisi de prendre davantage de contrôle sur sa carrière en finançant et publiant elle-même son disque à travers son label Landgirl Records."
+},
+{
+titre:"Pourquoi « Beautiful Love » termine l'album",
+texte:"Natalie Imbruglia a volontairement choisi de placer « Beautiful Love » à la fin de son album. Après des chansons qui explorent les doutes, les remises en question et les épreuves personnelles, ce morceau représente une forme d'apaisement. Il conclut le disque sur une note d'espoir, comme l'aboutissement d'un parcours émotionnel."
+},
+{
+titre:"Un clip tourné avec un simple iPhone",
+texte:"Le clip officiel de « Beautiful Love » possède une particularité étonnante : il a été entièrement filmé avec un iPhone. Natalie Imbruglia a imaginé le concept, choisi ses tenues et participé à la direction artistique. Elle y fait également apparaître une Mercedes achetée neuve en 1998, une voiture qu'elle a conservée pendant toutes ces années. Un joli clin d'œil à son passé et à son évolution artistique."
+},
+{
+titre:"Une étonnante coïncidence autour du chiffre 4",
+texte:"Au moment de la sortie de « Algorithm », Natalie Imbruglia a relevé une amusante coïncidence : l'album est sorti le 4 septembre, « Beautiful Love » était son quatrième single et la chanteuse est née un 4 février. Elle a évoqué le nombre 444, auquel certaines croyances associent la protection et l'idée d'être sur le bon chemin."
+},
+{
+titre:"Un hommage émouvant à Joan",
+texte:"En novembre 2026, Natalie Imbruglia a partagé sur Instagram un hommage particulièrement touchant à Joan, une personne qui lui était très chère, à l'occasion du premier anniversaire de sa disparition. La chanteuse a expliqué avoir pensé à elle toute la journée et continuer à ressentir sa présence, sa lumière et sa joie à travers les personnes qui l'ont connue et aimée. Un témoignage personnel émouvant qui fait écho aux thèmes de l'amour et des souvenirs. Rien ne permet toutefois d'affirmer que « Beautiful Love » a été écrite spécialement pour Joan."
+},
+{
+titre:"Une nouvelle étape pour Natalie Imbruglia",
+texte:"Révélée mondialement en 1997 avec « Torn », Natalie Imbruglia a construit une carrière qui dépasse largement ce premier succès. Avec « Algorithm », elle affirme son indépendance artistique et son envie d'explorer de nouvelles directions musicales, sans renoncer à la sensibilité qui caractérise sa voix."
+},
+{
+titre:"La Pépite de Cacao Radio",
+texte:"Avec « Beautiful Love », Natalie Imbruglia nous rappelle qu'il est toujours possible de se réinventer. Entre énergie dansante, sincérité et optimisme, cette chanson célèbre la confiance retrouvée et la capacité à transformer les épreuves en quelque chose de lumineux. Une nouvelle Pépite à découvrir et à savourer sur Cacao Radio."
+}
+]
 },
 
 /* =====================================
-   2 - NIKO RUBIO
+   2 - IVANA JUNE – VERANO!
+===================================== */
+
+{
+id:"ivana-june-verano",
+date:"2026-11-19",
+categorie:"Nouveauté musicale",
+titre:"Ivana June – Verano!",
+resume:"Une parenthèse pop pleine de nostalgie : avec « Verano! », Ivana June raconte cet été que l’on voudrait voir durer encore un peu.",
+image:GITHUB+"la_pepite_ivana_june_verano.png",
+youtube:"https://youtu.be/vjimWBKJ8UI",
+contenu:[
+{
+titre:"",
+texte:"Avec « Verano! », Ivana June nous plonge dans une atmosphère estivale où la légèreté se mêle à la nostalgie. Un titre à découvrir dans La Pépite de Cacao Radio."
+},
+{
+titre:"Un été qu’on ne veut pas quitter",
+texte:"« Verano! » évoque ce sentiment universel : vouloir retenir les derniers instants de l’été. Le morceau s’accompagne d’un clip qui raconte cette envie de prolonger une saison pleine de souvenirs, même lorsque le temps avance."
+},
+{
+titre:"Un clip comme un petit film",
+texte:"Réalisé par Bea Dero, le clip suit une jeune Ivana qui refuse de voir l’été se terminer. On y découvre notamment une enfant portant une radio rouge, puis des scènes où la musique et l’imaginaire occupent toute la place. Le film joue sur les souvenirs d’enfance et le passage du temps."
+},
+{
+titre:"Une production indépendante",
+texte:"Dans la présentation de la vidéo officielle, Ivana June et Bea Dero soulignent le travail consacré à ce clip indépendant. Une création visuelle qui accompagne le titre avec un regard tendre et une pointe de fantaisie."
+},
+{
+titre:"La Pépite de Cacao Radio",
+texte:"Entre énergie pop et mélancolie des beaux jours, « Verano! » est une invitation à garder un peu de soleil avec soi. Découvrez Ivana June et son clip sur Cacao Radio."
+}
+]
+},
+
+/* =====================================
+   3 - NIKO RUBIO
 ===================================== */
 
 {
@@ -85,7 +156,7 @@ texte:"Avec « All I Want Is You », Niko Rubio nous offre une chanson sincère,
 },
 
 /* =====================================
-   3 - LEON BRIDGES
+   4 - LEON BRIDGES
 ===================================== */
 
 {
@@ -127,7 +198,7 @@ texte:"Avec « Watch You Dance », Leon Bridges signe un morceau généreux et l
 },
 
 /* =====================================
-   4 - NYADA
+   5 - NYADA
 ===================================== */
 
 {
@@ -169,7 +240,7 @@ texte:"Avec « Alive », NyaDa nous offre une invitation à la découverte, à l
 },
 
 /* =====================================
-   5 - DANIELLE PONDER
+   6 - DANIELLE PONDER
 ===================================== */
 
 {
@@ -207,7 +278,7 @@ texte:"Avec « Open Windows », Danielle Ponder rejoint les artistes que nous ai
 },
 
 /* =====================================
-   6 - CHARLOTTE CARDIN
+   7 - CHARLOTTE CARDIN
 ===================================== */
 
 {
@@ -242,7 +313,7 @@ texte:"Avec « Memories (Souvenirs) », Charlotte Cardin nous rappelle pourquoi 
 },
 
 /* =====================================
-   7 - OFÉ
+   8 - OFÉ
 ===================================== */
 
 {
@@ -277,7 +348,7 @@ texte:"Avec « Cœur », Ofé rejoint les découvertes musicales que nous avons 
 },
 
 /* =====================================
-   8 - GOTTS STREET PARK
+   9 - GOTTS STREET PARK
 ===================================== */
 
 {
