@@ -1,15 +1,75 @@
 
 /* CACAO RADIO — LA PÉPITE
-   SOURCE UNIQUE DES NEUF ARTICLES.
-   Pour ajouter une Pépite, ajouter un objet à ce tableau.
-   Un nouvel article plus récent passe automatiquement en premier.
+   SOURCE UNIQUE DES DIX ARTICLES.
+   Mise à jour : 28 novembre 2026.
+   Les nouveautés sont classées par date.
 */
-(function(){
-const GITHUB="https://raw.githubusercontent.com/cacaoradio/cacao-radio/main/";
-window.CACAO_PEPITES=[
+
+(function () {
+"use strict";
+
+const GITHUB = "https://raw.githubusercontent.com/cacaoradio/cacao-radio/main/";
+
+window.CACAO_PEPITES = [
 
 /* =====================================
-   1 - NATALIE IMBRUGLIA – BEAUTIFUL LOVE
+   1 - JUSTICE – FLOWER IN A HURRICANE
+===================================== */
+
+{
+id:"justice-flower-in-a-hurricane",
+date:"2026-11-28",
+categorie:"Nouveauté musicale",
+titre:"Justice – Flower in a Hurricane",
+resume:"Justice fait vibrer l'univers de GTA VI avec « Flower in a Hurricane », une collaboration électro spectaculaire réunissant Tame Impala, SZA et King Gizzard & The Lizard Wizard. Une nouveauté diffusée sur Cacao Radio.",
+image:GITHUB+"la_pepite_justice_flower_in_a_hurricane.png",
+youtube:"https://youtu.be/qlcqiEUQAhU",
+contenu:[
+{
+titre:"",
+texte:"Justice est de retour avec « Flower in a Hurricane », un titre spectaculaire qui accompagne l'un des événements majeurs de l'année dans l'univers du jeu vidéo : Grand Theft Auto VI. Pour cette nouvelle Pépite, Cacao Radio met à l'honneur le célèbre duo électro français, qui signe une collaboration impressionnante avec plusieurs grands noms de la musique internationale. Entre électro, rock, pop psychédélique et ambiance cinématographique, « Flower in a Hurricane » possède tous les ingrédients d'un morceau événement."
+},
+{
+titre:"« Flower in a Hurricane » : une collaboration exceptionnelle",
+texte:"Dévoilé le 15 octobre 2026, « Flower in a Hurricane » réunit Justice et trois invités prestigieux : Tame Impala, SZA et King Gizzard & The Lizard Wizard. Derrière Justice se cachent Gaspard Augé et Xavier de Rosnay, deux musiciens français qui ont profondément marqué la scène électronique internationale. Pour ce morceau, ils retrouvent notamment Kevin Parker, le musicien australien derrière Tame Impala, avec lequel ils avaient déjà collaboré sur leur album « Hyperdrama ». À leurs côtés, la chanteuse américaine SZA apporte son univers soul et R&B, tandis que le groupe australien King Gizzard & The Lizard Wizard enrichit cette rencontre de son identité rock psychédélique."
+},
+{
+titre:"Un morceau choisi pour la bande-annonce de GTA VI",
+texte:"« Flower in a Hurricane » accompagne la bande-annonce de lancement de Grand Theft Auto VI, le nouveau volet de la célèbre franchise de Rockstar Games. Une exposition considérable pour Justice, puisque chaque nouvelle bande-annonce de GTA suscite une attention mondiale. Avec son énergie, ses contrastes et son atmosphère cinématographique, le titre accompagne l'univers du jeu : les lumières de la ville, les voitures, les grands espaces et les personnages qui évoluent dans un monde aussi séduisant que dangereux. Le choix de Justice n'a rien d'anodin : depuis ses débuts, le duo développe une musique particulièrement visuelle, capable d'évoquer autant l'univers des clubs que celui du cinéma."
+},
+{
+titre:"Justice signe également la musique originale de GTA VI",
+texte:"La collaboration entre Justice et Rockstar Games va beaucoup plus loin qu'une simple chanson. Gaspard Augé et Xavier de Rosnay ont composé la musique originale de Grand Theft Auto VI. Les deux Français participent ainsi directement à l'identité sonore du jeu, qui suit notamment les aventures de Jason et Lucia dans les environnements de Vice City et de l'État fictif de Leonida. La bande originale est conçue pour évoluer en fonction des situations et des actions du joueur. La musique ne se contente donc pas d'accompagner les images : elle participe à l'immersion et à l'intensité de l'expérience."
+},
+{
+titre:"Deux albums différents autour de GTA VI",
+texte:"Pour comprendre cet événement musical, il faut distinguer deux projets. « Grand Theft Auto VI: The Album » rassemble 34 titres originaux enregistrés par différents artistes pour l'univers du jeu. Justice y figure avec « Flower in a Hurricane », aux côtés de nombreuses vedettes internationales. « Grand Theft Auto VI: Original Score », en revanche, est consacré aux compositions de Justice pour le jeu. Sa sortie est annoncée pour le 11 décembre 2026, sur les plateformes musicales ainsi qu'en CD et en vinyle. L'édition principale comprend 30 compositions, auxquelles s'ajoutent des morceaux bonus numériques. Certaines plateformes présentent ainsi une liste étendue de 50 pistes."
+},
+{
+titre:"« Pusher » : une autre collaboration française à découvrir",
+texte:"Après « Flower in a Hurricane », Justice a également dévoilé « Pusher », un autre extrait de la musique originale de GTA VI. Cette fois, le duo retrouve Gesaffelstein, producteur français réputé pour ses sonorités électroniques sombres, puissantes et hypnotiques. La rencontre entre Justice et Gesaffelstein illustre la diversité musicale de ce projet. D'un côté, « Flower in a Hurricane » joue sur les mélodies, les voix et une énergie presque pop-rock. De l'autre, « Pusher » explore un territoire électronique plus tendu. Deux ambiances différentes, réunies dans un même univers musical."
+},
+{
+titre:"Justice : de « D.A.N.C.E. » à GTA VI",
+texte:"L'histoire de Justice commence véritablement à prendre une dimension internationale au milieu des années 2000. Le duo s'impose en 2007 avec son premier album, souvent appelé « Cross », reconnaissable à sa célèbre croix lumineuse. Des morceaux comme « D.A.N.C.E. », « Genesis » ou « Phantom » deviennent rapidement des références de la scène électro française. Justice développe alors une signature immédiatement identifiable : des basses saturées, des influences disco, des guitares rock, des synthétiseurs puissants et un sens spectaculaire de la mise en scène. Avec les albums « Audio, Video, Disco », « Woman » puis « Hyperdrama » en 2024, Gaspard Augé et Xavier de Rosnay continuent de faire évoluer leur musique."
+},
+{
+titre:"Une musique qui fait dialoguer plusieurs générations",
+texte:"L'une des forces de « Flower in a Hurricane » réside dans sa capacité à réunir plusieurs univers. Justice représente l'héritage de la French Touch et de l'électro française. Tame Impala apporte une sensibilité psychédélique et pop. SZA incarne une nouvelle génération de soul et de R&B. King Gizzard & The Lizard Wizard ouvre encore davantage le morceau vers le rock expérimental. Cette diversité donne à la chanson une identité particulière, capable de séduire les amateurs d'électro, les passionnés de rock, les auditeurs de pop alternative et les joueurs qui découvrent la musique à travers GTA VI."
+},
+{
+titre:"GTA VI : quand le jeu vidéo devient un événement musical",
+texte:"Depuis ses premiers épisodes, la série Grand Theft Auto accorde une place essentielle à la musique. Les stations de radio fictives font partie de son identité. Elles permettent de découvrir des artistes, de retrouver des classiques et d'accompagner les déplacements dans les villes du jeu. GTA VI poursuit cette tradition, avec des univers musicaux variés et des stations associées à des artistes reconnus. Le jeu vidéo devient ainsi un formidable espace de découverte musicale, capable de faire connaître une chanson à un public qui ne l'aurait pas nécessairement entendue à la radio."
+},
+{
+titre:"La Pépite de Cacao Radio",
+texte:"« Flower in a Hurricane » est désormais diffusé en nouveauté sur Cacao Radio ! Avec ce titre, Justice confirme son talent pour réunir puissance électronique, mélodies marquantes et ambition artistique. Une collaboration internationale exceptionnelle, une chanson choisie pour accompagner GTA VI et un album de musique originale très attendu : tous les ingrédients sont réunis pour faire de « Flower in a Hurricane » l'une des nouveautés musicales à découvrir. Retrouvez Justice sur Cacao Radio et plongez dans l'univers musical de GTA VI sur CacaoRadio.com."
+}
+]
+},
+
+/* =====================================
+   2 - NATALIE IMBRUGLIA – BEAUTIFUL LOVE
 ===================================== */
 
 {
@@ -65,7 +125,7 @@ texte:"Avec « Beautiful Love », Natalie Imbruglia nous rappelle qu'il est touj
 },
 
 /* =====================================
-   2 - IVANA JUNE – VERANO!
+   3 - IVANA JUNE – VERANO!
 ===================================== */
 
 {
@@ -101,7 +161,7 @@ texte:"Entre énergie pop et mélancolie des beaux jours, « Verano! » est une 
 },
 
 /* =====================================
-   3 - NIKO RUBIO
+   4 - NIKO RUBIO
 ===================================== */
 
 {
@@ -110,11 +170,8 @@ date:"2026-11-14",
 categorie:"Nouveauté musicale",
 titre:"Niko Rubio – All I Want Is You",
 resume:"Une ballade trip-hop née d'une rupture, entre mélancolie, émotion et pop alternative. Découvrez « All I Want Is You » de Niko Rubio sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_niko_rubio_all_i_want_is_you.png",
-
 youtube:"https://www.youtube.com/watch?v=3aT8wcyt9xs",
-
 contenu:[
 {
 titre:"",
@@ -156,7 +213,7 @@ texte:"Avec « All I Want Is You », Niko Rubio nous offre une chanson sincère,
 },
 
 /* =====================================
-   4 - LEON BRIDGES
+   5 - LEON BRIDGES
 ===================================== */
 
 {
@@ -165,10 +222,8 @@ date:"2026-11-11",
 categorie:"Nouveauté musicale",
 titre:"Leon Bridges – Watch You Dance",
 resume:"Une soul chaleureuse, des rythmes entraînants et une irrésistible invitation à danser : découvrez « Watch You Dance » de Leon Bridges.",
-
 image:GITHUB+"la_pepite_leon_bridges_watch_you_dance(1).png",
 youtube:"https://www.youtube.com/watch?v=181RI8KAmtk",
-
 contenu:[
 {
 titre:"",
@@ -198,7 +253,7 @@ texte:"Avec « Watch You Dance », Leon Bridges signe un morceau généreux et l
 },
 
 /* =====================================
-   5 - NYADA
+   6 - NYADA
 ===================================== */
 
 {
@@ -207,10 +262,8 @@ date:"2026-11-07",
 categorie:"Nouveauté musicale",
 titre:"NyaDa – Alive",
 resume:"Un voyage musical entre poésie, nature et réconfort. Découvrez « Alive » de NyaDa, alias Tanya Davolio, sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_nyada_alive_logo_officiel.png",
 youtube:"https://youtu.be/aL3e-ST5nAk",
-
 contenu:[
 {
 titre:"",
@@ -240,7 +293,7 @@ texte:"Avec « Alive », NyaDa nous offre une invitation à la découverte, à l
 },
 
 /* =====================================
-   6 - DANIELLE PONDER
+   7 - DANIELLE PONDER
 ===================================== */
 
 {
@@ -249,10 +302,8 @@ date:"2026-11-03",
 categorie:"Nouveauté musicale",
 titre:"Danielle Ponder – Open Windows",
 resume:"Une voix puissante, une interprétation habitée et une chanson qui invite à s'ouvrir à de nouveaux horizons. Découvrez Danielle Ponder sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_danielle_ponder_open_windows.png",
 youtube:"https://www.youtube.com/watch?v=UY6vqwtzI2w",
-
 contenu:[
 {
 titre:"",
@@ -278,7 +329,7 @@ texte:"Avec « Open Windows », Danielle Ponder rejoint les artistes que nous ai
 },
 
 /* =====================================
-   7 - CHARLOTTE CARDIN
+   8 - CHARLOTTE CARDIN
 ===================================== */
 
 {
@@ -288,10 +339,8 @@ ordreInitial:1,
 categorie:"Nouveauté musicale",
 titre:"Charlotte Cardin – Memories (Souvenirs)",
 resume:"Une atmosphère envoûtante, une voix singulière et un univers cinématographique à découvrir sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_charlotte_cardin.png",
 youtube:"https://youtu.be/RTmjMQCuKsY",
-
 contenu:[
 {
 titre:"",
@@ -313,7 +362,7 @@ texte:"Avec « Memories (Souvenirs) », Charlotte Cardin nous rappelle pourquoi 
 },
 
 /* =====================================
-   8 - OFÉ
+   9 - OFÉ
 ===================================== */
 
 {
@@ -323,10 +372,8 @@ ordreInitial:2,
 categorie:"Nouveauté musicale",
 titre:"Ofé – Cœur",
 resume:"Un univers singulier, une présence captivante et un clip aux images saisissantes : découvrez « Cœur » d'Ofé sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_ofe_coeur.png",
 youtube:"https://youtu.be/8HhvBP6Us8I",
-
 contenu:[
 {
 titre:"",
@@ -348,7 +395,7 @@ texte:"Avec « Cœur », Ofé rejoint les découvertes musicales que nous avons 
 },
 
 /* =====================================
-   9 - GOTTS STREET PARK
+   10 - GOTTS STREET PARK
 ===================================== */
 
 {
@@ -358,10 +405,8 @@ ordreInitial:3,
 categorie:"Nouveauté musicale",
 titre:"Gotts Street Park & Pip Millett – Flowers",
 resume:"Une rencontre musicale pleine de sensibilité, portée par la voix de Pip Millett et l'univers de Gotts Street Park. Une découverte à savourer sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_gotts_street_park_flowers.png",
 youtube:"https://youtu.be/k4Sf7JV4vz0",
-
 contenu:[
 {
 titre:"",
@@ -387,4 +432,16 @@ texte:"Avec « Flowers », Gotts Street Park et Pip Millett nous offrent une bel
 }
 
 ];
+
+/* Classement automatique :
+   la date la plus récente apparaît en premier.
+   L'ordre initial est conservé en cas de date identique.
+*/
+
+window.CACAO_PEPITES.sort(function(a,b){
+const difference=b.date.localeCompare(a.date);
+if(difference!==0)return difference;
+return (a.ordreInitial||0)-(b.ordreInitial||0);
+});
+
 })();
