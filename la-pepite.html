@@ -1,12 +1,16 @@
 
 /* CACAO RADIO — LA PÉPITE
    SOURCE UNIQUE DES DIX ARTICLES.
-   Pour ajouter une Pépite, ajouter un objet à ce tableau.
-   Un nouvel article plus récent passe automatiquement en premier.
+   Mise à jour : 28 novembre 2026.
+   Les nouveautés sont classées par date.
 */
-(function(){
-const GITHUB="https://raw.githubusercontent.com/cacaoradio/cacao-radio/main/";
-window.CACAO_PEPITES=[
+
+(function () {
+"use strict";
+
+const GITHUB = "https://raw.githubusercontent.com/cacaoradio/cacao-radio/main/";
+
+window.CACAO_PEPITES = [
 
 /* =====================================
    1 - JUSTICE – FLOWER IN A HURRICANE
@@ -166,11 +170,8 @@ date:"2026-11-14",
 categorie:"Nouveauté musicale",
 titre:"Niko Rubio – All I Want Is You",
 resume:"Une ballade trip-hop née d'une rupture, entre mélancolie, émotion et pop alternative. Découvrez « All I Want Is You » de Niko Rubio sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_niko_rubio_all_i_want_is_you.png",
-
 youtube:"https://www.youtube.com/watch?v=3aT8wcyt9xs",
-
 contenu:[
 {
 titre:"",
@@ -221,10 +222,8 @@ date:"2026-11-11",
 categorie:"Nouveauté musicale",
 titre:"Leon Bridges – Watch You Dance",
 resume:"Une soul chaleureuse, des rythmes entraînants et une irrésistible invitation à danser : découvrez « Watch You Dance » de Leon Bridges.",
-
 image:GITHUB+"la_pepite_leon_bridges_watch_you_dance(1).png",
 youtube:"https://www.youtube.com/watch?v=181RI8KAmtk",
-
 contenu:[
 {
 titre:"",
@@ -263,10 +262,8 @@ date:"2026-11-07",
 categorie:"Nouveauté musicale",
 titre:"NyaDa – Alive",
 resume:"Un voyage musical entre poésie, nature et réconfort. Découvrez « Alive » de NyaDa, alias Tanya Davolio, sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_nyada_alive_logo_officiel.png",
 youtube:"https://youtu.be/aL3e-ST5nAk",
-
 contenu:[
 {
 titre:"",
@@ -305,10 +302,8 @@ date:"2026-11-03",
 categorie:"Nouveauté musicale",
 titre:"Danielle Ponder – Open Windows",
 resume:"Une voix puissante, une interprétation habitée et une chanson qui invite à s'ouvrir à de nouveaux horizons. Découvrez Danielle Ponder sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_danielle_ponder_open_windows.png",
 youtube:"https://www.youtube.com/watch?v=UY6vqwtzI2w",
-
 contenu:[
 {
 titre:"",
@@ -344,10 +339,8 @@ ordreInitial:1,
 categorie:"Nouveauté musicale",
 titre:"Charlotte Cardin – Memories (Souvenirs)",
 resume:"Une atmosphère envoûtante, une voix singulière et un univers cinématographique à découvrir sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_charlotte_cardin.png",
 youtube:"https://youtu.be/RTmjMQCuKsY",
-
 contenu:[
 {
 titre:"",
@@ -379,10 +372,8 @@ ordreInitial:2,
 categorie:"Nouveauté musicale",
 titre:"Ofé – Cœur",
 resume:"Un univers singulier, une présence captivante et un clip aux images saisissantes : découvrez « Cœur » d'Ofé sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_ofe_coeur.png",
 youtube:"https://youtu.be/8HhvBP6Us8I",
-
 contenu:[
 {
 titre:"",
@@ -414,10 +405,8 @@ ordreInitial:3,
 categorie:"Nouveauté musicale",
 titre:"Gotts Street Park & Pip Millett – Flowers",
 resume:"Une rencontre musicale pleine de sensibilité, portée par la voix de Pip Millett et l'univers de Gotts Street Park. Une découverte à savourer sur Cacao Radio.",
-
 image:GITHUB+"la_pepite_gotts_street_park_flowers.png",
 youtube:"https://youtu.be/k4Sf7JV4vz0",
-
 contenu:[
 {
 titre:"",
@@ -443,4 +432,16 @@ texte:"Avec « Flowers », Gotts Street Park et Pip Millett nous offrent une bel
 }
 
 ];
+
+/* Classement automatique :
+   la date la plus récente apparaît en premier.
+   L'ordre initial est conservé en cas de date identique.
+*/
+
+window.CACAO_PEPITES.sort(function(a,b){
+const difference=b.date.localeCompare(a.date);
+if(difference!==0)return difference;
+return (a.ordreInitial||0)-(b.ordreInitial||0);
+});
+
 })();
